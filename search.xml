@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关于git：分支管理之合并]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B3%E4%BA%8Egit%EF%BC%9A%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E4%B9%8B%E5%90%88%E5%B9%B6%2F</url>
+    <content type="text"><![CDATA[假设已存在分支dev，且修改部分代码 先把已修改的推上分支dev 把切换回主分支，下拉 运行合并指令 1git merge dev 合并后在本地修改冲突 再次commit并提交到主分支]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于git：将在master分支上做的修改提交到分支]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B3%E4%BA%8Egit%EF%BC%9A%E5%B0%86%E5%9C%A8master%E5%88%86%E6%94%AF%E4%B8%8A%E5%81%9A%E7%9A%84%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E5%88%B0%E5%88%86%E6%94%AF%2F</url>
+    <content type="text"><![CDATA[前提我在master上修复了某个bug，但是master被锁定了，我想提交到dev分支，那么使用 cherry-pick可以满足我们的要求 1234//先从主分支记下id$ git log//切换到dev分支上$ git cherry-pick &lt;id&gt;]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于git：添加到远程github仓库的一个错误]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B3%E4%BA%8Egit%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub%E4%BB%93%E5%BA%93%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%2F</url>
+    <content type="text"><![CDATA[问题今天使用git 添加到远程github仓库的时候提示错误：fatal: remote origin already exists. 解决办法 先删除远程 Git 仓库 1$ git remote rm origin 再添加远程 Git 仓库 1$ git remote add origin 仓库地址]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[仿饿了么app]]></title>
+    <url>%2F2019%2F02%2F26%2F%E4%BB%BF%E9%A5%BF%E4%BA%86%E4%B9%88app%2F</url>
+    <content type="text"><![CDATA[一、前言1、前提 html css js ES6 vue.js 2、学习目标 掌握Vue.js在实战中的运用 学会使用Vue.js完整地开发移动端App 学会组件化、模块化的开发方式 3、学习内容 Vue.js框架介绍 Vue-cli 脚手架 搭建基本代码框架 vue-router 官方插件管理路由 vue-resource Ajax通信 Webpack 构建工具 ES6+eslint eslint：ES6代码风格检查工具 工程化 组件化 模块化 移动端常用开发技巧：flex弹性布局 css stickyfooter 酷炫的交互设计 二、Vue.js1、MVVM框架 针对具有复杂交互逻辑的前端应用 提供基础的架构抽象 通过Ajax数据持久化，保证前端用户体验 对一些数据进行操作时不需要刷新整个页面，只需要改动DOM里需要改动的那部分数据 2、什么是Vue.js 一个轻量级MVVM框架 数据驱动+组件化的前端开发 Github超过25k+的star数，社区完善 3、对比Angular React Vue.js更轻量，gzip后大小只有20k+ Vue.js更易上手，学习曲线平稳 吸取两家之长，借鉴了angular的指令和react的组件化 4、Vue.js核心思想数据驱动 若无vue，则需要手动触发DOM改变，既繁琐又容易出错 组件化组件设计原则 页面每个独立的可视/可交互区域视为一个组件 每个组件对应一个工程目录，组件所需要的各种资源在这个目录下就近维护 页面不过是组件的容器，组件可以嵌套自由组合形成完整的页面 三、开启Vue.js项目1、Vue-cli2、webpack打包四、项目实战]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>仿写</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron进阶：打开新窗口]]></title>
+    <url>%2F2019%2F02%2F26%2FElectron%E8%BF%9B%E9%98%B6%EF%BC%9A%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%2F</url>
+    <content type="text"><![CDATA[标签实现新窗口打开 增加 target=”_blank”属性 router-link标签只有tag=”a”模式下 target=”_blank” 属性才会生效（vue2） 编程式导航123456let routeData = this.$router.resolve(&#123; name: &quot;searchGoods&quot;, query: params, params:&#123;catId:params.catId&#125; &#125;); window.open(routeData.href, &apos;_blank&apos;);]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron：结合vue创建桌面应用]]></title>
+    <url>%2F2019%2F02%2F26%2FElectron%EF%BC%9A%E7%BB%93%E5%90%88vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[首先创建项目并安装好依赖12345vue init webpack test-electroncd test-electronnpm installnpm install electron --save-devnpm install electron-packager --save-dev 其次将零基础中的main.js拷贝到新建项目的build目录下，并更名为electron.js 按照实际项目路径更改electron.js中的路径 12345mainWindow.loadURL(url.format(&#123; pathname: path.join(__dirname, &apos;../dist/index.html&apos;), protocol: &apos;file:&apos;, slashes: true &#125;)) 最后在新建项目package.json文件中增加一条指令 1234567&quot;scripts&quot;: &#123; ... &quot;lint&quot;: &quot;eslint --ext .js,.vue src test/unit/specs test/e2e/specs&quot;, &quot;build&quot;: &quot;node build/build.js&quot;, //增加这条,JSON文件不支持注释，引用时请清除 &quot;electron_dev&quot;: &quot;npm run build &amp;&amp; electron build/electron.js&quot; &#125;, 启动12npm run build //生成dist目录npm run electron_dev //启动electron PS 打包前：更改config/index.js中生产模式下（build）的assetsPublicPth, 原本为 /, 改为 ./ 。]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron：从零到完成一个桌面应用]]></title>
+    <url>%2F2019%2F02%2F26%2FElectron%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Electron 开发环境 安装node 安装cnpm（或者npm） 安装electron 安装打包工具 1npm install -g electron-packager 经典例子electron-quick-start一个简约的记事本12345678//克隆这仓库 git clone https://github.com/electron/electron-quick-start//进入仓库 cd electron-quick-start//安装依赖库 cnpm install//运行应用，也可以用： cnpm run start cnpm start electron-api-demos介绍了主要的一些功能及实现代码 1234git clone https://github.com/electron/electron-api-demoscd electron-api-demoscnpm installcnpm start 开始开发安装electron推荐的安装方法是把electron作为您 app 中的开发依赖项，使您可以在不同的 app 中使用不同的 Electron 版本 在根目录下运行 1npm install --save-dev electron 当然，也可以在 $PATH 中全局安装1npm install electron -g 创建Electron简单文件结构在根目录下创建package.json文件，内容如下 1234567891011&#123; &quot;name&quot;: &quot;test&quot;, &quot;version&quot;: &quot;0.1.0&quot;, &quot;main&quot;: &quot;main.js&quot;, &quot;scripts&quot;: &#123; &quot;start&quot;: &quot;electron .&quot; &#125;, &quot;devDependencies&quot;: &#123; &quot;electron&quot;: &quot;^3.0.4&quot; &#125;&#125; 在根目录下创建main.js，内容如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849const &#123; app, BrowserWindow &#125; = require(&apos;electron&apos;) // Keep a global reference of the window object, if you don&apos;t, the window will // be closed automatically when the JavaScript object is garbage collected. let win function createWindow () &#123; // 创建浏览器窗口。 win = new BrowserWindow(&#123; width: 800, height: 600 &#125;) // 然后加载应用的 index.html。 win.loadFile(&apos;index.html&apos;) // 打开开发者工具 win.webContents.openDevTools() // 当 window 被关闭，这个事件会被触发。 win.on(&apos;closed&apos;, () =&gt; &#123; // 取消引用 window 对象，如果你的应用支持多窗口的话， // 通常会把多个 window 对象存放在一个数组里面， // 与此同时，你应该删除相应的元素。 win = null &#125;) &#125; // Electron 会在初始化后并准备 // 创建浏览器窗口时，调用这个函数。 // 部分 API 在 ready 事件触发后才能使用。 app.on(&apos;ready&apos;, createWindow) // 当全部窗口关闭时退出。 app.on(&apos;window-all-closed&apos;, () =&gt; &#123; // 在 macOS 上，除非用户用 Cmd + Q 确定地退出， // 否则绝大部分应用及其菜单栏会保持激活。 if (process.platform !== &apos;darwin&apos;) &#123; app.quit() &#125; &#125;) app.on(&apos;activate&apos;, () =&gt; &#123; // 在macOS上，当单击dock图标并且没有其他窗口打开时， // 通常在应用程序中重新创建一个窗口。 if (win === null) &#123; createWindow() &#125; &#125;) // 在这个文件中，你可以续写应用剩下主进程代码。 // 也可以拆分成几个文件，然后用 require 导入。 然后创建index.html文件，内容如下 12345678910&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt; &lt;meta charset=&quot;utf-8&quot; /&gt; &lt;title&gt;TEST&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;span style=&quot;color:#fff;&quot;&gt;Hello World&lt;/span&gt;&lt;/body&gt;&lt;/html&gt; 启动app1npm start 或者在package.json中配置1&quot;scripts&quot;: &#123;&quot;start&quot;: &quot;electron .&quot;&#125; 则可以输入一下命令启动1electron . 打包全局安装electron-packager]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vue+axios解决文件上传问题]]></title>
+    <url>%2F2019%2F02%2F26%2Fvue%2Baxios%E8%A7%A3%E5%86%B3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[前因关于文件上传，可以使用element-ui中的组件，也可以直接使用input，最近做的一个项目中有用到，查了挺多资料研究了一下，最终就实用性来说还是后者bug少。 现在就这两个介绍一下，如果有错误请提出纠正，或者有更好的可以来分享一下。 Element-UI直接action这个方法很简单，文档中有一一详细列出，重点是下一个 可参考官方文档 利用before-upload属性直接action很方便简单，但是总会有各种难以解决的错误出现如：后台要求请求方式为multipart/form-data时，不能使用data传参数，这时候就要使用formdata对象了。 使用new一个formdata对象，然后对这个对象追加key和value 12345678910//网上给出的例子beforeUpload (file,id) &#123; let fd = new FormData() fd.append(&apos;file&apos;, file) fd.append(&apos;id&apos;,id) axios.post(url, fd, &#123; &#125;) return false // false就是不自动上传&#125;, 改进后我的例子 12345678910111213141516171819202122232425&lt;el-dialog title=&quot;导入报表&quot; :visible.sync=&quot;dialogVisible&quot; width=&quot;30%&quot; :before-close=&quot;handleClose&quot; :append-to-body=&apos;true&apos;&gt; &lt;el-upload class=&quot;upload-demo&quot; ref=&quot;upload&quot; action=&quot;/super_admin/factory/device/import&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot; :auto-upload=&quot;false&quot; :before-upload=&quot;beforeAvatarUpload&quot; :on-error=&quot;error&quot; :before-remove=&quot;beforeRemove&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;/el-upload&gt; &lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt; &lt;el-button type=&quot;primary&quot; @click.native=&quot;importTable()&quot;&gt;确 定&lt;/el-button&gt; &lt;/span&gt; &lt;/el-dialog&gt; ``` data() { return { dialogVisible: false, // 所上传的文件 fileList: [] } }, 12 methods: { // 限制上传文件为一个 handleExceed() { this.$message.warning(‘当前限制上传 1 个文件’); }, // 对文件类型进行判断并上传（重点！） beforeAvatarUpload(file) { const isXLSX = file.type === “application/vnd.openxmlformats-officedocument.spreadsheetml.sheet”; if (!isXLSX) { this.$message.error(“上传的文件只能是 xlsx 格式!”); this.fileList = []; }else { let factoryId = this.factoryId; let fd = new FormData(); fd.append(‘file’, file); fd.append(‘factoryId’, factoryId); api.importTable((err, res) =&gt; { if (err || res.status !== 200) { this.$message.error(“出错了，刷新一下吧”); return; } if (res.data.code == 403) { this.$message.error(“该账号没有此操作权限”); } else if (res.data.code == 200) { this.$message({ message: ‘文件上传成功！’, type: ‘success’ }); } else { this.$message.error(“出错了，刷新一下吧”); } },fd); return true } }, // 文件上传失败 error(err) { this.$message({ message: ‘文件上传失败！’, type: ‘warning’ }); }, // 移除已上传的文件 beforeRemove(file) { return this.$confirm(‘确定移除 ‘+file.name+’ ？’); }, // 导入报表至后台 importTable() { this.$refs.upload.submit(); this.dialogVisible = false; }, }12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { return instance({ method: “post”, url: ‘/super_admin/factory/device/import’, data: data, headers: { “Content-Type”: “multipart/form-data” } })} export{ importTable} 12345678910### 注意1. 这种方法也有弊端，action作为必填参数，无论是填任意数或者填写重复地址，控制台总会报404。2. FormData对象是不可以通过console.log在控制台直接打印出来的，但可以通过FormData.get()获取值。## input上传这个是重点，就实用来说，掌握一种方法就可以了，这个是目前最成功的（结合后台）。### 使用 12 data() { return { // 上传文件所需的参数 upload: { CurrentfactoryId: “” }, }} 12 methods: { // 打开上传文件的弹出框 handleUpload(index, row) { this.upload.CurrentfactoryId = row.factoryId; this.$refs.importFile.click(); }, // 确认导入列表 confirmUpload() { this.$confirm(‘此操作将上传 ‘+this.$refs.importFile.files[0].name+’ , 是否继续?’, ‘提示’, { confirmButtonText: ‘确定’, cancelButtonText: ‘取消’, type: ‘warning’ }).then(() =&gt; { this.$message.info(‘该过程耗时较长，请耐心等待’); this.importTable(); }).catch(() =&gt; { this.$message({ type: ‘info’, message: ‘已取消上传’ }); this.$refs.importFile.value = null; }); }, // 导入报表至后台 importTable() { let fd = new FormData(document.getElementById(“uploadform”)); // fd.append(“file”, this.upload.importFile); // fd.append(“factoryId”, this.upload.CurrentfactoryId); // console.log(fd.get(‘importFile’)); api.importTable((err, res) =&gt; { if (err) { if (err.response.status === 403 &amp;&amp; err.response.data.code==-2) { this.$message.error(“请登录”); session.clear(); this.$router.push({ path: “/login” }); } else if ( err.response.status === 500) { this.$message.error(“系统出错，请稍后再试”); } else if (err.response.status == 403) { this.$message.error(“该账号没有此操作权限”); } return; } if (res.data.code == 200) { this.$message({ message: “文件上传成功！”, type: “success” }); this.visible = false; } else { this.$message.error(“出错了，刷新一下吧”); } },fd); },} 12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { instance.post(‘/super_admin/factory/device/import’, data) .then(function (res) { fn(false, res); }).catch(function (err) { fn(err); });} export{ importTable} ` 注意 如果对于input的样式不满意，可以使用opacity把原来的input透明化来进行美化。 依然是使用formdata对象，虽然使用vue，但不知道为什么用append无法把文件传到后台，因此通过操作节点来新建，如果有人知道可以分享一下。 headers可以不手动添加，浏览器会判定界限，也可以加上。]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm install 出错]]></title>
+    <url>%2F2019%2F02%2F26%2Fnpm%20install%20%E5%87%BA%E9%94%99%2F</url>
+    <content type="text"><![CDATA[第一种问题123$ npm installnpm WARN registry Unexpected warning for or http://registry.cnpmjs.org/: Mis Miscellaneous Warning ECONNRESET: request to to https://cnpmjs.oss-ap-southeast-1.aliyuncs.com/acorn/-/acorn-5.7.1.tgz fai failed, reason: read ECONNRESETnpm WARN registry Using stale package data from om http://registry.cnpmjs.org/ du/ due to a request error during revalidation. 解决方法12$ npm config set registry ry http://registry.cnpmjs.org$ npm install 第二种问题1234567891011$ npm installnpm ERR! code ECONNRESETnpm ERR! errno ECONNRESETnpm ERR! network request to to https://cnpmjs.oss-ap-southeast-1.aliyuncs.com/arrify/-/arrify-1.0.1.tgz fai failed, reason: read ECONNRESETnpm ERR! network This is a problem related to network connectivity.npm ERR! network In most cases you are behind a proxy or have bad network settings.npm ERR! networknpm ERR! network If you are behind a proxy, please make sure that thenpm ERR! network &apos;proxy&apos; config is set properly. See: &apos;npm help config&apos;npm ERR! A complete log of this run can be found in: 解决方法12$ npm config delete proxy$ npm install 第三种问题12$ npm installnpm ERR! write after end 解决方法降低版本 1npm i -g npm@5.6.0]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo+Github 搭建属于自己的博客（进阶）NexT主题]]></title>
     <url>%2F2018%2F05%2F04%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E8%BF%9B%E9%98%B6%EF%BC%89NexT%E4%B8%BB%E9%A2%98%2F</url>
     <content type="text"><![CDATA[主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_config.yml文件中修改 12345# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini 基础设置在站点目录下的配置文件_cofig.yml中修改 12345678# Sitetitle: your blog titlesubtitle:description: describe yourselfkeywords:author: yournamelanguage: zh-Hans //简体中文timezone: 修改菜单项在主题目录下修改配置文件_cofig.yml中的menu 123456789menu: home: / || home about: /about/ || user tags: /tags/ || tags categories: /categories/ || th archives: /archives/ || archive #schedule: /schedule/ || calendar #sitemap: /sitemap.xml || sitemap #commonweal: /404/ || heartbeat 这些配置都要与你主题目录下的languages文件中对应的yml文档里配置相关联 12345678910menu: home: 首页 archives: 归档 categories: 分类 tags: 标签 about: 关于 search: 搜索 schedule: 日程表 sitemap: 站点地图 commonweal: 公益404 限定主页文章高度修改主题目录下的值 123auto_excerpt: enable: true length: 150 设置头像修改主题目录下Sidebar Avatar的avatar值1234# Sidebar Avatar# in theme directory(source/images): /images/avatar.gif# in site directory(source/uploads): /uploads/avatar.gifavatar: /images/avatar.jpg 地址可以是网络地址，也可以是本地地址（放置在source/images/ 目录下） 添加标签页面点击标签，跳转的页面会显示page not found 此时需要在站点目录的source文件夹里新建tags文件夹，并新建index.md，添加： 12345---title: tagsdate: type: &quot;tags&quot;--- 当要为某一篇文章添加标签，只需在blog/source/_post目录下的具体文章的tags中添加标签即可 实现点击出现桃心效果将代码copy到/themes/next/source/js/src里面新建的love.js中 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950! function(e, t, a) &#123; function n() &#123; c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &apos;&apos;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r() &#125; function r() &#123; for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;); requestAnimationFrame(r) &#125; function o() &#123; var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick; e.onclick = function(e) &#123; t &amp;&amp; t(), i(e) &#125; &#125; function i(e) &#123; var a = t.createElement(&quot;div&quot;); a.className = &quot;heart&quot;, d.push(&#123; el: a, x: e.clientX - 5, y: e.clientY - 5, scale: 1, alpha: 1, color: s() &#125;), t.body.appendChild(a) &#125; function c(e) &#123; var a = t.createElement(&quot;style&quot;); a.type = &quot;text/css&quot;; try &#123; a.appendChild(t.createTextNode(e)) &#125; catch (t) &#123; a.styleSheet.cssText = e &#125; t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a) &#125; function s() &#123; return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot; &#125; var d = []; e.requestAnimationFrame = function() &#123; return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(e) &#123; setTimeout(e, 1e3 / 60) &#125; &#125;(), n()&#125;(window, document); 打开\themes\next\layout_layout.swig文件,在末尾（在前面引用会出现找不到的bug） ，引用love.js 1&lt;script src=&quot;/js/src/love.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 添加动态背景打开\themes\next\layout_layout.swig文件，在 之前添加代码(注意不要放在&lt; /head&gt;的后面) 123&#123;% if theme.canvas_nest %&#125;&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;&#123;% endif %&#125; 打开开\themes\next_config.yml,在里面修改为如下代码 1canvas_nest: true 在网站底部加上访问量打开\themes\next\layout_partials\footer.swig文件,在类copyright前加上这段代码： 1&lt;script async src=&quot;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt; 然后在合适的位置添加显示统计的代码： 12345&lt;div class=&quot;powered-by&quot;&gt;&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt; 本站访客数:&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt; 在每篇文章末尾添加“本文结束”标记在路径 \themes\next\layout_macro 中新建 passage-end-tag.swig 文件,并添加以下内容 12345&lt;div&gt; &#123;% if not is_index %&#125; &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt; &#123;% endif %&#125;&lt;/div&gt; 接着打开\themes\next\layout_macro\post.swig文件，在post-body 之后， post-footer 之前添加如下代码 12345&lt;div&gt; &#123;% if not is_index %&#125; &#123;% include &apos;passage-end-tag.swig&apos; %&#125; &#123;% endif %&#125;&lt;/div&gt; 打开主题配置文件,在末尾添加 123# 文章末尾添加“本文结束”标记passage_end_tag: enabled: true 侧边栏社交链接在主题配置文件中修改： 12345678910111213# Social linkssocial: GitHub: https://github.com/your-user-name Twitter: https://twitter.com/your-user-name 微博: http://weibo.com/your-user-name# Social Iconssocial_icons: enable: true # Icon Mappings GitHub: github Twitter: twitter 微博: weibo 添加小图标在主题配置文件中修改： 123favicon: #small: /images/favicon.ico medium: /images/favicon.ico NexT主题美化 除了NexT还有很多其他好看的主题，百度会有很多方法的]]></content>
