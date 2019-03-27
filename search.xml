@@ -1,6 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[各种算法（三）]]></title>
+    <url>%2F2019%2F03%2F27%2F%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%89%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[有一个字符串有很多is，写一个方法只保留一个is？ 123456789function deleteIs(str)&#123; var index = str.search(&quot;is&quot;); var left = str.slice(0,index+2); var right = str.slice(index+2,str.length); right = right.split(&quot;is&quot;).join(&quot;&quot;); return left.concat(right); &#125;console.log(deleteIs(&quot;thisismybook&quot;));//thismybook 有3个-10-10之间的整数，写一个方法这三个数一共有多少可能相加等于10。 改写数组的push方法，保持原有逻辑，添加一个console.log(arguments)，即push什么打印什么。 12345Array.prototype.push = function(val)&#123; console.log(val);&#125;var temp = [1,2,5];temp.push(7);//打印7 传入一个无序数组，要求n数相加，获取特定的sum 12345678910111213141516 function getResult(arr,n,sum)&#123; if(n==0&amp;&amp;sum==0)&#123; return true; &#125; if(n&lt;0)&#123; return false; &#125; if(n&gt;0)&#123; for(var i in arr)&#123; var temp = arr.slice(i+1,arr.length); return getResult(temp,n-1,sum-arr[i]) || getResult(temp,n,sum); &#125; &#125;&#125;console.log(getResult([1,2,3,4],2,7)); //true 用正则表达式去掉两边的空格 123456function remove(str)&#123; var reg = /(^\s+)|(\s+?)/g; return str.replace(reg,&quot;&quot;);&#125;console.log(remove(&quot;this is book&quot;));//&quot;thisisbook&quot; 给定一个非空的数字数组，数组有且只有一个非重复项，实现一个方法获取落单项 12345678910111213function getSingleNumber(arr)&#123; var temp = []; for(var i in arr)&#123; if(temp.indexOf(arr[i]) == -1)&#123; temp.push(arr[i]); &#125;else&#123; temp.splice(temp.indexOf(arr[i]),1); &#125; &#125; return temp[0];&#125;console.log(getSingleNumber([0,1,0,0])); //1 请实现一个函数merge，传入一个数组，合并数组中【相邻且重复】的元素 123456789101112function merge(arr)&#123; var reg = /(.)\1*/g; var str = arr.join(&quot;&quot;); str = str.replace(reg,&quot;$1&quot;); arr = str.split(&quot;&quot;); arr = arr.map(function(val)&#123; return parseInt(val); &#125;) return arr;&#125;console.log(merge([3,2,2,4,5,5,6,2,1]));//[3,2,4,5,6,2,1]]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：字符串常用的方法]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[charAt(index) 1返回指定索引的字符。 charCodeAt(index) 1返回指定索引的unicode字符. indexOf(char) 1判断一个字符第一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。 lastIndexOf(char) 1判断一个字符最后一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。 concat() (返回一个新字符串) 123456拼接2个字符串，返回一个新字符串，对原有字符串没有任何改变。var str=&apos;qwe&apos;;var str1=&apos;abc&apos;;var str2=str.concat(str1);console.log(str2);//&quot;qweabc&quot; substr(start,number) (不修改原字符串) 1从索引start开始，截取number个字符，将截取的字符返回。start可正可负。 substring(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end.将截取的字符返回。start,end正值。 slice(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end。将截取的字符返回。start,end可正可负。 split(“分割符”[,limit]) (返回数组，不修改原字符串) 1用指定字符分割字符串，返回一个数组。默认每个字符都分割。 replace(reg,new) (不修改原字符串) 1234替换指定字符，返回替换后新的字符串，对原有字符串有改变。var str=&apos;aaaaee&apos;;var reg=/a/g;str.replace(reg,1); //&quot;1111ee&quot; match(reg) (返回一个数组) 1可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。把符合正则表达式的字符放在数组里，返回一个数组。 search(reg) 1方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。返回第一个匹配字符串的第一个字符的位置。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：数组去重]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%2F</url>
+    <content type="text"><![CDATA[ES5 123456789function unique(arr)&#123; var temp = []; for(var i = 0;i&lt;arr.length;i++)&#123; if(temp.indexOf(arr[i]==-1)&#123; temp.push(arr[i); &#125; &#125; return temp;&#125; ES6 1234function unique(arr)&#123; var temp = [...new Set(arr)]; return temp;&#125;]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[各种算法（二）]]></title>
+    <url>%2F2019%2F03%2F27%2F%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[求“123456789876543212345678987654321…”中的第n位123456789function index(n)&#123; if(n%16&lt;10)&#123; return n%16; &#125;else&#123; return 9-(n%16-9); &#125;&#125;console.log(index(26));//8 实现add(1);//1add(1)(2); //3add(1)(2)(3); //6 12345678910111213141516171819var add = function(a) &#123; var sum = a; var s = function(b) &#123; sum += b; //s，继续累加后面的执行参数。 return s; &#125;; //当要打印一个对象时，会自动调用 valueOf()或 toString方法 s.toString = function() &#123; return sum; &#125;; //获取第一个参数赋值给sum后，s。 return s;&#125;;add(1)(2)(3);//6//第一次调用add(),初始化了s，并将a保存在s的作用链中。//然后返回s保证了第二次调用的是s函数。//第二次之后的调用也是调用s，而在s中将传入的参数与保存在作用链中a相加并付给sum。 给定一个数组，返回所有的数字。如[1,’3’,false,null,100]=&gt;[1,3,100] 123456789101112131415function search(arr)&#123; var temp = []; for(var i in arr)&#123; if(typeof arr[i] == &quot;string&quot; || typeof arr[i] == &quot;number&quot;)&#123; temp.push(arr[i]); &#125; &#125; temp = temp.map(function(val)&#123; if（typeof parseInt（val） == &quot;number&quot;） return parseInt(val); &#125;) return temp;&#125;console.log(search([1,&apos;3&apos;,false,null,100])); //[1,3,100]]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：数组的常用方法]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[join(“分隔符”) 1将数组的元素放入一个字符串，默认用逗号为分隔符。 push() 1把参数逐个添加到数组末尾，返回修改后数组长度。 pop() 1从数组末尾移除最后一项，返回移除的项。 shift() 1移除数组中的第一个项并返回该项。 unshift() 1在数组前面添加任意个项，返回数组长度。 reserve() （会修改原数组） 1反转数组的顺序，返回经过排序后的数组，会修改原数组。 sort([function]) （会修改原数组） 123456789参数必须是函数，若无参数则默认按照字母编码（字符编码）的顺序进行排序。会修改原数组。//数字从小到大排序arr.sort(function(a,b)&#123; return a-b;&#125;);//数字从大到小排序arr.sort(function(a,b)&#123; return b-a;&#125;); concat() (不修改原数组) 123连接两个或多个数组。参数可以为具体的值，也可以为数组对象，可以有任意多个。返回当前数组的一个浅拷贝。 slice(start,end) (不修改原数组) 123基于当前数组的一个或多个项创建一个新数组。左闭右开，返回新数组，不影响原数组。没有参数则原数组的浅拷贝。 splice(start,number,new) (会修改原数组) 1删除原数组的一部份成员，并可以在被删除的位置添加入新的数组成员，会修改原数组。返回一个数组，里面包含被删除的项目。 indexOf(search,start) 1返回search首次出现的位置，没有则返回-1。默认从第0位开始。 lastIndexOf(search,start) 1从右往左找，返回search首次出现的位置，没有则返回-1。 includes(value) 1判断一个数组是否包含一个指定的值。 forEach(callback(value,index,array){}[,this]) (不修改原数组) 123对数组进行遍历循环，对数组中的每一项运行给定函数。这个方法没有返回值。参数都是function类型，默认有传参，参数分别为：遍历的数组内容，对应的数组索引，数组本身。 map(callback(value,index,array){}[,this]) (不修改原数组) 1对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。 filter(callback(value,index,array){}[,this]) (不修改原数组) 1“过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。 some(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true。 every(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true。 find(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的值。 findIndex(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的索引。 reduce(function(prev, cur, index, array){}[,初始值])和reduceRight(function(prev, cur, index, array){}[,初始值]) (不修改原数组) 123实现迭代数组的所有项，然后构建一个最终返回的值。前者从第一项开始，后者从最后一项开始。这个函数返回的任何值都会作为第一个参数自动传给下一项。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：promise]]></title>
+    <url>%2F2019%2F03%2F27%2FES6%EF%BC%9Apromise%2F</url>
+    <content type="text"><![CDATA[一句话概述什么是promisePromise对象用于异步操作，它表示一个尚未完成且预计在未来完成的异步操作。 为什么用promise用于异步操作，除了promise还可以用异步回调解决异步操作。 那为什么有异步回调还要promise，promise可以多重链式调用，可以避免层层嵌套回调。可以利用then进行「链式回调」，将异步操作以同步操作的流程表示出来。 注意 reject 和 catch 的区别 在resolve中发生异常的话，在reject中是捕获不到这个异常的。.then中产生的异常能在.catch中捕获 如果在then中抛错，而没有对错误进行处理（即catch），那么会一直保持reject状态，直到catch了错误。且catch之前的函数都不会执行。 每次调用then都会返回一个新创建的promise对象，而then内部只是返回的数据。 在异步回调中抛错，不会被catch到。 promise状态变为resove或reject，就凝固了，不会再改变。 如何处理异步 promise 回调函数 12345678function f1(callback)&#123; setTimeout(function () &#123; // f1的任务代码 callback(); &#125;, 1000);&#125;// 执行f1(f2) 发布订阅 事件监听 async/await]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[new一个函数发生了什么]]></title>
+    <url>%2F2019%2F03%2F27%2Fnew%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%2F</url>
+    <content type="text"><![CDATA[创建一个新对象； 将构造函数的作用域赋给新对象（因此this就指向了这个新对象）； 执行构造函数中的代码（为这个新对象添加属性）； 返回新对象。]]></content>
+      <categories>
+        <category>红宝书</category>
+      </categories>
+      <tags>
+        <tag>红宝书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[浏览器本地缓存]]></title>
+    <url>%2F2019%2F03%2F27%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%2F</url>
+    <content type="text"><![CDATA[定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力 缓存位置 Service Worker Memory Cache Disk Cache Push Cache 缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告知客户端资源缓存失效的绝对时间。 Cache-Control：告知客户端或服务器如何处理缓存 max-age=xxx：表示缓存内容将在缓存时间的xxx秒后失效 no-cache：表示可以缓存，但每次用都要去向服务器验证缓存是否可用。 no-store：表示所有内容都不会缓存。 private：客户端可以缓存。 public：客户端和代理服务器都可以缓存。默认值。 Last-Modified：资源最后一次修改时间。 Etag：文件的特殊标识。 Cache-Control优先级高于Expires。 Etag优先级高于Last-Modified。 强缓存 根据本地缓存资源的header中的Expires和Cache-Control来判断是否命中强缓存。 如果命中强缓存则返回缓存的数据。 如果没有命中则进入协商缓存。 协商缓存 如果没有命中强缓存，浏览器会将本地缓存资源的header中的Last-Modified和Etag的值分别放入请求头的IF-Modified-Since和IF-None-Match字段中，向服务器发送请求，由服务器根据请求中的相关header信息来对比结果是否命中协商缓存。 若命中即资源未更新，则服务器返回新的响应header信息且返回的http状态为304，但是并不返回资源内容，它会显示一个Not Modified的字符串，来告知浏览器使用缓存。 否则返回最新的数据，并将新数据存入缓存。 总结当浏览器再次访问一个已经访问过的资源时，会 看看是否命中强缓存，如果命中，就直接使用缓存了。 如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存。 如果命中协商缓存，服务器会返回 304。 告诉浏览器使用本地缓存。 否则，返回最新的资源。 拓展ctrl+F5和F5的区别F5只是刷新本地缓存；ctrl+F5是重新向服务器请求。 禁止浏览器缓存方法 设置响应头 12//把Cache-Control设置为no-cache&lt;meta HTTP-EQUIV=&quot;Cache-Control&quot; CONTENT=&quot;no-cache&quot;&gt; 在访问的url后添加一个参数，可以是随机数或者时间戳。这样url时刻在变化，就要重新发送http请求]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[BOM和DOM]]></title>
+    <url>%2F2019%2F03%2F27%2FBOM%E5%92%8CDOM%2F</url>
+    <content type="text"><![CDATA[DOM（文档对象模型）是 HTML 和 XML 的应用程序接口。 BOM （浏览器对象模型）主要处理浏览器窗口和框架。 javacsript是通过访问BOM对象来访问、控制、修改客户端浏览器。 由于BOM的window包含了document，document对象又是DOM的根节点。可以说，BOM包含了DOM。 浏览器提供出来给予访问的是BOM对象，从BOM对象再访问到DOM对象，从而js可以操作浏览器以及浏览器读取到的文档。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：类数组]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E7%B1%BB%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[类数组对象：只包含使用从零开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象。 1234var arr = [1,2,3];var obj = &#123;0: 1, 1: 2, 2: 3, length: 3&#125;;console.log(arr[0], obj[0])//1, 1console.log(arr[&apos;length&apos;], obj[&apos;length&apos;])//3，3 我们可以使用对象来模拟数组，只要我们定义的对象的每个元素的键名都使用数字并且让其保持递增，且动态的定义一个length属性来表示元素个数，那么从效果上来说，基本就和数组相同了。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[前端SEO（搜索引擎优化）]]></title>
+    <url>%2F2019%2F03%2F27%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[回流和重绘]]></title>
+    <url>%2F2019%2F03%2F27%2F%E5%9B%9E%E6%B5%81%E5%92%8C%E9%87%8D%E7%BB%98%2F</url>
+    <content type="text"><![CDATA[浏览器渲染解析HTML，生成DOM树，解析CSS，生成CSSOM树。将DOM树和CSSOM树结合，生成渲染树（Render Tree）。 回流当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流。 每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建render tree。 重绘当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。 回流必定触发重绘，而重绘不一定触发回流。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：瀑布流布局]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E7%80%91%E5%B8%83%E6%B5%81%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[瀑布流布局的要求要进行布置的元素等宽； 然后计算元素的宽度， 与浏览器宽度之比，得到需要布置的列数； 创建一个数组，长度为列数， 里面的值为以已布置元素的总高度（最开始为0）； 然后将未布置的元素的依次布置到高度最小的那一列， 就得到了瀑布流布局； 滚动加载，scroll事件得到scrollTop， 与最后盒子的offsetTop对比， 符合条件就不断滚动加载。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[各种算法（一）]]></title>
+    <url>%2F2019%2F03%2F27%2F%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[求1+2+3+…+n1234567function Sum_Solution(n) &#123; var result = n; if(n &gt; 0) result += Sum_Solution(n-1); return result;&#125;console.log(Sum_Solution(3)); //6 统计一个数字在无序数组中出现的次数123456789101112131415function count(arr,num)&#123; arr.sort(function(a,b)&#123; return a-b; &#125;); var result; var left = arr.indexOf(num); var right = arr.lastIndexOf(num,arr.length-1); if(arr.indexOf(num) == -1)&#123; result = 0; &#125;else&#123; result = right-left+1; &#125; return result;&#125;console.log(count([5,5,5,5,5,2,3],5)); //5 找出数组中任意一个重复的数字12345678910111213141516function duplicate(numbers, duplication)&#123; // write code here //这里要特别注意~找到任意重复的一个值并赋值到duplication[0] //函数返回True/False var temp = []; for(var i in numbers)&#123; if(temp.indexOf(numbers[i])==-1)&#123; temp.push(numbers[i]); &#125;else&#123; duplication[0] = numbers[i]; return true; &#125; &#125; return false;&#125;console.log(duplicate([5,5,5,5,5,2,3],[]));//true 快速排序 1234567891011121314151617function quickSort(arr)&#123; if(arr.length &lt;= 1)&#123; return arr; &#125; var pivotIndex = Math.floor(arr.length/2); var pivot = splice(pivotIndex,1)[0]; var left = []; var right = []; for(var i in arr)&#123; if(arr[i] &lt; pivot)&#123; left.push(arr[i]); &#125;else&#123; right.push(arr[i]); &#125; &#125; return quickSort(left).concat([pivot],quickSort(right));&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[渐进增强和优雅降级]]></title>
+    <url>%2F2019%2F03%2F27%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[渐进增强针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 优雅降级一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。 区别 渐进增强观点认为应该关注于内容本身。 优雅降级观点认为应该针对那些最高级、最完善的浏览器来设计网站。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：http和https]]></title>
+    <url>%2F2019%2F03%2F27%2F%E8%AE%A1%E7%BD%91%EF%BC%9Ahttp%E5%92%8Chttps%2F</url>
+    <content type="text"><![CDATA[关于https用处： 建立一个信息安全通道，来保证数据传输的安全。 确认网站的真实性，防止钓鱼网站。 https就是在http下加入了ssl层，从而保护了交换数据隐私和完整性，提供了对网站服务器身份认证的功能，简单来说就是安全版的http。 http和https的区别 http协议是运行在tcp之上的，所有传输的内容都是明文。https协议是运行在ssl\TLS之上的，而ssl\TLS协议运行在tcp之上的，所有传输的内容都经过加密。（加密采用对称加密，而密钥的传输利用非对称加密） http默认使用端口80。https默认使用端口443。 https的工作原理 使用HTTPS的url访问服务器，客户端向服务器端请求建立SSL连接。（可以说TLS为SSL的新版本） 服务器收到客户端请求后，会将网站的证书信息（证书包含公钥）传送一份给客户端。 客户端浏览器和服务器端协商信息加密的等级。 客户端浏览器根据协商好的安全等级，建立会话密钥，然后利用网站的公钥加密会话密钥，并传送给服务器。 服务器利用私钥解密会话密钥，并利用会话密钥加密与客户端之间的通信。]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：事件循环机制]]></title>
+    <url>%2F2019%2F03%2F27%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6Event%20Loop%2F</url>
+    <content type="text"><![CDATA[前言JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task) 宏任务：包括整体代码script，setTimeout，setInterval 微任务：Promise.then(new Promise是定义后立即执行的)，process.nextTick(node中) 事件循环先执行宏任务，其中同步任务立即执行，异步任务，加载到对应的的Event Queue中，所有同步宏任务执行完毕后，如果发现微任务的Event Queue中有未执行的任务，会先执行其中的任务，这样算是完成了一次事件循环。接下来查看宏任务的Event Queue中是否有未执行的任务，有的话，就开始第二轮事件循环，依此类推。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js：实现给数字添加千分位符的方法]]></title>
     <url>%2F2019%2F03%2F26%2Fjs%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BB%99%E6%95%B0%E5%AD%97%E6%B7%BB%E5%8A%A0%E5%8D%83%E5%88%86%E4%BD%8D%E7%AC%A6%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[toLocaleString方法12const num = 12345678;num.toLocaleString(); toLacalString：返回这个数字在特定语言环境下的表示字符串。 在没有指定区域的基本使用时，返回使用默认的语言环境和默认选项格式化的字符串。 正则表达式1234567const num = 12345678;var reg=/\d&#123;1,3&#125;(?=(\d&#123;3&#125;)+$)/g;num.replace(reg,&quot;$&amp;,&quot;);1. 正则表达式 \d&#123;1,3&#125;(?=(\d&#123;3&#125;)+$) 表示前面有1~3个数字，后面的至少由一组3个数字结尾。2. ?=表示正向引用，可以作为匹配的条件，但匹配到的内容不获取，并且作为下一次查询的开始。3. $&amp; 表示与正则表达式相匹配的内容。]]></content>
