@@ -1,6 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js：ajax]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9Aajax%2F</url>
+    <content type="text"><![CDATA[核心XMLHttpRequest，一个js对象，一个构造函数。 方法 open()：准备启动一个AJAX请求； setRequestHeader()：设置请求头部信息； send()：发送AJAX请求； getResponseHeader(): 获得响应头部信息； getAllResponseHeader()：获得一个包含所有头部信息的长字符串； abort()：取消异步请求； 另外，浏览器还为该对象提供了一个onreadystatechange监听事件，大明湖readyState属性改变时，就会触发该事件发送。 为了确保浏览器的兼容性，最好在调用open方法之前指定事件处理程序。 属性 responseText：包含响应主体返回文本； responseXML：如果响应的内容类型时 text/xml或 application/xml，该属性将保存包含着相应数据的XML DOM文档； status：响应的HTTP状态； statusText：HTTP状态的说明； readyState：表示“请求”/“响应”过程的当前活动阶段 拓展 什么是ajax？ajax作用是什么？ 1ajax是用来与后台交互的一种技术。用来实现客户端服务器的异步通信效果，实现页面的局部刷新。 原生js ajax发送http请求需要几个步骤？分别是什么？ 1234567891011121314151617181920//1：创建XMLHttpRequest对象var xhr = new XMLHttpRequest();//2：设置请求参数（请求方式，url，是否异步请求）xhr.open(&quot;GET&quot;,url,false);//3：设置请求头部(也可以不设置)xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);//支持跨域发送cookiexhr.withCredentials = true;//4：发送请求xhr.send(null);//5：设置事件处理程序xhr.onreadystatechange = function()&#123; if(xhr.readystate == 4)&#123; if(xhr.status == 200)&#123; console.log(xhr.responseText); &#125;else&#123; console.log(&quot;出错了&quot;); &#125; &#125;&#125; readyState的取值？ 123450：(未初始化)还没有调用open()方法。1：(正在载入)已调用open()方法，但send()方法还没调用。2：(载入完成)send()方法已经调用，请求已发送。3：(交互)服务器端发送响应，客户端正在解析响应内容。4：(完成)响应内容解析完成，可以在客户端调用了。 http的请求方法 12345678get：获取服务器中的资源。post：传输实体文本put：传输文件。要指出资源在服务器中的位置。head：获取页面的首部。delete：删除服务器中的某个资源。options：获取当前url所支持的方法。trace：追踪路径。connect：要求用隧道协议连接代理。 get和post的区别 1231. 发送方式：get请求数据放在url上，即http的协议头；post把数据放在http的包体中。2. 大小限制：get传的参数有长度限制；post理论上没有限制。3. 安全性：get请求可被缓存，请求保存在浏览器的历史记录中；post不能被缓存。且get传送的数据是url的一部分。 什么情况造成跨域？如何解决？ 123456789受同源策略限制。协议、子域名、主域名、端口号、ip地址、网址，任一不同都为不同源。1. jsonp 只能解决get跨域2. CORS：跨域资源共享，通过设置Access-Control-Allow-Origin来允许跨域（主要后台配置）3. 设置document.domain4. 代理请求解决接口跨域。jsonp通过script标签进行跨域请求①前端设置好回调函数，将回调函数名作为url携带的参数。②后端接到请求后，生成一个函数，函数名为前端传来的回调函数名，数据作为参数传入函数，返回js文档。③客户端解析并执行返回的js文档，将返回的数据传入回调函数执行。 http状态码（status） 状态码 含义 1xx 请求正在被处理 2xx 请求成功被处理 3xx 请求需求附加操作，如重定向 4xx 客户端出错导致请求无法被处理 5xx 服务端处理出错 常用状态码 200 请求成功处理，一切正常 301 永久重定向（新网址替换旧网址，旧网址清零） 302 临时重定向（也是替换，但是旧网址还能参与排名） 304 资源未修改 403 禁止访问 404 页面未找到 405 不允许此请求方法 500 服务器出错 回调函数 1231.一个函数作为参数传递给另一个函数，在功能下载完成后执行，作为参数的函数即为回调函数。2.可用于解决异步。3.典型例子即为ajax请求。 回调地狱 12345当许多功能需要连续调用,环环相扣依赖时。就会产生函数作为参数层层嵌套的一个效果，这就形成回调地狱。使得代码变得难以理解与维护。解决：1.保持代码简短，避免使用匿名函数。2.模块化。将不同功能的代码封装成不同的模块。3.处理每一个错误。为了让代码稳定，永远无法知道这些错误何时发生，所以必须对它们进行计划。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：let和const]]></title>
+    <url>%2F2019%2F04%2F23%2FES6%EF%BC%9Alet%E5%92%8Cconst%2F</url>
+    <content type="text"><![CDATA[let是定义变量 const是定义常量。若定义基本数据类型，则不能再次改变；若定义复杂数据类型，如对象，则可以修改或者添加属性，但指针是不会变的。 let和const都不会变量提升，在声明之前使用会形成死区。 使用babel工具将es6转换为es5]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：立即执行函数]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9A%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[立即执行函数12345//一个匿名函数包裹在一个括号运算符中，后面再跟一个小括号( function()&#123;…&#125; )() //等价于( function ()&#123;…&#125; () )//一个匿名函数后面跟一个小括号，然后整个包裹在一个括号运算符中 注意： 函数体后面要有小括号()，函数体必须是函数表达式而不能是函数声明。 （）运算符将匿名函数或函数声明转换为函数表达式。 好处通过定义一个匿名函数，创建了一个新的函数作用域，相当于创建了一个“私有”的命名空间，该命名空间的变量和方法，不会破坏污染全局的命名空间。 此时若是想访问全局对象，将全局对象以参数形式传进去即可 123(function(window)&#123; ...&#125;)(window); 拓展123456789101112131415161718192021222324252627282930313233343536for(var i = 0; i&lt;10; i++)&#123; setTimeout(function()&#123; console.log(i) &#125;);&#125;改写：使打印 0-10//第一种：letfor(let i = 0; i&lt;10; i++)&#123; setTimeout(function()&#123; console.log(i) &#125;);&#125;//第二种：闭包 + 立即执行函数for(var i = 0; i&lt;10; i++)&#123; (function(a)&#123; setTimeout(function()&#123; console.log(a) &#125;); &#125;)(i);&#125;上面的代码即可实现依次打印出0,1,2,3...此处利用闭包每次将i的值传入进去，里面使用参数a接受传过来的值然后setTimeout异步调用，进入异步队列，循环代码很快执行完然后从异步队列里返回执行后的结果，依次打印出0，1,2,3...//实现隔1秒依次打印一个结果for(var i = 0; i&lt;10; i++)&#123; (function(a)&#123; setTimeout(function()&#123; console.log(a) &#125;); &#125;,1000*a)(i);&#125;上面代码在延迟执行时间那块加了一个参数aa的值每次都会增加1，使时间每次扩大比上次大一倍从而实现了每隔一秒就打印出一个结果 异步调用：异步代码执行完后结果存放在队列中，等同步代码执行完，再输出结果]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：BFC]]></title>
+    <url>%2F2019%2F04%2F23%2Fcss%EF%BC%9ABFC%2F</url>
+    <content type="text"><![CDATA[BFC定义块级格式化上下文，是指一个独立的块级渲染区域。该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。 BFC生成满足下列css声明之一的元素便会生成BFC 根元素或其它包含它的元素 float的值不为none； overflow的值不为visible； position的值不为static； display的值为inline-block、table-cell、table-caption； flex boxes (元素的display: flex或inline-flex)； BFC布局规则 内部的元素会在垂直方向一个接一个地排列，可以理解为是BFC中的一个常规流 元素垂直方向的距离由margin决定，即属于同一个BFC的两个相邻盒子的margin可能会发生重叠 每个元素的左外边距与包含块的左边界相接触(从左往右，否则相反)，即使存在浮动也是如此，这说明BFC中的子元素不会超出它的包含块 BFC的区域不会与float元素区域重叠 计算BFC的高度时，浮动子元素也参与计算 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然 位于不同BFC下的相邻元素之间不会发生margin重叠 BFC的应用解决margin塌陷问题margin塌陷的原理为它们处于同一个BFC中，符合“属于同一个BFC的两个相邻元素的margin会发生重叠”的规则。 解决方法：在其中一个元素外面包裹一层容器，并触发容器生成一个BFC（overflow：hidden），使两个元素处于不同的BFC。 解决浮动问题给父元素设置overflow：hidden可以清除子元素的浮动是应用了BFC的原理：给父元素设置overflow：hidden触发了BFC，形成一个独立的渲染区域，所以内部的元素就不会影响外面的布局，BFC把浮动的子元素的高度当作自己的高度去处理溢出，从外面看起来就是清除了浮动 解决侵占浮动元素的问题当一个元素浮动，另一个元素不浮动时，浮动元素因为脱离文档流，就会盖在不浮动的元素上。 解决方法：不浮动的元素也设为浮动，或者添加overflow：hidden 原理：为不浮动的元素建立BFC环境，BFC不与float box重叠。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：setTimeout和setInterval]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9AsetTimeout%E5%92%8CsetInterval%2F</url>
+    <content type="text"><![CDATA[都是延迟一段时间调用回调函数。 setTimeout setTimeout只调用一次。 setTimeout最短间隔时间为4毫秒。setInterval setInterval会一直循环调用函数，不会自己停止。要用clearInterval(计数器编号)来停止。 setInterval最短间隔时间为10毫秒，小于会被调整为10ms。 拓展 使用setInterval有可能定时器代码可能在代码再次被添加到队列之前还没有完成执行，这样有可能导致代码连续运行。js引擎解决：队列无定时器代码才添加。这样有可能导致某些间隔被跳过。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据类型：json和xml]]></title>
+    <url>%2F2019%2F04%2F23%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9Ajson%E5%92%8Cxml%2F</url>
+    <content type="text"><![CDATA[json json是一种轻量级的数据交换格式。 兼容性高。 格式简单，易读写。 易于解析。 xml xml是一种扩展标记语言。 可用来标记数据，定义数据类型。 格式统一。 文件庞大，格式复杂。 客户端和服务器端都需要大量代码来解析，导致代码复杂难以维护。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：箭头函数]]></title>
+    <url>%2F2019%2F04%2F23%2FES6%EF%BC%9A%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[箭头函数体内的this对象是定义时所在的对象，而不是使用时所在的对象。 this指向调用箭头函数外层函数的对象，没有外层函数则指向window。 箭头函数相当于匿名函数。 箭头函数不可以当作构造函数，即不可以用new命令。 箭头函数不可以使用arguments对象，该对象在函数体内不存在。要用，就用rest参数代替。 箭头函数的this指向其上下文的this，通过call、apply也无法修改其指向。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：apply、call和bind]]></title>
+    <url>%2F2019%2F04%2F23%2FES6%EF%BC%9Aapply%E3%80%81call%E5%92%8Cbind%2F</url>
+    <content type="text"><![CDATA[都是为了改变某个函数运行时的上下文，即改变函数里的this的指向。将一个函数应用在其他对象上。 第一个参数要绑定给this的值，为nul或undefined时指向window。 apply、call绑定后会立即调用，bind绑定后不会立即调用。 apply第二个参数为数组，call后面为参数列表。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[BOM和DOM]]></title>
+    <url>%2F2019%2F04%2F23%2FBOM%E5%92%8CDOM%2F</url>
+    <content type="text"><![CDATA[BOM和DOM DOM（文档对象模型）是 HTML 和 XML 的应用程序接口。 DOM可以将任何HTML或XML文档描绘成一个由多层次节点构成的结构。 BOM （浏览器对象模型）主要处理浏览器窗口和框架。 javacsript是通过访问BOM对象来访问、控制、修改客户端浏览器。 由于BOM的window包含了document，document对象又是DOM的根节点。可以说，BOM包含了DOM。 浏览器提供出来给予访问的是BOM对象，从BOM对象再访问到DOM对象，从而js可以操作浏览器以及浏览器读取到的文档。 拓展：遍历dom树]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法：二分查找]]></title>
+    <url>%2F2019%2F04%2F23%2F%E7%AE%97%E6%B3%95%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%2F</url>
+    <content type="text"><![CDATA[二分法查找，也称折半查找，是一种在有序数组中查找特定元素的搜索算法。 首先，从有序数组的中间的元素开始搜索， 如果该元素正好是目标元素（即要查找的元素），则搜索过程结束，否则进行下一步。 如果目标元素大于或者小于中间元素， 则在数组大于或小于中间元素的那一半区域查找，然后重复第一步的操作。 如果某一步数组为空，则表示找不到目标元素。 12345678910111213141516171819function search(arr,key)&#123; var low = 0; var high = arr.length-1; while(low &lt;= high)&#123; var mid = parseInt((low+high)/2); if(key == arr[mid])&#123; return mid; &#125;else if(key &lt; arr[mid])&#123; high = mid-1; &#125;else if(key &gt; arr[mid])&#123; low = mid+1; &#125;else&#123; return -1; &#125; &#125;&#125;console.log(search([0,1,2,3,5,6,7],5));//4console.log(search([0,1,2,3,5,6,7],4));//undefined]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：优先级]]></title>
+    <url>%2F2019%2F04%2F23%2Fcss%EF%BC%9A%E4%BC%98%E5%85%88%E7%BA%A7%2F</url>
+    <content type="text"><![CDATA[从高到低 在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。 内联样式，作为style属性写在元素内的样式 id选择器 标签[指定属性] 如 button[type=file] 类选择器 标签选择器 通配符选择器]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：时间复杂度]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%2F</url>
+    <content type="text"><![CDATA[时间复杂度原则 如果运行时间是常数量级，用常数1表示； 只保留时间函数中的最高阶项； 如果最高阶项存在，则省去最高阶项前面的系数。 场景一给小灰一条长n寸的面包，小灰每3天吃掉1寸，那么吃掉整个面包需要几天？ 12345678//T（n） = 3n，执行次数是线性的。void eat1(int n)&#123; for(int i=0; i&lt;n; i++)&#123;; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一寸面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（n） 场景二给小灰一条长16寸的面包，小灰每5天吃掉面包剩余长度的一半，第一次吃掉8寸，第二次吃掉4寸，第三次吃掉2寸……那么小灰把面包吃得只剩下1寸，需要多少天呢？ 这个问题翻译一下，就是数字16不断地除以2，除几次以后的结果等于1？这里要涉及到数学当中的对数，以2位底，16的对数，可以简写为log16。因此，把面包吃得只剩下1寸，需要 5 X log16 = 5 X 4 = 20 天。 如果面包的长度是 N 寸呢？需要 5 X logn = 5logn天，记作 T（n） = 5logn。12345678910//T（n） = 5logn，执行次数是对数的。void eat2(int n)&#123; for(int i=1; i&lt;n; i*=2)&#123; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一半面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（logn） 场景三给小灰一条长10寸的面包和一个鸡腿，小灰每2天吃掉一个鸡腿。那么小灰吃掉整个鸡腿需要多少天呢？ 12345//T（n） = 2，执行次数是常量的。void eat3(int n)&#123; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一个鸡腿&quot;);&#125; 时间复杂度为：T（n） = O（1） 场景四给小灰一条长10寸的面包，小灰吃掉第一个一寸需要1天时间，吃掉第二个一寸需要2天时间，吃掉第三个一寸需要3天时间…..每多吃一寸，所花的时间也多一天。那么小灰吃掉整个面包需要多少天呢？ 答案是从1累加到10的总和，也就是55天。 如果面包的长度是 N 寸呢？此时吃掉整个面包，需要 1+2+3+……+ n-1 + n = (1+n)*n/2 = 0.5n^2 + 0.5n。123456789//T（n） = 0.5n^2 + 0.5n，执行次数是一个多项式。void eat4(int n)&#123; for(int i=0; i&lt;n; i++)&#123; for(int j=0; j&lt;i; j++)&#123; System.out.println(&quot;等待一天&quot;); &#125; System.out.println(&quot;吃一寸面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（n^2） 总结四种时间复杂度究竟谁用时更长，谁节省时间呢？ 1O（1）&lt; O（logn）&lt; O（n）&lt; O（n^2） 除了上述的四个场景，还有许多不同形式的时间复杂度，比如： 1O（nlogn）, O（n^3）, O（m*n），O（2^n），O（n！）]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：flex布局]]></title>
+    <url>%2F2019%2F04%2F23%2Fcss%EF%BC%9Aflex%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[前言flex布局称为弹性布局。任何一个容器都可以指定为 Flex 布局。 设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效 基本概念采用 Flex 布局的元素，称为 Flex 容器，简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目，简称”项目”。 水平的主轴（main axis） 垂直的交叉轴（cross axis） 主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end 交叉轴的开始位置叫做cross start，结束位置叫做cross end。 项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。 容器的属性flex-directionflex-direction属性决定主轴的方向（即项目的排列方向）。 row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿。 column-reverse：主轴为垂直方向，起点在下沿 flex-wrap默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。 nowrap（默认）：不换行。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 flex-flowflex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。 123.box &#123; flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;&#125; justify-contentjustify-content属性定义了项目在主轴上的对齐方式。 flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，项目之间的间隔都相等。 space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。 align-itemsalign-items属性定义项目在交叉轴上如何对齐。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 align-contentalign-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。 space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 stretch（默认值）：轴线占满整个交叉轴。 项目的属性orderorder属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。 flex-grow flex-grow属性定义项目的放大比例，默认为0。 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。 如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。（即把剩余空间划分为四份，属性为2的占两份，属性为1的占一份）。 flex-shrink flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。数值大的缩小得多。 如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。 负值对该属性无效。 flex-basisflex-basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。 flexflex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。 123.item &#123; flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;; &#125; 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。 align-selfalign-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto。 该属性可能取6个值，除了auto，其他都与align-items属性完全一致。 auto：表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[虚拟dom]]></title>
+    <url>%2F2019%2F04%2F23%2F%E8%99%9A%E6%8B%9Fdom%2F</url>
+    <content type="text"><![CDATA[是什么可以看作是一个使用javascript模拟了DOM结构的树形结构，这个树结构包含整个DOM结构的信息。 为什么之前使用原生js或者jquery写页面的时候会发现操作DOM是一件非常麻烦的一件事情，且在浏览器里一遍又一遍的渲染DOM是非常非常消耗性能的。在js做dom对比，减少对dom的操作，而不是每一次都要渲染，这样效率会提高。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：this指向]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9Athis%E6%8C%87%E5%90%91%2F</url>
+    <content type="text"><![CDATA[普通函数this指向调用该函数的对象。 箭头函数this对象是定义时所在的对象。 指向调用箭头函数外层function的对象。如果箭头函数没有外层函数，则指向window。]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：arguments转为数组]]></title>
+    <url>%2F2019%2F04%2F23%2Fjs%EF%BC%9Aarguments%E8%BD%AC%E4%B8%BA%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[arguments，一个类似于数组的对象，一个参数集1234567function toArr()&#123; var arr = []; for（var i in arguments）&#123; arr.push(arguments[i]); &#125; return arr;&#125;]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[各种算法（三）]]></title>
     <url>%2F2019%2F03%2F27%2F%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%89%EF%BC%89%2F</url>
     <content type="text"><![CDATA[有一个字符串有很多is，写一个方法只保留一个is？ 123456789function deleteIs(str)&#123; var index = str.search(&quot;is&quot;); var left = str.slice(0,index+2); var right = str.slice(index+2,str.length); right = right.split(&quot;is&quot;).join(&quot;&quot;); return left.concat(right); &#125;console.log(deleteIs(&quot;thisismybook&quot;));//thismybook 有3个-10-10之间的整数，写一个方法这三个数一共有多少可能相加等于10。 改写数组的push方法，保持原有逻辑，添加一个console.log(arguments)，即push什么打印什么。 12345Array.prototype.push = function(val)&#123; console.log(val);&#125;var temp = [1,2,5];temp.push(7);//打印7 传入一个无序数组，要求n数相加，获取特定的sum 12345678910111213141516 function getResult(arr,n,sum)&#123; if(n==0&amp;&amp;sum==0)&#123; return true; &#125; if(n&lt;0)&#123; return false; &#125; if(n&gt;0)&#123; for(var i in arr)&#123; var temp = arr.slice(i+1,arr.length); return getResult(temp,n-1,sum-arr[i]) || getResult(temp,n,sum); &#125; &#125;&#125;console.log(getResult([1,2,3,4],2,7)); //true 用正则表达式去掉两边的空格 123456function remove(str)&#123; var reg = /(^\s+)|(\s+?)/g; return str.replace(reg,&quot;&quot;);&#125;console.log(remove(&quot;this is book&quot;));//&quot;thisisbook&quot; 给定一个非空的数字数组，数组有且只有一个非重复项，实现一个方法获取落单项 12345678910111213function getSingleNumber(arr)&#123; var temp = []; for(var i in arr)&#123; if(temp.indexOf(arr[i]) == -1)&#123; temp.push(arr[i]); &#125;else&#123; temp.splice(temp.indexOf(arr[i]),1); &#125; &#125; return temp[0];&#125;console.log(getSingleNumber([0,1,0,0])); //1 请实现一个函数merge，传入一个数组，合并数组中【相邻且重复】的元素 123456789101112function merge(arr)&#123; var reg = /(.)\1*/g; var str = arr.join(&quot;&quot;); str = str.replace(reg,&quot;$1&quot;); arr = str.split(&quot;&quot;); arr = arr.map(function(val)&#123; return parseInt(val); &#125;) return arr;&#125;console.log(merge([3,2,2,4,5,5,6,2,1]));//[3,2,4,5,6,2,1]]]></content>
@@ -81,17 +257,6 @@
     <title><![CDATA[浏览器本地缓存]]></title>
     <url>%2F2019%2F03%2F27%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%2F</url>
     <content type="text"><![CDATA[定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力 缓存位置 Service Worker Memory Cache Disk Cache Push Cache 缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告知客户端资源缓存失效的绝对时间。 Cache-Control：告知客户端或服务器如何处理缓存 max-age=xxx：表示缓存内容将在缓存时间的xxx秒后失效 no-cache：表示可以缓存，但每次用都要去向服务器验证缓存是否可用。 no-store：表示所有内容都不会缓存。 private：客户端可以缓存。 public：客户端和代理服务器都可以缓存。默认值。 Last-Modified：资源最后一次修改时间。 Etag：文件的特殊标识。 Cache-Control优先级高于Expires。 Etag优先级高于Last-Modified。 强缓存 根据本地缓存资源的header中的Expires和Cache-Control来判断是否命中强缓存。 如果命中强缓存则返回缓存的数据。 如果没有命中则进入协商缓存。 协商缓存 如果没有命中强缓存，浏览器会将本地缓存资源的header中的Last-Modified和Etag的值分别放入请求头的IF-Modified-Since和IF-None-Match字段中，向服务器发送请求，由服务器根据请求中的相关header信息来对比结果是否命中协商缓存。 若命中即资源未更新，则服务器返回新的响应header信息且返回的http状态为304，但是并不返回资源内容，它会显示一个Not Modified的字符串，来告知浏览器使用缓存。 否则返回最新的数据，并将新数据存入缓存。 总结当浏览器再次访问一个已经访问过的资源时，会 看看是否命中强缓存，如果命中，就直接使用缓存了。 如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存。 如果命中协商缓存，服务器会返回 304。 告诉浏览器使用本地缓存。 否则，返回最新的资源。 拓展ctrl+F5和F5的区别F5只是刷新本地缓存；ctrl+F5是重新向服务器请求。 禁止浏览器缓存方法 设置响应头 12//把Cache-Control设置为no-cache&lt;meta HTTP-EQUIV=&quot;Cache-Control&quot; CONTENT=&quot;no-cache&quot;&gt; 在访问的url后添加一个参数，可以是随机数或者时间戳。这样url时刻在变化，就要重新发送http请求]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[BOM和DOM]]></title>
-    <url>%2F2019%2F03%2F27%2FBOM%E5%92%8CDOM%2F</url>
-    <content type="text"><![CDATA[DOM（文档对象模型）是 HTML 和 XML 的应用程序接口。 BOM （浏览器对象模型）主要处理浏览器窗口和框架。 javacsript是通过访问BOM对象来访问、控制、修改客户端浏览器。 由于BOM的window包含了document，document对象又是DOM的根节点。可以说，BOM包含了DOM。 浏览器提供出来给予访问的是BOM对象，从BOM对象再访问到DOM对象，从而js可以操作浏览器以及浏览器读取到的文档。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -306,17 +471,6 @@
       </categories>
       <tags>
         <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[CSS：BFC]]></title>
-    <url>%2F2019%2F03%2F26%2Fcss%EF%BC%9ABFC%2F</url>
-    <content type="text"><![CDATA[BFC定义块级格式化上下文，是指一个独立的块级渲染区域。该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。 BFC生成满足下列css声明之一的元素便会生成BFC 根元素或其它包含它的元素 float的值不为none； overflow的值不为visible； position的值不为static； display的值为inline-block、table-cell、table-caption； flex boxes：元素的display: flex或inline-flex； BFC布局规则 内部的元素会在垂直方向一个接一个地排列，可以理解为是BFC中的一个常规流 元素垂直方向的距离由margin决定，即属于同一个BFC的两个相邻盒子的margin可能会发生重叠 每个元素的左外边距与包含块的左边界相接触(从左往右，否则相反)，即使存在浮动也是如此，这说明BFC中的子元素不会超出它的包含块 BFC的区域不会与float元素区域重叠 计算BFC的高度时，浮动子元素也参与计算 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然 BFC的应用解决margin塌陷问题margin塌陷的原理为它们处于同一个BFC中，符合“属于同一个BFC的两个相邻元素的margin会发生重叠”的规则。 解决方法：在其中一个元素外面包裹一层容器，并触发容器生成一个BFC，如overflow：hidden，使两个元素处于不同的BFC。 解决浮动问题给父元素设置overflow：hidden可以清除子元素的浮动是应用了BFC的原理：给父元素设置overflow：hidden触发了BFC，形成一个独立的渲染区域，所以内部的元素就不会影响外面的布局，BFC把浮动的子元素的高度当作自己的高度去处理溢出，从外面看起来就是清除了浮动 解决侵占浮动元素的问题当一个元素浮动，另一个元素不浮动时，浮动元素因为脱离文档流，就会盖在不浮动的元素上。 解决方法：不浮动的元素也设为浮动，或者添加overflow：hidden 原理：为不浮动的元素建立BFC环境，BFC不与float box重叠。]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
