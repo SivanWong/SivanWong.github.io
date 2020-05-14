@@ -1,6 +1,627 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js：类数组对象]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[类数组对象只包含使用从零开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象。 1234var arr = [1,2,3];var obj = &#123;0: 1, 1: 2, 2: 3, length: 3&#125;;console.log(arr[0], obj[0])//1, 1console.log(arr[&apos;length&apos;], obj[&apos;length&apos;])//3，3 我们可以使用对象来模拟数组，只要我们定义的对象的每个元素的键名都使用数字并且让其保持递增，且动态的定义一个length属性来表示元素个数，那么从效果上来说，基本就和数组相同了。 argumentsarguments就是一个典型的类数组对象，为一个参数集 1234567891011121314151617181920212223242526// 数组function printArr () &#123; return [&apos;ming&apos;,18];&#125;printArr()// 打印结果(2) [&quot;ming&quot;, 18] 0: &quot;ming&quot; 1: 18 length: 2 __proto__: Array(0) // argumentsfunction printArg (name,age) &#123; return arguments;&#125;printArg(&apos;ming&apos;,18)// 打印结果Arguments(2) [&quot;ming&quot;, 18, callee: ƒ, Symbol(Symbol.iterator): ƒ] 0: &quot;ming&quot; 1: 18 callee: ƒ fn(name,age) length: 2 Symbol(Symbol.iterator): ƒ values() __proto__: Object arguments转换为数组1234567function toArr()&#123; var arr = []; for（var i in arguments）&#123; arr.push(arguments[i]); &#125; return arr;&#125; 12345function toArr()&#123; var arr = []; arr = Array.prototype.slice.call(arguments); return arr;&#125;]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：关于闭包]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%85%B3%E4%BA%8E%E9%97%AD%E5%8C%85%2F</url>
+    <content type="text"><![CDATA[闭包对闭包的理解 闭包是有权访问另一个函数作用域中的变量的一个函数。 简单来说就是定义在一个函数内部的函数。 闭包可以访问到父级函数的变量，且该变量不会销毁。 闭包的原理利用了作用域链的特性，我们都知道作用域链就是在当前执行环境下访问某个变量时，如果不存在就一直向外层寻找，最终寻找到最外层也就是全局作用域，这样就形成了一个链条 闭包的体现闭包只能取得包含函数中的任何变量的最后一个值12345678910111213141516function person ()&#123; var age = 18; function cat()&#123; age ++; console.log(age); &#125; console.log(age) return cat;&#125;person() // 18var p = person(); // p相当于函数cat// 调用时会先在cat函数作用域内查找变量age，没有则顺着作用域链往上查找，找到person中的age// 经过首次调用后cat中存在age变量，这样每次调用都不经过age的初始值，就可以一直增加p() // 19，p()即cat()p() // 20person() // 18，每次调用person函数，进入该作用域，age都会重新赋值为18 闭包的作用 隐藏变量，避免全局污染 可以读取函数内部的变量 闭包的缺点 通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。但是，在创建了一个闭包以后，这个函数的作用域就会一直保存到闭包不存在为止。 闭包会导致局部变量能在函数作用域之外被访问，但是这不是变量不可被回收的充分条件，通常情况下是考虑局部变量是否被全局或者一个不可被回收的对象引用了。 闭包被引用后始终在内存中，不会在调用结束后被垃圾回收机制回收，可能会造成内存消耗。12// 释放闭包引用p = null; 闭包的应用场景封装变量为避免全局污染，把变量封装到函数作用域中 循环绑定事件处理函数1234567891011121314151617181920var lis = document.getElementsByTagName(&apos;li&apos;)// 每循环一次给lis添加一个function，最后lis是这样的 lis[function()&#123;&#125;,function()&#123;&#125;,function()&#123;&#125;]// 里面有3个function，在for里面声明了function，但还没有立即执行// 真正执行的时候是当点击li的时候才执行这个函数// 当执行的时候for循环已经结束，i已经变成最后一个取值了，所以每触发一次事件都访问的是等于最后一个取值的ifor(var i=0;i&lt;lis.length;i++)&#123; lis[i].onclick = function()&#123; console.log(i); &#125;; &#125;// 立即执行函数要保护j这个索引值的变量不被污染for(var i=0;i&lt;lis.length;i++)&#123; (function(j)&#123; lis[j].onclick = function()&#123; console.log(j); &#125;; &#125;)(i); //事件处理函数中闭包的写法&#125; 循环打印1234567891011// 定时器中的回调函数是一个在立即执行函数中的闭包，单独的立即执行函数能不能叫做闭包说法各有不同。function fn()&#123; for(var i = 1;i &lt;= 5;i ++)&#123; (function(j)&#123; setTimeout(function () &#123; console.log(j) &#125;, 1000) &#125;)(i); &#125;&#125;fn() // 1 2 3 4 5 拓展垃圾回收机制标记清除工作原理：是当变量进入环境时，将这个变量标记为“进入环境”。当变量离开环境时，则将其标记为“离开环境”。标记“离开环境”的就回收内存。 工作流程： 垃圾回收器，在运行的时候会给存储在内存中的所有变量都加上标记。 去掉环境中的变量以及被环境中的变量引用的变量的标记。 再被加上标记的会被视为准备删除的变量。 垃圾回收器完成内存清除工作，销毁那些带标记的值并回收他们所占用的内存空间。 引用计数工作原理：跟踪记录每个值被引用的次数。 工作流程： 声明了一个变量并将一个引用类型的值赋值给这个变量，这个引用类型值的引用次数就是1。 同一个值又被赋值给另一个变量，这个引用类型值的引用次数加1. 当包含这个引用类型值的变量又被赋值成另一个值了，那么这个引用类型值的引用次数减1. 当引用次数变成0时，说明没办法访问这个值了。 当垃圾收集器下一次运行时，它就会释放引用次数是0的值所占的内存。 引起内存泄漏 全局变量 闭包 原因：都是由于不能被回收]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：作用域]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%BD%9C%E7%94%A8%E5%9F%9F%2F</url>
+    <content type="text"><![CDATA[作用域就是变量和函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。 全局作用域在代码任何地方都能访问到的对象拥有全局作用域。拥有作用域的情况： 程序最外层定义的函数或变量。 所有未定义直接赋值的变量，相当于在window对象上创建属性。（不推荐） 所有window对象的属性和方法。 局部作用域（函数作用域）局部作用域在函数内创建，在函数内可访问，函数外不可访问。 变量声明js引擎解析js代码时，会先把变量和函数的声明提前进行预解析，然后再去执行其他代码。 直接赋值不会引起变量提升，在执行期间创建，为window的属性，可删除。 函数声明 function name(){}直接创建 new Function构建函数创建 给变量赋值匿名函数方法创建1var name = function()&#123; &#125; 后两者，在声明前访问，返回undefined。函数名与变量名声明时相同，函数优先声明。 作用域链 当代码在一个环境中执行时，一般情况下，会到当前执行环境中访问变量。 但是如果在当前作用域中没有查到值，就会向上级作用域去查，直到查到全局作用域，这么一个查找过程形成的链条（即这样逐层的作用域形成的链条）就叫做作用域链。 作用域链是函数被创建的作用域中对象的集合。作用域链保证了对变量和函数的有序访问。 每次进入一个新的执行环境，都会创建一个用于搜索变量和函数的作用域链。 作用域链的前端，始终是当前执行代码所在环境的变量对象。如果当前环境是函数，则将其活动对象作为变量对象。活动对象最开始只包含arguments对象（这个对象在全局环境中不存在）。 全局执行环境的变量对象始终都是作用域链的最后一个对象。 js每一个函数执行时，会先在自己创建的AO上找对应的属性值。若找不到，则往父函数的AO上找，直到找到全局作用域，这样就形成一条作用域链。 VO（变量对象）：函数创建阶段，js解析引擎进行预解析时，所有变量和函数的声明组成VO。 AO（活动对象）：函数执行阶段，当函数被调用执行时，会建立一个执行上下文，该执行上下文包含了函数所需的所有变量，这些变量组成AO。 执行上下文可以理解为当前代码的执行环境，它会形成一个作用域。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：浅拷贝与深拷贝]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D%2F</url>
+    <content type="text"><![CDATA[浅拷贝拷贝对象的内存地址，新旧对象共享同一块内存，修改新对象会导致旧对象也改变。 12345678910var obj = &#123; a: &#123;a:&quot;kobe&quot;,b:39&#125; &#125;;var arr = [&quot;a&quot;,&quot;b&quot;,&#123;name:&quot;kobe&quot;&#125;];//第一种var obj1 = obj;//第二种var obj2 = Object.assign(&#123;&#125;,obj);//当object只有一层时为深拷贝//第三种var arr1 = arr.concat();//第四种var arr2 = arr.slice(); 深拷贝创造一个一模一样的对象，，新旧对象不共享同一块内存，修改新对象不会导致旧对象改变。 递归实现深拷贝123456789101112131415161718192021222324252627282930function clone(target) &#123; var temp; if (target instanceof Array) &#123; temp = []; &#125; else if (target instanceof Object) &#123; temp = &#123;&#125;; &#125; else &#123; return target; &#125; for (var i in target) &#123; temp[i] = clone(target[i]); &#125; return temp;&#125;console.log(clone([&quot;111&quot;, &quot;222&quot;, &#123; a: &quot;1&quot; &#125;, [1, 1]]));console.log(clone(&#123; a: [1, 1], b: &#123; a: &quot;1&quot;, b: &quot;11&quot; &#125;, c: &quot;11&quot;&#125;));console.log(clone(&quot;111&quot;)); JSON.parse(JSON.stringify())123function clone(target)&#123; return JSON.parse(JSON.stringify(target));&#125; 原理： 用JSON.stringify将对象转成JSON字符串，再用JSON.parse()把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。 这种方法虽然可以实现数组或对象深拷贝，但不能处理函数。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：文件上传]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%2F</url>
+    <content type="text"><![CDATA[获取文件内容1234567&lt;input type=&quot;file&quot; id=&quot;fileUpload&quot;/&gt;document.getElementById(&apos;fileUpload&apos;).onchange = function (e) &#123; var e = e || window.event; // files 为选择的所有文件 var files = e.target.files; &#125; files 为FileList，每一个元素为一个对象，里面包含： lastModified lastModifiedDate name size type webkitRelativePath 获取文件上传进度123456789101112131415161718192021222324252627282930313233343536373839var xhrOnProgress=function(fun) &#123; xhrOnProgress.onprogress = fun; //绑定监听 //使用闭包实现监听绑 return function() &#123; //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象 var xhr = $.ajaxSettings.xhr(); //判断监听函数是否为函数 if (typeof xhrOnProgress.onprogress !== &apos;function&apos;) return xhr; //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去 if (xhrOnProgress.onprogress &amp;&amp; xhr.upload) &#123; xhr.upload.onprogress = xhrOnProgress.onprogress; &#125; return xhr; &#125;&#125;function Submit()&#123; var fileObj = document.getElementById(&quot;FileUpload&quot;).files[0]; // js 获取文件对象 var formFile = new FormData(); formFile.append(&quot;file&quot;, fileObj); //加入文件对象 var data = formFile; $.ajax(&#123; url: &quot;http://up.qiniu.com/&quot;, data: data, type: &quot;Post&quot;, dataType: &quot;json&quot;, cache: false,//上传文件无需缓存 processData: false,//用于对data参数进行序列化处理 这里必须false contentType: false, //必须 xhr:xhrOnProgress(function(e)&#123; var percent=e.loaded/e.total; console.log(percent); &#125;), success: function (result) &#123; console.log(result); &#125;, &#125;)&#125; 断点续传指的是在上传/下载时，将任务（一个文件或压缩包）人为的划分为几个部分，每一个部分采用一个线程进行上传/下载，如果碰到网络故障，可以从已经上传/下载的部分开始继续上传/下载未完成的部分，而没有必要从头开始上传/下载。可以节省时间，提高速度。 它通过在 Header 里两个参数实现的，客户端发请求时对应的是 Range ，服务器端响应时对应的是 Content-Range Range 1用于请求头中，指定第一个字节的位置和最后一个字节的位置。 Content-Range 1用于响应头中，在发出带 Range 的请求后，服务器会在 Content-Range 头部返回当前接受的范围和文件总大小。 在响应完成后，返回的响应头内容也不同，根据返回的状态码判断是否使用断点续传 200 Ok（不使用断点续传方式） 206 Partial Content（使用断点续传方式）]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：事件委托]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98%2F</url>
+    <content type="text"><![CDATA[概述事件委托就是利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。 为什么要用减少DOM操作，优化性能。 在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能，因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，这就是为什么性能优化的主要思想之一就是减少DOM操作的原因；如果要用事件委托，就会将所有的操作放到js程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能。 原理事件委托是利用事件的冒泡原理来实现的，何为事件冒泡呢？就是事件从最深的节点开始，然后逐步向上传播事件。 举个例子：页面上有这么一个节点树，div&gt;ul&gt;li&gt;a;比如给最里面的a加一个click点击事件，那么这个事件就会一层一层的往外执行，执行顺序a&gt;li&gt;ul&gt;div，有这样一个机制，那么我们给最外面的div加点击事件，那么里面的ul，li，a做点击事件的时候，都会冒泡到最外层的div上，所以都会触发，这就是事件委托，委托它们父级代为执行事件。 1234567891011121314151617181920212223242526272829&lt;ul id=&quot;ul1&quot;&gt; &lt;li&gt;111&lt;/li&gt; &lt;li&gt;222&lt;/li&gt; &lt;li&gt;333&lt;/li&gt; &lt;li&gt;444&lt;/li&gt;&lt;/ul&gt;window.onload = function()&#123; var oUl = document.getElementById(&quot;ul1&quot;); oUl.onclick = function()&#123; alert(123); &#125;&#125;//改进：只有点击li才会触发window.onload = function()&#123; var oUl = document.getElementById(&quot;ul1&quot;); oUl.onclick = function(ev)&#123; var ev = ev || window.event; var target = ev.target || ev.srcElement; if(target.nodeName.toLowerCase() == &apos;li&apos;)&#123; alert(123); alert(target.innerHTML); &#125; &#125;&#125;//target就可以表示为当前的事件操作的dom，但是不是真正操作dom。//这个是有兼容性的，标准浏览器用ev.target，IE浏览器用event.srcElement， e.target 和 e.currentTarget e.target指向触发事件监听的对象 e.currentTarget指向绑定事件监听的对象]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：__proto__和prototype]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A__proto__%E5%92%8Cprototype%2F</url>
+    <content type="text"><![CDATA[__proto__每一个对象都有的属性（在JS里，万物皆对象），指向构造该对象的构造函数的原型。 prototype 每一个方法都有的属性，这个属性是一个指针，指向一个对象，这个对象的用途就是包含所有实例共享的属性和方法（我们把这个对象叫做原型对象）。 原型对象也有一个属性，叫做constructor，这个属性包含了一个指针，指回原构造函数。 方法也是对象，所以方法既有prototype属性又有proto属性 实例对象的proto和其自身构造函数的prototype都是指向构造函数的原型。 123456789101112131415var A = function()&#123;&#125; //A是一个方法，也是一个对象var a = new A() //a是由A创造出来的一个对象，不是方法//对象console.log(a.__proto__); //Objectconsole.log(a.prototype); //undefined,因为a不是方法，没有该属性//方法，也是对象console.log(A.__proto__); //function () &#123; [native code] &#125;console.log(A.prototype); //Objectconsole.log(a.__proto__==A.prototype); //trueconsole.log(a.prototype==undefined); //trueconsole.log(A.__proto__==Function.prototype); //trueconsole.log(A.prototype==a.__proto__); //true]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：基础类型和引用类型]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[基础类型 undefined，null，boolean，string，number 在内存中是栈存储，自动分配内存，自动释放 引用类型 array，object，function，date，regExp，特殊的基本包装类型(String、Number、Boolean)以及单体内置对象(Global、Math) 在内存中是堆存储，动态分配内存，大小不定，不会自动释放]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：数组和链表]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[物理地址存储的连续性 数组的元素在内存中是连续存放的。 链表的元素在内存中不一定是连续存放的，通常是不连续的。 访问速度 数组的访问速度很快，因为数组可以根据数组可以根据下标进行快速定位。 链表的访问速度较慢，因为链表访问元素需要移动指针。 添加、删减元素速度 数组的元素增删速度较慢，因为需要移动大量的元素。 链表的元素增删速度较快，因为只需要修改指针即可。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：正则表达式]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[正则的三种属性 g：全局匹配 i：忽略大小写（默认区分大小写） m：多行模式 常用方法12let str = &apos;abc&apos;;let reg = /a/gi; test()在字符串中查找符合正则的内容，若找到返回true，否则false 12// 用法：正则.test(字符串)reg.test(str) search()在字符串中搜索符合正则的内容，返回出现的位置，从0开始。若匹配不止一个字符，则返回第一个字符的位置。搜索失败返回-1。 12// 用法：字符串.test(正则)str.test(reg) match()在字符串中搜索符合正则的内容，返回一个数组，里面包含相匹配的内容，失败返回null 12// 用法：字符串.test(正则)str.test(reg) 常用字符非打印字符 字符 描述 \cx 匹配由x指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 ‘c’ 字符。 \f 匹配一个换页符。等价于 \x0c 和 \cL。 \n 匹配一个换行符。等价于 \x0a 和 \cJ。 \r 匹配一个回车符。等价于 \x0d 和 \cM。 \d 匹配0-9之间的任意一个数字。等价于[0-9] \D 匹配所有非数字。等价于[\^0-9]，[]中的^代表非、除了 \w 匹配数字、字母、下划线。等价于[0-9a-zA-Z_] \W 匹配所有非数字、字母、下划线。等价于[\^0-9a-zA-Z_] \s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。注意 Unicode 正则表达式会匹配全角空格符。 \S 匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。 \t 匹配一个制表符。等价于 \x09 和 \cI。 \v 匹配一个垂直制表符。等价于 \x0b 和 \cK。 特殊字符 字符 描述 $ 匹配输入字符串的结尾位置。如果设置了 RegExp 对象的 Multiline 属性，则 $ 也匹配 ‘\n’ 或 ‘\r’。要匹配 $ 字符本身，请使用 \$。 ( ) 标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。要匹配这些字符，请使用 ( 和 )。 * 匹配前面的子表达式零次到多次。要匹配 字符，请使用 \。 + 匹配前面的子表达式一次到多次。要匹配 + 字符，请使用 +。 . 匹配除换行符 \n 之外的任何单字符。要匹配 . ，请使用 . 。 [ 标记一个中括号表达式的开始。要匹配 [，请使用 [。 ? 匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 \?。 \ 将下一个字符标记为或特殊字符、或原义字符、或向后引用、或八进制转义符。例如， ‘n’ 匹配字符 ‘n’。’\n’ 匹配换行符。序列 ‘\‘ 匹配 “\”，而 ‘(‘ 则匹配 “(“。 ^ 匹配输入字符串的开始位置，除非在方括号表达式中使用，此时它表示不接受该字符集合。要匹配 ^ 字符本身，请使用 \^。 { 标记限定符表达式的开始。要匹配 {，请使用 {。 指明两项之间的一个选择。要匹配 ，请使用 \ 。 限定符 字符 描述 * 匹配前面的子表达式零次到多次。例如，zo 能匹配 “z” 以及 “zoo”。 等价于{0,}。 + 匹配前面的子表达式一次到多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。 ? 匹配前面的子表达式零次或一次。例如，”do(es)?” 可以匹配 “do” 、 “does” 中的 “does” 、 “doxy” 中的 “do” 。? 等价于 {0,1}。 {n} n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。 {n,} n 是一个非负整数。匹配n 次到多次。例如，’o{2,}’ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。’o{1,}’ 等价于 ‘o+’。’o{0,}’ 则等价于 ‘o*’。 {n,m} m 和 n 均为非负整数，匹配n次到m次。例如，”o{1,3}” 将匹配 “fooooood” 中的前三个 o。’o{0,1}’ 等价于 ‘o?’。请注意在逗号和两个数之间不能有空格。 定位符 字符 描述 ^ 匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。 $ 匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，$ 还会与 \n 或 \r 之前的位置匹配。 \b 匹配一个单词边界，即字与空格间的位置。 \B 非单词边界匹配。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：简化运算]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E7%AE%80%E5%8C%96%E8%BF%90%E7%AE%97%2F</url>
+    <content type="text"><![CDATA[三元运算12345678let type;if(type === &apos;a&apos;) &#123; type = &apos;typeA&apos;;&#125; else if (type === &apos;b&apos;) &#123; type = &apos;typeB&apos;&#125;// 简化let type = type === &apos;a&apos; ? &apos;typeA&apos; : &apos;typeB&apos; 四元运算12345678910let type;if(type === &apos;a&apos;) &#123; type = &apos;typeA&apos;;&#125; else if (type === &apos;b&apos;) &#123; type = &apos;typeB&apos;&#125; else if (type === &apos;c&apos;) &#123; type = &apos;typeC&apos;&#125;// 简化let type = type === &apos;a&apos; ? &apos;typeA&apos; : (type === &apos;b&apos; ? &apos;typeB&apos; : &apos;typeC&apos;)]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：this指向]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9Athis%E6%8C%87%E5%90%91%2F</url>
+    <content type="text"><![CDATA[普通函数 普通函数被调用时，即运行时，才会确定该函数内this的指向。 this指向调用该函数的对象。 fn() 不带任何引用形式调用函数，this指向全局对象。 严格模式下this为undefined。12345var a = 1;function fn () &#123; console.log(this.a);&#125;fn(); // 1 obj.fn()this指向调用该函数的对象12345678var a = 1;var obj = &#123; a: 2, fn: function () &#123; console.log(this.a); &#125;&#125;obj.fn(); // 2 obj1.obj.fn()这种形式的调用结果一样，函数内的this只指向直接调用该函数的对象（obj）123456789101112var a = 1;var obj = &#123; a: 2, fn: function () &#123; console.log(this.a); &#125;&#125;var obj1 = &#123; a: 3, obj&#125;obj1.obj.fn(); // 2 另一种形式的fn()普通函数的this指向只在调用时确定，在调用前无论经过什么操作都不会改变this的指向。123456789var a = 1;var obj = &#123; a: 2, fn: function () &#123; console.log(this.a); &#125;&#125;var test = obj.fntest(); // 1 拓展的fn() 当setTimeout中的回调函数为普通函数时，回调函数中的this依然是指向全局对象。 当setTimeout中的回调函数为箭头函数时，this指向定义时函数所在作用域的父级作用域的this。（父级为普通函数this指向调用父级的对象，若父级仍为箭头函数，则需要继续往上找） 12345678var a = 1;var obj = &#123; a: 2, fn: function () &#123; console.log(this.a); &#125;&#125;setTimeout(obj.fn); // 1 setTimeout内部 1234function setTimeout (fn,time) &#123; // code... fn(); //没有指明调用的对象，指向全局&#125; fn.call()、fn.apply()、fn.bind()可以改变this的指向 new fn() new这个操作符其实是new一个新对象出来，而fn被称为构造函数，可以在这个构造函数中定义一些将要到来的新对象的一些属性。 在构造函数中就是用this来描述这个即将到来的新对象，所以构造函数中的this就是指向被new出来的新对象。123456var a = 1;function fn (a) &#123; this.a = a;&#125;var b = new fn(2);console.log(b.a); // 2 箭头函数this在定义时就已经确定，指向定义时箭头函数所在的作用域（而不是箭头函数的作用域）的父级作用域的this。 若父级作用域为普通函数，则this指向调用父级函数的对象。 若父级作用域为箭头函数，则this指向父级作用域的父级作用域。 如此往上找，直到全局 首先从它的父级作用域中找，如果父级作用域还是箭头函数，再往上找，如此直至找到this的指向，最后是到window。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：事件模型]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[1&lt;button id=&quot;btn&quot;&gt;click me&lt;/button&gt; DOM0级事件模型DOM0级事件模型是早期的事件模型，所有的浏览器都是支持的，而且其实现也是比较简单。没有事件流的概念。 事件绑定监听函数直接在dom对象上注册事件1&lt;button onclick=&quot;console.log(&apos;DOM0&apos;)&quot;&gt; 123document.getElementById(&apos;btn&apos;).onclick = function()&#123; console.log(&apos;DOM0&apos;);&#125; 事件移除监听函数解除事件是将null复制给事件函数 1document.getElementById(&apos;btn&apos;).onclick = null; 一个dom对象只能注册一个同类型的函数，因为注册多个同类型的函数的话，就会发生覆盖，之前注册的函数就会无效。 IE事件模型事件流： 事件处理阶段：事件到达目标元素，触发目标元素的监听函数。 事件冒泡阶段：事件从目标元素冒泡到document，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。 事件绑定监听函数1234// attachEvent(&apos;事件名称&apos;,&apos;事件回调&apos;);document.getElementById(&apos;btn&apos;).attachEvent(&apos;onclick&apos;, function()&#123; console.log(&apos;IE&apos;);&#125;); 事件移除监听函数detachEvent(‘要移除的事件名称’,’要移除的函数’); DOM2级事件模型事件流阶段： 事件捕获阶段：事件从document一直向下传播到目标元素，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。 处于目标阶段：事件到达目标元素，触发目标元素的监听函数。 事件冒泡阶段：事件从目标元素冒泡到document，依次检查经过的节点是否绑定了事件监听函数，如果有则执行。 事件绑定监听函数一个dom对象可以注册多个相同类型的事件，不会发生事件的覆盖，会依次的执行各个事件函数。 DOM2事件函数不会覆盖DOM0事件函数。 12345678//addEventListener(&apos;事件名称&apos;,&apos;事件回调&apos;,&apos;捕获/冒泡&apos;)var click = document.getElementById(&apos;btn&apos;);click.addEventListener(&apos;click&apos;,function()&#123; console.log(&apos;DOM2 捕获&apos;);&#125;,true);click.addEventListener(&apos;click&apos;,function()&#123; console.log(&apos;DOM2 冒泡&apos;);&#125;,false); 第一个参数是事件名称，与DOM0级不同的是没有”on“，另外第三个参数代表是否在捕获阶段进行处理，true代表在捕获阶段进行处理，false代表在冒泡阶段进行处理，默认为false。 事件移除监听函数removeEventListener(‘要移除的事件名称’,’要移除的函数’)]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：内存泄漏]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%2F</url>
+    <content type="text"><![CDATA[什么是内存泄露？应用程序不再需要占用内存的时候，由于某些原因，内存没有被操作系统或可用内存池回收。 编程语言管理内存的方式各不相同。只有开发者最清楚哪些内存不需要了，操作系统可以回收。一些编程语言提供了语言特性，可以帮助开发者做此类事情。另一些则寄希望于开发者对内存是否需要清晰明了。 JavaScript 内存管理JavaScript 是一种垃圾回收语言。垃圾回收语言通过周期性地检查先前分配的内存是否可达，帮助开发者管理内存。换言之，垃圾回收语言减轻了“内存仍可用”及“内存仍可 达”的问题。两者的区别是微妙而重要的：仅有开发者了解哪些内存在将来仍会使用，而不可达内存通过算法确定和标记，适时被操作系统回收。 JavaScript 内存泄露垃圾回收语言的内存泄露主因是不需要的引用。理解它之前，还需了解垃圾回收语言如何辨别内存的可达与不可达。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：ajax]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9Aajax%2F</url>
+    <content type="text"><![CDATA[核心XMLHttpRequest，一个js对象，一个构造函数。 方法 open()：准备启动一个AJAX请求； setRequestHeader()：设置请求头部信息； send()：发送AJAX请求； getResponseHeader(): 获得响应头部信息； getAllResponseHeader()：获得一个包含所有头部信息的长字符串； abort()：取消异步请求； 另外，浏览器还为该对象提供了一个onreadystatechange监听事件，大明湖readyState属性改变时，就会触发该事件发送。 为了确保浏览器的兼容性，最好在调用open方法之前指定事件处理程序。 属性 responseText：包含响应主体返回文本； responseXML：如果响应的内容类型时 text/xml或 application/xml，该属性将保存包含着相应数据的XML DOM文档； status：响应的HTTP状态； statusText：HTTP状态的说明； readyState：表示“请求”/“响应”过程的当前活动阶段 拓展 什么是ajax？ajax作用是什么？ 1ajax是用来与后台交互的一种技术。用来实现客户端服务器的异步通信效果，实现页面的局部刷新。 原生js ajax发送http请求需要几个步骤？分别是什么？ 1234567891011121314151617181920//1：创建XMLHttpRequest对象var xhr = new XMLHttpRequest();//2：设置请求参数（请求方式，url，是否异步请求）xhr.open(&quot;GET&quot;,url,false);//3：设置请求头部(也可以不设置)xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);//支持跨域发送cookiexhr.withCredentials = true;//4：发送请求xhr.send(null);//5：设置事件处理程序xhr.onreadystatechange = function()&#123; if(xhr.readystate == 4)&#123; if(xhr.status == 200)&#123; console.log(xhr.responseText); &#125;else&#123; console.log(&quot;出错了&quot;); &#125; &#125;&#125; readyState的取值？ 123450：(未初始化)还没有调用open()方法。1：(启动)已调用open()方法，但send()方法还没调用。2：(发送)send()方法已经调用，请求已发送，但未接收到响应。3：(交互)服务器端发送响应，客户端正在解析响应内容。4：(完成)响应内容解析完成，可以在客户端调用了。 http的请求方法 12345678get：获取服务器中的资源。post：传输实体文本put：传输文件。要指出资源在服务器中的位置。head：获取页面的首部。delete：删除服务器中的某个资源。options：获取当前url所支持的方法。trace：追踪路径。connect：要求用隧道协议连接代理。 get和post的区别 1231. 发送方式：get请求传送的参数放在url上，即http的协议头；post把传送的参数放在http的包体中。2. 大小限制：get传的参数有长度限制；post理论上没有限制。3. 安全性：get请求传送的数据放在url上，会被缓存，请求保存在浏览器的历史记录中；post不能被缓存。 什么情况造成跨域？如何解决？ 123456789受同源策略限制。协议、子域名、主域名、端口号、ip地址、网址，任一不同都为不同源。1. jsonp 只能解决get跨域2. CORS：跨域资源共享，通过设置Access-Control-Allow-Origin来允许跨域（主要后台配置）3. 设置document.domain4. 代理请求解决接口跨域。jsonp通过script标签进行跨域请求①前端设置好回调函数，将回调函数名作为url携带的参数。②后端接到请求后，生成一个函数，函数名为前端传来的回调函数名，数据作为参数传入函数，返回js文档。③客户端解析并执行返回的js文档，将返回的数据传入回调函数执行。 http状态码（status） 状态码 含义 1xx 请求正在被处理 2xx 请求成功被处理 3xx 请求需求附加操作，如重定向 4xx 客户端出错导致请求无法被处理 5xx 服务端处理出错 常用状态码 200 请求成功处理，一切正常 301 永久重定向（新网址替换旧网址，旧网址清零） 302 临时重定向（也是替换，但是旧网址还能参与排名） 304 资源未修改 403 禁止访问 404 页面未找到 405 不允许此请求方法 500 服务器出错 回调函数 1231.一个函数作为参数传递给另一个函数，在功能下载完成后执行，作为参数的函数即为回调函数。2.可用于解决异步。3.典型例子即为ajax请求。 回调地狱 12345当许多功能需要连续调用,环环相扣依赖时。就会产生函数作为参数层层嵌套的一个效果，这就形成回调地狱。使得代码变得难以理解与维护。解决：1.保持代码简短，避免使用匿名函数。2.模块化。将不同功能的代码封装成不同的模块。3.处理每一个错误。为了让代码稳定，永远无法知道这些错误何时发生，所以必须对它们进行计划。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：字符串常用的方法]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[charAt(index) 1返回指定索引的字符。 charCodeAt(index) 1返回指定索引的unicode字符. indexOf(char) 1判断一个字符第一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。对大小写敏感。 lastIndexOf(char) 1判断一个字符最后一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。 concat() (返回一个新字符串) 123456拼接2个字符串，返回一个新字符串，对原有字符串没有任何改变。var str=&apos;qwe&apos;;var str1=&apos;abc&apos;;var str2=str.concat(str1);console.log(str2);//&quot;qweabc&quot; substr(start,number) (不修改原字符串) 1从索引start开始，截取number个字符，将截取的字符返回。start可正可负。 substring(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end.将截取的字符返回。start,end正值。 slice(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end。将截取的字符返回。start,end可正可负。 split(“分割符”[,limit]) (返回数组，不修改原字符串) 1用指定字符分割字符串，返回一个数组。默认每个字符都分割。 replace(reg,new) (不修改原字符串) 12345替换指定字符，返回替换后新的字符串，不会对原有字符串有改变。var str=&apos;aaaaee&apos;;var reg=/a/g;str.replace(reg,1); //&quot;1111ee&quot;console.log(str); //&quot;aaaaee&quot; match(reg) (返回一个数组) 1可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。把符合正则表达式的字符放在数组里，返回一个数组。 search(reg) 1方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。返回第一个匹配字符串的第一个字符的位置。没有匹配的则返回-1。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：递归和非递归实现中序遍历]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E9%80%92%E5%BD%92%E5%92%8C%E9%9D%9E%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[二叉树结构1234567891011121314151617181920212223var TreeNode = &#123; val: 1, left: &#123; val: 2, left: &#123; val: 4, &#125;, right: &#123; val: 5 &#125; &#125;, right: &#123; val: 3, left: &#123; val: 6, &#125;, right: &#123; val: 7 &#125; &#125;&#125;;// 中序遍历，左根右// [4, 2, 5, 1, 6, 3, 7] 递归12345678function inOrderRecur (root，list=[]) &#123; if(root !== undefined) &#123; inOrderRecur(root.left,list); list.push(root.val); inOrderRecur(root.right,list); &#125; return list;&#125; 非递归123456789101112131415161718function inOrderUnRecur (root)&#123; var stack = []; var list = []; var head = root; while(stack.length !== 0 || head !== undefined)&#123; while(head !== undefined)&#123; stack.push(head); head = head.left; &#125; if(stack.length !== 0)&#123; head = stack.pop(); list.push(head.val); head = head.right; &#125; &#125; return list;&#125;;]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：一些关于date的获取方法]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8Edate%E7%9A%84%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[获知一个月的第一天是星期几123456789101112// 当月// 先获取第一天的时间戳var first = new Date().setDate(1); // 再通过getDay()获取var week = new Date(first).getDay();// 下个月// 先获取年份var year = new Date().getFullYear();// 获取下个月的月份var month = new Date().getMonth() + 2;var week = new Date(year, month-1, 1).getDay(); 获知一个月有多少天123456// 当月,下个月同理// 先获取年份var year = new Date().getFullYear();// 获取月份var month = new Date().getMonth() + 1;var total = new Date(year, month, 0).getDate();]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：不同类型之间的比较与运算]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E6%AF%94%E8%BE%83%E4%B8%8E%E8%BF%90%E7%AE%97%2F</url>
+    <content type="text"><![CDATA[1234561. 5+&apos;5&apos; // &apos;55&apos;2. 5-true // 43. 5-&apos;2&apos; // 34. &apos;21&apos;&gt;3 // true5. null===undefined // false6. NaN===NaN // false 无论字符串与什么做+运算，最终结果都是拼接而成的字符串 无论数字与什么做-运算，另一方都会被转换成数字进行运算，结果仍为数字 字符串与数字做比较时总会把字符串转换为数字进行比较，当字符串无法转换为数字时，结果总为false ===会进行类型比较，不会进行转换，其余比较均会]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：防抖和节流]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%2F</url>
+    <content type="text"><![CDATA[优化高频率执行js代码 防抖在事件被触发后的某个时间限制内，事件处理函数只执行一次。 在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。 应用场景：搜索框搜索输入，最后一次输入完再发送请求；手机号、邮箱验证输入检测。 12345678910111213141516function debounce(fn,delay)&#123; var timer; return function()&#123; var _this = this; //取debounce执行作用域的this var args = arguments;//获取传入闭包函数中的参数 //以上两句为了debounce函数最终返回的函数this指向不变（否则指向全局）和依然可以获取参数。 //因为fn有可能需要传参 if(timer)&#123; //当前正在一个计时过程中，又触发相同事件，所以取消计时，重新计时 clearTimeout(timer); &#125; timer = setTimeout(function()&#123; fn.apply(_this,args); //把回调函数应用在这些对象上 &#125;,delay); &#125;;&#125; 缺点：若不断触发同一事件会导致回调函数无法执行 节流每隔一段时间，只执行一次函数 如果短时间内大量触发同一事件，那么函数在执行一次后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。 与防抖相比，多了防止不断触发同一事件而导致不执行回调函数的情况。 应用场景：滚动加载，加载更多或滚到底部监听 123456789101112131415161718192021222324252627282930//第一种：定时器function throttle(fn,delay)&#123; var timer; return function()&#123; var _this = this; var args = arguments; if(timer)&#123; return; &#125; timer = setTimeout(function()&#123; fn.apply(_this,args); timer = null; //在delay后执行完fn后把timer清空 &#125;,delay); &#125;;&#125;//第二种：时间戳function throttle(fn,delay)&#123; var previous = 0; return function()&#123; var _this = this; var args = arguments; var now = new Date(); //若时间差大于间隔时间，就执行回调函数，并更新上一次执行时间 if(now - previous &gt; delay)&#123; fn.apply(_this,args); previous = now; &#125; &#125;&#125; 相同点 都可以使用setTimeout实现 目的都是降低回调执行频率，节省计算资源 不同点 防抖，在一段连续操作结束后，处理回调函数。 节流，在一段连续操作中，每隔一段时间只执行一次回调函数。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：判断一个空对象或空数组]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%A9%BA%E5%AF%B9%E8%B1%A1%E6%88%96%E7%A9%BA%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[判断一个空对象1234567function isEmptyObject(obj)&#123; if(JSON.stringify(obj) == &quot;&#123;&#125;&quot;)&#123; console.log(&quot;是空对象&quot;); &#125;else&#123; console.log(&quot;不是空对象&quot;); &#125;&#125; 判断一个空数组1234567function isEmptyArray(arr)&#123; if(JSON.stringify(srr) == &quot;[]&quot;)&#123; console.log(&quot;是空数组&quot;); &#125;else&#123; console.log(&quot;不是空数组&quot;); &#125;&#125; 1234567function isEmptyArray(arr)&#123; if(arr == false)&#123; console.log(&quot;是空数组&quot;); &#125;else&#123; console.log(&quot;不是空数组&quot;); &#125;&#125; 1234567function isEmptyArray(arr)&#123; if(arr.length == 0)&#123; console.log(&quot;是空数组&quot;); &#125;else&#123; console.log(&quot;不是空数组&quot;); &#125;&#125; 拓展：判断数组12341. Array.isArray(arr)2. arr instanceof Array3. object.prototype.toString.call(arr) === &apos;[object Array]&apos;4. arr.constructor === Array]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：typeof和instanceof]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9Atypeof%E5%92%8Cinstanceof%2F</url>
+    <content type="text"><![CDATA[typeof是一个一元运算，放在一个运算数之前，运算数可以是任意类型。返回一个用来表示表达式的数据类型的字符串。一般返回如下结果： number（NaN） string boolean object（对象、数组、null） undefined function instanceof语法：object instanceof constructor用来检测 constructor.prototype 是否存在于参数 object 的原型链上。用于判断一个变量是否某个对象的实例。 可以用来判断一个对象是否为数组 String和Date对象同时也属于Object类型 123456789内部实现方法while(object.__proto__!==null) &#123; if(object.__proto__===constructor.prototype) &#123; return true; break; &#125; object.__proto__ = object.__proto__.proto__;&#125;if(object.__proto__==null) &#123;return false;&#125;]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：new一个函数发生了什么]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9Anew%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%2F</url>
+    <content type="text"><![CDATA[创建一个新对象； 将构造函数的作用域赋给新对象（因此this就指向了这个新对象）。 执行构造函数中的代码（为这个新对象添加属性）； 返回新对象。 12345678var obj = new O();var obj = (function()&#123; var obj = &#123;&#125;; //使新对象的__proto__属性指向构造函数的prototype obj.__proto__= O.prototype; //其他赋值语句 return obj;&#125;)();]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：数组去重]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%2F</url>
+    <content type="text"><![CDATA[ES5 123456789function unique(arr)&#123; var temp = []; for(var i = 0;i&lt;arr.length;i++)&#123; if(temp.indexOf(arr[i]==-1)&#123; temp.push(arr[i); &#125; &#125; return temp;&#125; 双层循环，外循环表示从0到arr.length，内循环表示从i+1到arr.length 将重复值中右侧的值去除，并将指针重新指向该位置 1234567891011function unique(arr)&#123; for(var i=0;i&lt;arr.length-1;i++)&#123; for(var j=i+1;j&lt;arr.length;j++)&#123; if(arr[i]==arr[j])&#123; arr.splice(j,1); j--; &#125; &#125; &#125; return arr;&#125; ES6 1234function unique(arr)&#123; var temp = [...new Set(arr)]; return temp;&#125;]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：==和===]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%3D%3D%E5%92%8C%3D%3D%3D%2F</url>
+    <content type="text"><![CDATA[都是用来检测两个操作数是否相等 基础类型对于如string、number、null、undefined、boolean等基本数据类型==： 对于同一类型的比较，会直接进行值的比较。 对于不同类型的比较，会先进行类型转换，再进行值的比较。 如果一个是null，一个是undefined，那么相等。 如果一个是字符串，一个是数值，把字符串转换成数值之后再进行比较。 ===： 对于同一类型的比较，会直接进行值的比较。 对于不同类型的比较，结果一定是不相等。即不仅进行值的比较，还要进行类型的比较。 高级类型对于array、object等高级类型，\==和===是没有区别的，都是进行“指针地址”的比较。 基础类型和高级类型==： 将高级类型转换为基础类型，进行值的比较。 12console.log([66]==66); //trueconsole.log([66,1]==66); //false ===： 类型不同，结果一定为不相等。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：图片预加载和懒加载]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E5%9B%BE%E7%89%87%E9%A2%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E6%87%92%E5%8A%A0%E8%BD%BD%2F</url>
+    <content type="text"><![CDATA[页面加载过程如果页面不是第一次访问，那么可能会出现浏览器缓存现象，在本地调试代码的时候也会遇到这种问题，所以在实在想不通页面为什么没有变化的时候，可以清除一下浏览器的缓存。 如果页面是第一次访问，浏览器向服务器http请求后，服务器返回html文件，在整个页面加载过程中，总的来说是按顺序从上到下执行，这是基于js的单线程机制（浏览器为多进程），但是html和css是并行加载的。 根据 HTML 结构生成 DOM Tree 根据 CSS 生成 CSSOM 将 DOM 和 CSSOM 整合形成 RenderTree 根据 RenderTree 开始渲染和展示 遇到script标签时，会执行并阻塞渲染，因为 Javascript 代码有权利改变DOM树 在浏览器解析页面内容的时候，若页面引用了未加载的图片，就会发送请求获取资源。此时图片还没下载完全，在页面上并不会留下图片的位置，而html不会堵塞，将会继续执行下去。等到有图片请求下载完成，html又会重新渲染页面，将图片显示出来。 为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。 预加载 图片等静态资源在使用前提前请求。 资源后续使用可以直接从缓存中加载，提升用户体验。 预加载不是为了减少页面加载时间。 预加载只是提前加载除首轮加载的图片之外以后要用到的图片，比如通过点击等事件才会用到的图片。 css 123#preload-01 &#123; background: url(img1.png); &#125;#preload-02 &#123; background: url(img2.png); &#125;#preload-03 &#123; background: url(img3.png); &#125; 像上面那样写，预加载和页面上其他内容一起加载，还会加长页面的加载时间，用户在点进页面时，等待时间加长，并没有达到我们提高用户体验的目的，我们可以封装一个函数，推迟预加载时间，等页面加载完成后再预加载。123456789101112131415161718192021function preload()&#123; if(document.getElementById)&#123; document.getElementById(&quot;preload-01&quot;).style.background = &quot;url(img1.png)&quot;; document.getElementById(&quot;preload-02&quot;).style.background = &quot;url(img2.png)&quot;; document.getElementById(&quot;preload-03&quot;).style.background = &quot;url(img3.png)&quot;; &#125; &#125; function addLoadEvent(func)&#123; var oldonload = window.onload; if(type window.onload != &quot;function&quot;)&#123; window.onload = func; &#125;else&#123; window.onload = function()&#123; if(oldonload)&#123; oldonload(); &#125; func(); &#125; &#125; &#125; addLoadEvent(preload); 懒加载 仅显示可视区的图片资源，不可见区域的资源暂不请求。 使用懒加载可以减少页面的加载时间。 使用于需要大量图片的页面。 实现要点:将图片的src设为空，或者也可以将所有图片的src设一个底图，当图片还没加载完时，用这张底图来占图片的位置，防止页面结构混乱。再给一个自定义的data-url属性，用来存放图片的真实路径。lazyload属性用来标明哪些图片是需要懒加载。监听滚动事件，只在图片出现在可视区时，才动态地将图片的真实地址赋予图片的src属性。 1234567891011121314151617181920212223242526&lt;img src=&quot;&quot; lazyload=&quot;true&quot; data-url=&quot;1.jpg&quot;/&gt;var viewHeight = document.documentElement.clientHeight;//可视区域的高度function lazyload()&#123; var eles = document.querySelectorAll(&apos;img[data-url][lazyload]&apos;); Array.prototype.forEach.call(eles,function(item,index)&#123; var rect; if(item.dataset.url === &apos;&apos;)&#123;//html5 data 钩子的写法 return; &#125; rect = item.getBoundingClientRect();//getBoundingClientRect()返回一个矩形对象. if(rect.bottom &gt;= 0 &amp;&amp; rect.top &lt; viewHeight)&#123; !function()&#123;//感叹号表明这是一个函数表达式 var img = new Image(); img.src = item.dataset.url; img.onload = function()&#123; item.src = img.src; &#125; item.removeAttribute(&apos;data-url&apos;); item.removeAttribute(&apos;lazyload&apos;); &#125;() &#125; &#125;)&#125;lazyload();//首屏调用document.addEventListener(&apos;scroll&apos;,lazyload);]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：事件循环机制]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6Event%20Loop%2F</url>
+    <content type="text"><![CDATA[前言JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task) 宏任务：包括整体代码script，setTimeout，setInterval 微任务：Promise.then(new Promise是定义后立即执行的)，process.nextTick(node中) 事件循环 先执行同步任务，同步任务立即执行，对于异步任务则是把函数放进event table中，等到满足触发条件后加载到对应的Event Queue中。 所有同步宏任务执行完毕后，如果发现微任务的Event Queue中有未执行的任务，会先执行其中的任务，这样算是完成了一次事件循环。 接下来查看宏任务的Event Queue中是否有未执行的任务，有的话，就开始第二轮事件循环，依此类推。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js：数组的常用方法]]></title>
+    <url>%2F2020%2F05%2F14%2Fjs%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[join(“分隔符”) 1将数组的元素放入一个字符串，默认用逗号为分隔符。 push() 1把参数逐个添加到数组末尾，返回修改后数组长度。 pop() 1从数组末尾移除最后一项，返回移除的项。 shift() 1移除数组中的第一个项并返回该项。 unshift() 1在数组前面添加任意个项，返回数组长度。 reverse() （会修改原数组） 1反转数组的顺序，返回经过排序后的数组，会修改原数组。 sort([function]) （会修改原数组） 123456789参数必须是函数，若无参数则默认按照字母编码（字符编码）的顺序进行排序。会修改原数组。//数字从小到大排序arr.sort(function(a,b)&#123; return a-b;&#125;);//数字从大到小排序arr.sort(function(a,b)&#123; return b-a;&#125;); concat() (不修改原数组) 123连接两个或多个数组。参数可以为具体的值，也可以为数组对象，可以有任意多个。返回当前数组的一个浅拷贝。 slice(start,end) (不修改原数组) 123基于当前数组的一个或多个项创建一个新数组。左闭右开，返回新数组，不影响原数组。没有参数则原数组的浅拷贝。 splice(start,number,new) (会修改原数组) 1删除原数组的一部份成员，并可以在被删除的位置添加入新的数组成员，会修改原数组。返回一个数组，里面包含被删除的项目。 indexOf(search,start) 1返回search首次出现的位置，没有则返回-1。默认从第0位开始。 lastIndexOf(search,start) 1从右往左找，返回search首次出现的位置，没有则返回-1。 includes(value) 1判断一个数组是否包含一个指定的值。 forEach(callback(value,index,array){}[,this]) (不修改原数组) 123对数组进行遍历循环，对数组中的每一项运行给定函数。这个方法没有返回值。参数都是function类型，默认有传参，参数分别为：遍历的数组内容，对应的数组索引，数组本身。 map(callback(value,index,array){}[,this]) (不修改原数组) 1对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。 filter(callback(value,index,array){}[,this]) (不修改原数组) 1“过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。 some(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true。 every(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true。 find(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的值。 findIndex(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的索引。 reduce(function(prev, cur, index, array){}[,初始值])和reduceRight(function(prev, cur, index, array){}[,初始值]) (不修改原数组) 123实现迭代数组的所有项，然后构建一个最终返回的值。前者从第一项开始，后者从最后一项开始。这个函数返回的任何值都会作为第一个参数自动传给下一项。]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：垂直水平居中]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[基于绝对定位要求元素具有固定的高度和宽度123456789&#123; position:absolute; top:50%; left:50%; margin-top:-20px; margin-left:-20px; height:40px; width:40px;&#125; 局限性：不能自适应，边距大小与padding，box-sizing有关 借助calc()函数 1234567&#123; position:absolute; top:calc(50%-20px); left:calc(50%-20px); height:40px; width:40px;&#125; 不需要在偏移量中把元素尺寸写死123456&#123; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);&#125; 局限性：ie8不支持 基于Flex布局123456&#123; display:flex; justify-content:center;//使子元素水平居中 align-items:center;//使子元素垂直居中 height:40px;&#125; 局限性：ie7/8不兼容 基于table布局12345&#123; display: table-cell; vertical-align: middle;//使子元素垂直居中 text-align: center;//使子元素水平居中&#125; 局限性：需要额外html标记 基于inline-block12345&#123; display: inline-block; vertical-align: middle;//使元素垂直居中 text-align: center;//使元素水平居中&#125; 只有文字1234&#123; line-height: 24px;//使元素垂直居中 text-align: center;//使元素水平居中&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：line-height]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9Aline-height%2F</url>
+    <content type="text"><![CDATA[line-height在应用到一个块级元素时，它定义了该元素中基线之间的最小距离 1234line-height:15px;//行间距为15pxline-height:150%;//行间距=当前的字体尺寸*150%line-height:1.5;//行间距=当前的字体尺寸*1.5line-height:1.5em;//行间距=当前的字体尺寸*1.5（若当前没有设置，继承父元素）]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：圣杯布局和双飞翼布局]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80%E5%92%8C%E5%8F%8C%E9%A3%9E%E7%BF%BC%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[圣杯布局 header和footer占屏幕全部宽度，高度固定 中间的contaier部分是一个三栏布局 left和right宽度固定，middle自适应填满整个区域；高度为三栏中最大的高度 浮动1234567&lt;header class=&quot;header&quot;&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;middle&quot;&gt;middle&lt;/div&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer class=&quot;footer&quot;&gt;footer&lt;/footer&gt; 1234567891011121314151617181920212223242526272829303132333435363738394041424344.header&#123; height:50px; width:100%; border:1px solid black;&#125;// 中间部分center设置100%撑满// 这样因为浮动的关系，center会占据整个container，左右两块区域被挤下去了.middle&#123; float: left; width: 100%; height:100%; background-color:pink;&#125;// 设置left的 margin-left: -100%;，让left回到上一行最左侧.left &#123; float: left; width: 100px; height: 100%; margin-left: -100%; background: black;&#125;// left回到第一行后，right位于第二行的最左侧// 设置margin-left把right拉回第一行的最右侧.right&#123; float: left; width:100px; height:100%; margin-left: -100px; background-color:black;&#125;// left和right这会把middle给遮住了// 所以这时给外层的container设置 padding，给left和right空出位置.container&#123; height: 300px; padding: 0 100px;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; flex布局1234567&lt;header class=&quot;header&quot;&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;middle&quot;&gt;middle&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer class=&quot;footer&quot;&gt;footer&lt;/footer&gt; 123456789101112131415161718192021222324252627282930//middle占据除left和right之外的剩余所有空间，并不被遮挡.header&#123; height:50px; width:100%; border:1px solid black;&#125;.container&#123; display: flex; height:300px;&#125;.left&#123; width:100px; height:100%; background-color:black;&#125;.middle&#123; flex:1;//middle占据剩余所有空间 height:100%; background-color:pink;&#125;.right&#123; width:100px; height:100%; background-color:black;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; 绝对定位以上两种dom结构均可1234567891011121314151617181920212223242526272829303132333435.header&#123; height:50px; width:100%; border:1px solid black;&#125;.container&#123; height:300px; position: relative; padding: 0 100px;&#125;.left&#123; position: absolute; top: 0; left: 0; width:100px; height:100%; background-color:black;&#125;.middle&#123; height:100%; background-color:pink;&#125;.right&#123; position: absolute; top:0; right: 0; width:100px; height:100%; background-color:black;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; 双飞翼布局双飞翼布局和圣杯布局几乎一样，区别在于处理middle中被遮挡的部分。 圣杯布局是在三栏布局的父容器中设置padding。 双飞翼布局是在middle中再放一个div用来显示内容，为其设置margin。 123456789&lt;header&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;middle&quot;&gt; &lt;div class=&quot;main&quot;&gt;middle&lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer&gt;footer&lt;/footer&gt; 1234//使用圣杯布局的浮动和绝对定位时设置，同时把container中的padding去除.main&#123; margin:0 100px;&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：选择器]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E9%80%89%E6%8B%A9%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[选择器优先级从高到低 在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。 内联样式，作为style属性写在元素内的样式 id选择器 class带伪类，如 .input:first-child 标签[指定属性]，如 input[type=’file’] 类选择器 标签带伪类，如input:first-child，与5、6按css的顺序排优先级 标签选择器 通配符选择器 属性选择器属性选择器支持正则匹配 选择器 含义 tag[attr] 匹配具有attr属性的所有元素，不考虑它的值 tag[attr=’val’] 匹配attr属性值等于val的所有元素 tag[attr^=’val’] 匹配attr属性值以指定的值val开头的所有元素 tag[attr$=’val’] 匹配attr属性值以指定的值val结尾的所有元素 tag[attr*=’val’] 匹配attr属性值中包含指定的值val的所有元素 tag为标签名 attr为属性 val为属性值 选择器解析 CSS选择器时==从右往左解析==的 尽量少使用不必要的层级关系]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：各种单位]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E5%90%84%E7%A7%8D%E5%8D%95%E4%BD%8D%2F</url>
+    <content type="text"><![CDATA[% padding和margin的%垂直水平方向都是基于父元素的宽度计算px（pixel，像素）是一个虚拟长度单位，是计算机系统的数字化图像长度单位。物理像素（px）设备能控制显示的最小单位逻辑像素（px）又称css像素，浏览器使用的抽象单位，而不是实际存在的设备独立像素（dip或dp）独立于设备的用于逻辑上衡量像素的单位，包括了CSS像素设备像素缩放比（dpr） dpr=物理像素/逻辑像素 1px = (dpr)^2 * dp dpr=ppi/160屏幕像素密度（PPI） 每英寸内有多少个设备像素点（物理像素） PPI越高，像素数越高，图像越清晰 屏幕分辨率（XxY）指屏幕上垂直有x个物理像素，水平有y个物理像素。 屏幕尺寸（x in）指屏幕对角线的长度有x英寸 em（相对长度单位） 子元素字体大小的em是相对于父元素字体大小，如果自身定义了font-size按自身来计算。 元素的width/height/padding/margin用em的话是相对于自身的font-size。 最多取到小数点后三位。 rem（根em） 相对于html元素上字体的大小。 1rem等于html元素上字体设置的大小。 vw、vh 1vw等于视窗宽度的1%。 1vh等于视窗高度的1%。 单位 含义 vw 相对于视图窗口的宽度，视窗宽度为100vw vh 相对于视图窗口的高度，视窗高度为100vh vmin vw和vh中的较小值 vmax vw和vh中的较大值]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：隐藏元素]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[display:none visibility: hidden opacity: 0 空间占据 display隐藏后不占据空间，会产生回流和重绘 其余两个虽隐藏，但仍占据空间，只会引起重绘 子元素继承 display不会被继承，父元素都不存在了，子元素自然也不会显示 visibility会被子元素继承，可以通过设置子元素visibility为visible使其显示 opacity也会被子元素继承，但不能通过设置子元素opacity为1使其显示 事件绑定 display隐藏后已经不存在了，肯定也无法触发事件 其余两个虽隐藏，但仍存在，可以触发事件 过渡动画transition对display和visibility无效，对opacity有效]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：BFC]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9ABFC%2F</url>
+    <content type="text"><![CDATA[BFC定义块级格式化上下文，是指一个独立的块级渲染区域。该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。 BFC生成满足下列css声明之一的元素便会生成BFC 根元素或其它包含它的元素 float的值不为none； overflow的值不为visible； position的值不为static； display的值为inline-block、table-cell、table-caption； flex boxes (元素的display: flex或inline-flex)； BFC布局规则 内部的元素会在垂直方向一个接一个地排列，可以理解为是BFC中的一个常规流 元素垂直方向的距离由margin决定，即属于同一个BFC的两个相邻盒子的margin可能会发生重叠 每个元素的左外边距与包含块的左边界相接触(从左往右，否则相反)，即使存在浮动也是如此，这说明BFC中的子元素不会超出它的包含块 BFC的区域不会与float元素区域重叠 计算BFC的高度时，浮动子元素也参与计算 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然 位于不同BFC下的相邻元素之间不会发生margin重叠 BFC的应用解决margin塌陷和margin合并问题 margin塌陷为父子元素都设置margin，只取最大的一个。解决方法为父元素触发bfc，使其遵循bgc渲染规则。 margin合并的原理为它们处于同一个BFC中，符合“属于同一个BFC的两个相邻元素的margin会发生重叠”的规则。解决方法为在其中一个元素外面包裹一层容器，并触发容器生成一个BFC（overflow：hidden），使两个元素处于不同的BFC。 解决高度塌陷问题当我们不给父节点设置高度，子节点设置浮动的时候，会发生高度塌陷，这个时候我们就要清除浮动。 给父元素设置overflow：hidden可以清除子元素的浮动是应用了BFC的原理：给父元素设置overflow：hidden触发了BFC，形成一个独立的渲染区域，所以内部的元素就不会影响外面的布局，BFC把浮动的子元素的高度当作自己的高度去处理溢出，从外面看起来就是清除了浮动 解决侵占浮动元素的问题当一个元素浮动，另一个元素不浮动时，浮动元素因为脱离文档流，就会盖在不浮动的元素上。 解决方法：不浮动的元素也设为浮动，或者添加overflow：hidden 原理：为不浮动的元素建立BFC环境，BFC不与float box重叠。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：margin塌陷和margin合并]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9Amargin%E5%A1%8C%E9%99%B7%E5%92%8Cmargin%E5%90%88%E5%B9%B6%2F</url>
+    <content type="text"><![CDATA[margin塌陷 父子嵌套元素在垂直方向的margin,父子元素是结合在一起的,他们两个的margin会取其中最大的值。 正常情况下,父级元素应该相对浏览器进行定位,子级相对父级定位。 但由于margin的塌陷,父级相对浏览器定位.而子级没有相对父级定位,子级相对父级,就像坍塌了一样。 体现 红色方块margin-top为100px 现在给里面的小方块设置margin-top:100px，发现两个方块位置没动 而当给里面的小方块设置margin-top:150px，小方块带着大方块往下移动了50px（100和150取了150，里面的小方块依然紧贴大方块最上面） 解决 给父元素设置边框或内边距(不建议使用) 给父元素添加某些条件触发bfc(块级格式上下文),改变父级的渲染规则 position:absolute/fixed display:inline-block; float:left/right overflow:hidden margin合并 标准文档流中，两个兄弟结构的元素在垂直方向上的margin不叠加，是合并的，以较大的为准。 原因是他们处于同一个BFC中。 解决margin塌陷的原理是使两个元素处于不同的bfc中，不同的bfc是不会发生margin塌陷的 解决 给其中一个元素添加盒子div并触发bfc 给两个元素都添加盒子div并触发bfc position:absolute/fixed display:inline-block; float:left/right overflow:hidden]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：等宽的三栏布局]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E7%AD%89%E5%AE%BD%E7%9A%84%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[12345&lt;div class=&quot;box&quot;&gt; &lt;div class=&quot;left&quot;&gt;&lt;/div&gt; &lt;div class=&quot;center&quot;&gt;&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;&lt;/div&gt;&lt;/div&gt; float1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; float: left; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; flex1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black; display: flex;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; table123456789101112131415161718.box &#123; width: 100%; height: 200px; background: black; display: table;&#125;.left, .center, .right &#123; display: table-cell; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：position]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9Aposition%2F</url>
+    <content type="text"><![CDATA[position:static没有定位，元素出现在正常的文档流中，忽略left、right、top、bottom和z-index。 position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会影响元素位置，元素的位置与文档流无关，因此不占据空间，可能与其他元素发生重叠。 一定要设置宽度 position:relative 相对于元素自身正常位置定位，元素在正常的文档流中占位。 当设置margin或padding属性时，该对象在标准文档流中的占位空间也随之改变。 position:absolute 元素绝对定位，相对于static定位以外的第一个父元素，若无符合要求的父元素则相对于body，元素脱离文档流。 必须指定left、right、top、bottom中的至少一个，否则left，top值与原文档流位置一致，即跟当它static时的位置一样，margin和padding仍能影响其的位置，但脱离文档流，不占据位置，和其他元素形成折叠。 如果top、bottom都未指定，则其顶端将与原文档流位置一致，即垂直保持位置不变。 绝对定位对象在可视区域之外会导致滚动条出现，相对定位则不会 绝对定位对象头部超过可视区域会被裁掉。 position:inherit规定应该从父元素继承 position 属性的值。 z-index 如果两个同级元素的此属性具有同样的值，那么将依据它们在HTML文档中流的顺序层叠，写在后面的将会覆盖前面的。 需要注意的是，父子关系是无法用z-index来设定上下关系的，一定是子级在上父级在下。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：模块化]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[文件结构常见文件结构一个项目的CSS最基本结构通常是下面这样的： base.css common.css pages.css 复杂一点的项目可能是这样分： base.css header.css footer.css sidebar.css forms.css icons.css buttons.css dropdown.css modals.css layout.css index.css user.css admin.css pages.css 如果后期不打算合并CSS的，建议尽可能减少 CSS 文件的数量。 SMACSSSMACSS 的全称叫 Scalable and Modular Architecture for CSS。即可扩展和模块化的CSS架构。 SMACSS将样式分成5种类型：Base，Layout，Module，State，Theme Base: 基础样式表，定义了基本的样式，我们平时写CSS比如reset.css就是属于基础样式表，另外我认为清除浮动，一些动画也可以归类为基础样式。 Layout: 布局样式，用于实现网页的基本布局，搭起整个网页的基本骨架。 Module: 网页中不同的区域有这个不同的功能，这些功能是相对独立的，我们可以称其为模块。模块是独立的，可重用的组件，它们不依赖于布局组件，可以安全的删除修改而不影响其他模块。 State: 状态样式，通常和js一起配合使用，表示某个组件或功能不同的状态，比如菜单选中状态，按钮不可用状态等。 Theme: 主题皮肤，对于可更换皮肤的站点来说，这个是很有必要的，分离了结构和皮肤，根据不同的皮肤应用不同的样式文件。 css选择器命名规则它的每一条规则都是全局的，在 CSS 预处理出现之前，这很容易造成命名上的冲突。 当涉及到多人维护同一段 CSS 代码时，命名的意义表达，也会影响到维护效率。 使用独一无二的规则。命名唯一。 使用简短的命名。 嵌套层级不宜过深，建议控制在3层以内。 BEMBEM是Block，Element，Modifier的缩写。是比较流行的一种 CSS 命名方式。 Block：在BEM的理论中，一个网页是由block组成的，比如头部是个block，内容是block，logo也是block，一个block可能由几个子block组成。 Element：element是block的一部分，具有某种功能，element依赖于block，比如在logo中，img是logo的一个element，在菜单中，菜单项是菜单的一个element Modifier：modifier是用来修饰block或者element的，它表示block或者element在外观或行为上的改变 123456789命名规则如下：.block &#123;&#125;.block__element &#123;&#125;.block--modifier &#123;&#125;例如：.login &#123;&#125;.login__btn &#123;&#125;.login__btn--reset &#123;&#125;.login__btn--confirm &#123;&#125; 下划线（__）被用来区分元素，而用连字符(–)是用来修饰元素的。 SUITSuit起源于BEM，但是它对组件名使用驼峰式和连字号把组件从他们的修饰和子孙后代中区分出来.]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：盒模型]]></title>
+    <url>%2F2020%2F05%2F14%2Fcss%2Fcss%EF%BC%9A%E7%9B%92%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[标准模型12盒模型宽高 = margin + border + padding + content元素宽高（元素占据的位置） = content IE盒模型12盒模型宽高 = margin + 元素宽高元素宽高（元素占据的位置） = border + padding + content 修改盒模型（box-sizing）box-sizing content-box：默认属性，标准盒模型 border-box：使元素宽高包括padding和border，内容区的实际宽度会是元素宽高减去border + padding的计算值。（即IE盒模型）]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：计算机网络体系结构]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[TCP/IP体系结构五层协议 应用层（http，ftp） 运输层（TCP，UDP） 网络层（IP） 数据链路层 物理层 四层协议 应用层（http，ftp） 运输层（TCP，UDP） 网际层IP 网络接口层 OSI模型 应用层（HTTP） 表示层 会话层（SSL\TLS） 运输层（TCP，UDP） 网络层（IP） 数据链路层 物理层]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：http的header字段]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Ahttp%E7%9A%84header%E5%AD%97%E6%AE%B5%2F</url>
+    <content type="text"><![CDATA[http头 = 通用头 + 请求头 + 响应头 通用头(General)通用头域包含请求和响应消息都支持的头域，提供了与报文相关的最基本的信息。 header 含义 Request URL 请求的URL Request Method 请求的方法 Status Code HTTP 状态码 Remote Address 远程IP地址 Referrer Policy 记录了是从哪个链接跳来的 响应头(Response Headers) header 含义 示例 Accept-Ranges 表明服务器是否支持指定范围请求及哪种类型的分段请求 Accept-Ranges: bytes Age 从原始服务器到代理缓存形成的估算时间（以秒计，非负） Age: 12 Allow 对某网络资源的有效的请求行为，不允许则返回405 Allow: GET, HEAD Cache-Control 告诉所有的缓存机制是否可以缓存及哪种类型 Cache-Control: no-cache Content-Encoding web服务器支持的返回内容压缩编码类型。 Content-Encoding: gzip Content-Language 响应体的语言 Content-Language: en,zh Content-Length 响应体的长度 Content-Length: 348 Content-Location 请求资源可替代的备用的另一地址 Content-Location: /index.htm Content-MD5 返回资源的MD5校验值 Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ== Content-Range 在整个返回体中本部分的字节位置 Content-Range: bytes 21010-47021/47022 Content-Type 返回内容的MIME类型 Content-Type: text/html; charset=utf-8 Date 原始服务器消息发出的时间 Date: Tue, 15 Nov 2010 08:12:31 GMT ETag 请求变量的实体标签的当前值 ETag: “737060cd8c284d8af7ad3082f209582d” Expires 响应过期的日期和时间 Expires: Thu, 01 Dec 2010 16:00:00 GMT Last-Modified 请求资源的最后修改时间 Last-Modified: Tue, 15 Nov 2010 12:45:26 GMT Location 用来重定向接收方到非请求URL的位置来完成请求或标识新的资源 Location: http://www.zcmhi.com/archives/94.html Pragma 包括实现特定的指令，它可应用到响应链上的任何接收方 Pragma: no-cache Proxy-Authenticate 它指出认证方案和可应用到代理的该URL上的参数 Proxy-Authenticate: Basic refresh 应用于重定向或一个新的资源被创造，在5秒之后重定向（由网景提出，被大部分浏览器支持） Refresh: 5; url=http://www.zcmhi.com/archives/94.html Retry-After 如果实体暂时不可取，通知客户端在指定时间之后再次尝试 Retry-After: 120 Server web服务器软件名称 Server: Apache/1.3.27 (Unix) (Red-Hat/Linux) Set-Cookie 设置Http Cookie Set-Cookie: UserID=JohnDoe; Max-Age=3600; Version=1 Trailer 指出头域在分块传输编码的尾部存在 Trailer: Max-Forwards Transfer-Encoding 文件传输编码 Transfer-Encoding:chunked Vary 告诉下游代理是使用缓存响应还是从原始服务器请求 Vary: * Via 告知代理客户端响应是通过哪里发送的 Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1) Warning 警告实体可能存在的问题 Warning: 199 Miscellaneous warning WWW-Authenticate 表明客户端请求实体应该使用的授权方案 WWW-Authenticate: Basic 请求头(Request Headers) header 含义 示例 Accept 指定客户端能够接收的内容类型 Accept: text/plain, text/html Accept-Charset 浏览器可以接受的字符编码集。 Accept-Charset: iso-8859-5 Accept-Encoding 指定浏览器可以支持的web服务器返回内容压缩编码类型。 Accept-Encoding: compress, gzip Accept-Language 浏览器可接受的语言 Accept-Language: en,zh Accept-Ranges 可以请求网页实体的一个或者多个子范围字段 Accept-Ranges: bytes Authorization HTTP授权的授权证书 Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== Cache-Control 指定请求和响应遵循的缓存机制 Cache-Control: no-cache Connection 表示是否需要持久连接。（HTTP 1.1默认进行持久连接） Connection: close Cookie HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。 Cookie: $Version=1; Skin=new; Content-Length 请求的内容长度 Content-Length: 348 Content-Type 请求的与实体对应的MIME信息 Content-Type: application/x-www-form-urlencoded Date 请求发送的日期和时间 Date: Tue, 15 Nov 2010 08:12:31 GMT Expect 请求的特定的服务器行为 Expect: 100-continue From 发出请求的用户的Email From: user@email.com Host 指定请求的服务器的域名和端口号 Host: www.zcmhi.com If-Match 只有请求内容与实体相匹配才有效 If-Match: “737060cd8c284d8af7ad3082f209582d” If-Modified-Since 如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码 If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT If-None-Match 如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变 If-None-Match: “737060cd8c284d8af7ad3082f209582d” If-Range 如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag If-Range: “737060cd8c284d8af7ad3082f209582d” If-Unmodified-Since 只在实体在指定时间之后未被修改才请求成功 If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT Max-Forwards 限制信息通过代理和网关传送的时间 Max-Forwards: 10 Pragma 用来包含实现特定的指令 Pragma: no-cache Proxy-Authorization 连接到代理的授权证书 Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ== Range 只请求实体的一部分，指定范围 Range: bytes=500-999 Referer 先前网页的地址，当前请求网页紧随其后,即来路 Referer: http://www.zcmhi.com/archives/71.html TE 客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息 TE: trailers,deflate;q=0.5 Upgrade 向服务器指定某种传输协议以便服务器进行转换（如果支持） Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11 User-Agent User-Agent的内容包含发出请求的用户信息 User-Agent: Mozilla/5.0 (Linux; X11) Via 通知中间网关或代理服务器地址，通信协议 Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1) Warning 关于消息实体的警告信息 Warn: 199 Miscellaneous warning]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：TCP]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9ATCP%2F</url>
+    <content type="text"><![CDATA[TCP和UDP 都是运输层协议 tcp有连接，可靠：数据包校验、对失序数据包重排序、丢弃重复数据、应答机制、超时重传、流量控制。 udp无连接，快。只是传输数据，不管服务器是否收到。 TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中的路由器或链路不致过载。 慢开始 把初始拥塞窗口cwnd设置为1或2个发送方的最大报文段（SMSS），由小到大逐渐增大发送窗口。每经过一个传输轮次，cwnd加倍。 把拥塞窗口允许发送的报文段都连续发送出去，收到对已发送的最后一个字节的确认，为一个传输轮次，时间为一个往返时间。 拥塞避免 让拥塞窗口缓慢增大，没经过一个往返时间RTT就加1 快重传 让发送方尽早知道发生了个别报文段丢失 快恢复 发送方知道丢失报文段，则不启动慢开始，用快恢复，调整门限值cwnd/2. TCP建立连接——三次握手 客户端发送连接请求报文，将SYN位置设为1 服务器端收到报文后回复ACK+SYN报文。 客户端接收到报文后也向服务器端发送ACK报文，这个报文发送完毕后，完成了三次握手。 通过三次握手确认双方收发功能都正常，四次也可以但是显得比较多余。 TCP释放连接——四次挥手（断开连接） 客户端向服务器传送断开的请求包。客户端进入FIN_WAIT_1状态。 服务器端确定收到断开的请求，回复ACK报文。客户端进入FIN_WAIT_2状态。 服务器端向客户端FIN报文，请求关闭连接。服务器端进入LAST_ACK状态。 客户端收到FIN报文后，回复ACK报文。客户端进入TIME_WAIT状态。服务器端收到ACK报文就会关闭连接（不然一直处于LAST_ACK状态），客户端没有收到服务器端的回复，证明服务器端已关闭连接，客户端也可以关闭连接了。]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9ADNS%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[迭代+递归 在DNS解析器缓存中查找某主机的ip地址 向其本地域名服务器进行递归查找。 本地域名服务器查不到，就向根域名服务器进行迭代查询。 根域名服务器告诉本地域名服务器，下一步该向顶级域名服务器查找。 本地域名服务器向顶级域名服务器查找。 顶级域名服务器告诉本地域名服务器，下一步该向权限域名服务器查找。 权限域名服务器返回目标主机的ip地址。 本地域名服务器就把ip地址告诉目标主机。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：cdn]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Acdn%2F</url>
+    <content type="text"><![CDATA[是什么内容分发网络。使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。 cdn缓存用户浏览器和服务器端之间加入cdn 用户在浏览网站的时候，向服务器请求到资源后，cdn会在本地保存网站中的图片或者js、css等其他文件的副本，通过http响应头中的cache-control字段设置数据缓存时间，这样用户再次访问该网站的时候，浏览器就不用再下载全部的文件，减少了下载量意味着提高了页面加载的速度。 再次浏览网站时，客户端浏览器会先向CDN边缘节点发起请求，CDN边缘节点会检测用户请求数据的缓存是否过期，如果没有过期，则直接响应用户请求，此时一个http请求结束；如果数据已经过期，那么CDN还需要向源站发出回源请求,来拉取最新的数据。]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：http和https]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Ahttp%E5%92%8Chttps%2F</url>
+    <content type="text"><![CDATA[关于https用处： 建立一个信息安全通道，来保证数据传输的安全。 确认网站的真实性，防止钓鱼网站。 https就是在http下加入了ssl层，从而保护了交换数据隐私和完整性，提供了对网站服务器身份认证的功能，简单来说就是安全版的http。 http和https的区别 同属于应用层的协议 http协议是运行在tcp之上的，所有传输的内容都是未加密的，也就是明文的。https协议是运行在SSL\TLS之上的，而SSL\TLS协议运行在tcp之上，在http和tcp之间，所有传输的内容都经过加密的，比http更安全。（加密采用对称加密，而密钥的传输利用非对称加密） http默认使用端口80。https默认使用端口443。 https的工作原理 使用HTTPS的url访问服务器，客户端向服务器端请求建立SSL连接。（可以说TLS为SSL的新版本） 服务器收到客户端请求后，会将网站的证书信息（证书包含公钥）传送一份给客户端。 客户端浏览器和服务器端协商信息加密的等级。 客户端浏览器根据协商好的安全等级，建立会话密钥，然后利用网站的公钥加密会话密钥，并传送给服务器。 服务器利用私钥解密会话密钥，并利用会话密钥加密与客户端之间的通信。 非对称密码解密速度比较慢，但比较安全；对称密码解密速度比较快。所以用对称密码加密数据，非对称密码加密对称密钥。 非对称加密算法中私钥是基于不同的算法生成不同的随机数，私钥通过一定的加密算法推导出公钥，但私钥到公钥的推导过程是单向的，也就是说公钥无法反推导出私钥。]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计网：http报文结构]]></title>
+    <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Ahttp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[http报文的产生HTTP通信过程包括客户端往服务器端发送请求以及服务器端给客户端返回响应两个过程。在这两个过程中就会产生请求报文和响应报文。 什么是HTTP报文呢？HTTP报文是用于HTTP协议交互的信息，HTTP报文本身是由多行数据构成的字符串文本。客户端的HTTP报文叫做请求报文，服务器端的HTTP报文叫做响应报文。 报文结构 HTTP报文由报文首部和报文主体构成，中间由一个空行分隔。 报文首部是客户端或服务器端需处理的请求或响应的内容及属性， 可以传递额外的重要信息。 报文首部包括请求行和请求头部。 报文主体主要包含应被发送的数据。 通常，不一定有报文主体。 http请求报文一个HTTP请求报文由请求行、请求头部、空行和请求数据4个部分构成。 请求行数据格式由三个部分组成：请求方法、URI、HTTP协议版本，他们之间用空格分隔。12// 该部分位于数据首行，基本格式为：GET /index.html HTTP/1.1 该部分的请求方法字段给出了请求类型，URI给出请求的资源位置(/index.html)。HTTP中的请求类型包括:GET、POST、HEAD、PUT、DELETE。一般常用的为GET和POST方式。最后HTTP协议版本给出HTTP的版本号。 http响应报文HTTP响应报文由状态行（HTTP版本、状态码（数字和原因短语））、响应头部、空行和响应体4个部分构成。 状态行主要给出响应HTTP协议的版本号、响应返回状态码、响应描述，同样是单行显示。格式为：1HTTP/1.1 200 OK 状态码告知从服务器端返回的请求的状态，一般由一个三位数组成,分别以整数1～5开头组成。 报文首部结构 由首部字段名和字段值构成的，中间用冒号“:”分割。 首部字段格式： 首部字段名:字段值。 类型 通用首部字段：请求报文和响应报文两方都会使用的首部。 请求首部字段：从客户端向服务器端发送请求报文时使用的首部。补充了请求的附加内容、客户端信息、响应内容相关优先级等信息。 响应首部字段：从服务器端向客户端返回响应报文时使用的首部。补充了响应的附加内容，也会要求客户端附加额外的内容信息。 实体首部字段：针对请求报文和响应报文的实体部分使用的首部。补充了资源内容更新时间等和实体有关的信息。]]></content>
+      <categories>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[web页面性能优化]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2Fweb%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[请求和响应减少http请求。一个完整的请求都需要经过 DNS寻址、与服务器建立连接、发送数据、等待服务器响应、接收数据这样一个 “漫长” 而复杂的过程。资源上由于每个请求都需要携带数据，因此每个请求都需要占用带宽。 使用CDN加速（缓存）。CDN（内容发布网络）是一组分布在多个不同地理位置的Web服务器，用于更加有效地向用户发布内容。其本质上是一个缓存，而且将数据（js、css、image等静态资源）缓存在离用户最近的地方，使用户以最快速度获取数据，即所谓网络访问第一跳。 使用内容传递网络(CDN)提供 JavaScript 文件,CDN 不仅可以提高性能,它还可以为你管理压缩和缓存。 当用户发起访问时，他的访问请求被只能dns定位到最近的缓存服务器，当服务器中没有缓存时，就会去请求最近的服务器中的资源。 利用浏览器缓存通过设置 HTTP 响应报文头使 JavaScript 文件可缓存,将网络资源存储到本地，下次请求资源时，如果命中可直接在本地获取，不需要重新向服务器请求资源 避免重定向。当页面发生了重定向，就会延迟整个HTML文档的传输。在HTML文档到达之前，页面中不会呈现任何东西，也没有任何组件会被下载。 重定向和404将浪费加载请求。 HTML合理使用内联。脚本和样式，应按需选择内联或者外链。对于访问少、样式和脚本复用少的页面，可以考虑使用内联样式从而减少 HTTP 请求。 但如果页面访问频繁，样式脚本在多个页面经常复用，使用外链则是最优选择。 这样浏览器可以缓存它们，下次加载时可以直接从缓存加载。 减少dom过多的DOM元素会影响渲染、加载、执行。除了精简页面结构外，还可以适时删除不必要的DOM元素（页面内已经不会再访问的元素），又或者可以懒加载（不一定会使用到的元素，如登录框）。 优化dom操作 使用事件委托来减少事件处理器的数量 减少重绘和回流 如果需要在 DOM操作时添加样式，尽量使用 增加 class 属性，而不是通过 style 一个一个地操作样式。 删除HTML的默认属性。js优化js。 将所有script标签放置在页面的底部,紧靠 body 关闭标签的上方。因为页面解析生成dom树时遇到script标签会停下去加载执行js。此法可以保证页面在脚本运行之前完成解析。 将脚本成组打包。页面的标签越少,页面的加载速度就越快,响应也更加迅速。不论外部脚本 文件还是内联代码都是如此。 由于浏览器渲染机制的设置，gui渲染线程和js引擎互斥，因此js的执行会阻塞dom的解析和渲染以及其他资源的加载。 css将样式表放在头部。css在head中通过link引入下载会阻塞页面的渲染，页面的渲染会等待css解析完生成cssom树，再结合dom树生成渲染树进行渲染。所以最好的做法是把css放在页面的最上面，让浏览器尽快下载css，减少首屏加载时间，避免白屏。 为了浏览器的渲染，能让页面显示的时候视觉上更好。避免某些情况，如：假设你放在页面最底部，则不会阻塞，用户打开页面时，有可能出现，页面先是显示一大堆文字或图片，自上而下，丝毫没有排版和样式可言。最后，页面又恢复所要的效果 由于gui渲染机制和js引擎互斥，因此css加载会阻塞js的加载，但是cssom和dom是并行的，css加载并不阻塞dom的解析，也不阻塞其他资源的加载，但两者需要互相配合生成渲染树，因此会阻塞dom的渲染。 优化css，避免css表达式。会导致效率低下。 资源延迟加载图片。不直接给src路径，而是在页面加载完成后用js操作src，减少了页面加载图片的时间。 懒加载在进入可视区域之后在进行请求资源 预加载在静态资源使用前先加载，在使用时可直接在缓存中获取]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一些调试小技巧]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E4%B8%80%E4%BA%9B%E8%B0%83%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%2F</url>
+    <content type="text"><![CDATA[一些常用的快捷键 快捷键 功能 ctrl + o 搜索文件 ctrl + shift + F 在所有文件中搜索特定的文字 ctrl + shift + o 在某个文件中搜索特定的文字 ctrl + G 跳转到某一行 ctrl + L 清除控制台的信息 ctrl + [ / ctrl + ] 标签切换 ctrl + shift + c 审查元素 shift + Enter / sources -&gt; snippets 在控制台编写多行代码 选中，H 显示/隐藏元素 一些常用的功能 通过js代码来设置断点：debugger，或者直接在sources中打断点，查看堆栈，了解函数调用情况 elements的event listeners中可以查看元素事件监听器 选中元素，右击Break on.. -&gt; Attributes Modifications，元素改变时启动断点 开发者工具打开的情况下右击chrome的刷新按钮，可清除缓存并硬重载]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[浏览器兼容问题]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[css不同浏览器的标签默认的margin和padding不同 12345//解决*&#123; padding:0; margin:0;&#125; 对于一些新特性，低版本浏览器不兼容，可以用渐进增强或优雅降级。 js阻止冒泡12345678function canclebubble(event)&#123; var event = event||window.event; //兼容火狐 if(event.stopPropagation)&#123; event.stopPropagation(); //标准浏览器 &#125;else&#123; event.cancaleBubble==true; //老ie &#125; &#125; 取消默认事件12345678function stopevent(event)&#123; var event = event||window.event; //兼容火狐 if(event.preventDefault)&#123; event.preventDefault(); //标准浏览器 &#125;else&#123; event.returnValue==false; //老ie &#125; &#125; 注意 event代表事件的状态，例如触发event对象的元素、鼠标的位置及状态、按下的键等等； event对象只在事件发生的过程中才有效。 firefox里的event跟IE里的不同，IE里的是全局变量，随时可用；firefox里的要用参数引导才能用，是运行时的临时变量。 在IE/Opera中是window.event，在Firefox中是event；而事件的对象，在IE中是window.event.srcElement，在Firefox中是event.target，Opera中两者都可用。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[canvas]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2Fcanvas%2F</url>
+    <content type="text"><![CDATA[Canvas是HTML5新增的组件，它就像一块幕布，可以用JavaScript在上面绘制各种图表、动画等。 属性 height width 一个Canvas定义了一个指定尺寸的矩形框1&lt;canvas id=&quot;test-canvas&quot; width=&quot;300&quot; height=&quot;200&quot;&gt;&lt;/canvas&gt; 检测浏览器支持由于浏览器对HTML5标准支持不一致，所以，通常在canvas内部添加一些说明性HTML代码，如果浏览器支持Canvas，它将忽略canvas内部的HTML，如果浏览器不支持Canvas，它将显示canvas内部的HTML 123&lt;canvas id=&quot;test-stock&quot; width=&quot;300&quot; height=&quot;200&quot;&gt; &lt;p&gt;Current Price: 25.51&lt;/p&gt;&lt;/canvas&gt; 在使用Canvas前，还需要用canvas.getContext来测试浏览器是否支持Canvas 123456var canvas = document.getElementById(&apos;test-canvas&apos;);if (canvas.getContext) &#123; console.log(&apos;你的浏览器支持Canvas!&apos;);&#125; else &#123; console.log(&apos;你的浏览器不支持Canvas!&apos;);&#125; 方法canvas绘图以左上角的（0， 0）为基准原点1234let canvas = document.querySelector(&apos;#canvas&apos;); // 得到canvas//得到canvas上下文环境let ctx = canvas.getContext(&apos;2d&apos;)//绘制2d图形let gl = canvas.getContext(&quot;webgl&quot;);//绘制3d图形 绘制矩形ctx.rect(x,y,width,height); 创建矩形。 但并不会真正将矩形画出，只能调用stroke() 或 fill()后才会真正作用于画布。 先填充再描边。 可通过canvas.width或canvas.height获取画布的宽度和高度 ctx.fillRect(x,y,width,height) 执行填充操作，绘制一个已填色的、以(x,y)位置为起点、大小为width x height的矩形。 有填充颜色，默认为black。 ctx.fillStyle=””为图形设置填充颜色 ctx.strokeRect(x,y,width,height); 绘制一个不填色、以(x,y)位置为起点、大小为width x height的矩形。 有边框颜色，默认为black。 ctx.strokeStyle=””为图形设置边框颜色 ctx.clearRect(x,y,width,height); 将(x,y)位置大小为width x height的矩形变为透明。 Internet Explorer 9、Firefox、Opera、Chrome 以及 Safari 支持 clearRect() 方法。 若canvas设置了背景颜色是不能被清除的，因为那是画布的背景颜色，clearRect清除的是绘制的图形，使绘制的图形变为透明，显现出画布背景色。 绘制复杂形状ctx.lineWidth=x;设置线宽为x，不需要加px ctx.fill();填充图形，可利用fillStyle设置填充颜色 ctx.stroke();绘制图形，可利用strokeStyle设置边框颜色 ctx.beginPath();清除原来的痕迹,绘制图形之前要先调用 ctx.closePath();自动完成闭合 ctx.moveTo(x,y);从(x,y)点开始绘图 ctx.lineTo(x,y);绘图终点为(x,y) ctx.arc(x, y, r, 起始弧度， 终点弧度，是否逆时针) 圆心为(x,y),半径为r 弧度 = Math.PI*角度 设置完弧线，要用moveTo()进行绘制 绘制文本ctx.font = “24px 宋体”设置字体大小、型号 ctx.fillText(“文字内容”,left,top); 绘制实心文字。 left为距画布最左边距离，top为距画布最上边距离。 可通过fillStyke设置文字填充颜色 ctx.strokeText(“文字内容”,left,top); 绘制空心文字。 left与top同上。 可通过strokeStyle设置文字边框颜色。 设置文字阴影这些要在设置文字内容之前设置 ctx.shadowOffsetX = x; x轴偏移量，默认位于元素正下方。 ctx.shadowOffsetY = y; y轴偏移量，默认位于元素正下方。 ctx.shadowBlur = num; 设置模糊系数。默认为0不模糊。 ctx.shadowColor = “”; 设置阴影颜色，同时要设置shadowBlur，否则看不见 用canvas画出一个(0,0)坐标绿色的100x100矩形框，再从(10,10)坐标将50x50的区域变成透明 123456789&lt;canvas id=&quot;test&quot; width=&quot;100px&quot; height=&quot;100px&quot;&gt;&lt;/canvas&gt;&lt;script&gt;var canvas = document.getElementById(&quot;test&quot;);var ctx = canvas.getContext(&quot;2d&quot;);ctx.fillStyle = &quot;green&quot;;ctx.fillRect(0,0,100,100);ctx.clearRect(10,10,50,50);&lt;/script&gt;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[页面渲染过程（输入一个url）]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%EF%BC%88%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAurl%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入一个url到网页呈现 输入网址 发送到DNS服务器，并获取域名对应的web服务器对应的ip地址。 与web服务器建立TCP连接 浏览器向web服务器发送http请求 web服务器响应请求，并返回指定url数据 浏览器下载web服务器返回的数据。 解析 HTML 文件,构建 DOM 树,同时浏览器主进程负责下载 CSS 文件 CSS 文件下载完成,解析 CSS 文件生成cssom树，调用JS执行引擎执行JS代码，然后将DOM树和CSSOM树结合生成渲染树。 根据渲染树来布局，计算每个节点的布局信息，将各个节点绘制到屏幕上来渲染页面，直至显示完成。 若dom树生成过程中遇到script标签，则暂停，执行js直至完成再继续生成。 若执行js时需要操作cssom，还得等css加载执行完生成cssom才能继续执行。 因此，css资源要先于js资源加载，js放于页面底部，尽量少影响dom树的生成 各种拓展页面加载白屏原因： 在弱网络下，网络延迟，JS加载延迟，会阻塞页面。 客户端存在bug，缓存模块错乱，不缓存js等后来挂起的文件，以及乱缓存index.html。 如果页面完全一片空白。极有可能是后端出现问题，后端配置无错误输出，并且服务状态500，这个时候页面就是一片空白。如果是前端导致的，那么极有可能是单页应用异常，比如到了一个没有设置的新的页面。1、打开能看到源码和request、response的浏览器，如chrome，查看源码输出2、如果是后端问题，那么后端查看accesslog、程序日志，看看是否有问题3、如果是前端问题，那么根据给出的js异常之类的排查 统计白屏数量：监听某个主div的变化，在规定时间内该DIV没有变化，那就可以进行白屏统计了。 监控白屏时间：监听某个主div的变化，直至页面渲染。 优化：尽量减少文件夹的嵌套，文件名不要过长。 一个网站很卡找原因首先用3g网络测试一下：如果卡就是http请求数据可能过大。可以合并JS脚本和CSS文件，css精灵图，对HTTP传输进行gzip压缩。css放顶部，javascript放底部。 可能服务端出问题：比如用户访问量大，并发量大。mysql没有优化好，造成死锁。 可以用CDN加速把数据放在离用户更近的位置。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[前端SEO（搜索引擎优化）和语义化]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%E5%92%8C%E8%AF%AD%E4%B9%89%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[合理的title、description、keywords title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。 语义化语义化的标签，旨在让标签有自己的含义，就是用合理、正确的标签来展示内容，比如h1~h6定义标题。 优点 易于用户阅读，css样式丢失的时候能让页面呈现清晰的结构。 有利于SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。 方便其他设备解析，如盲人阅读器根据语义渲染网页 有利于开发和维护，语义化更具可读性，代码更好维护，与CSS3关系更和谐。 常见语义化标签12345678910111213141516171819202122&lt;title&gt;：页面主体内容。&lt;hn&gt;：h1~h6，分级标题，&lt;h1&gt; 与 &lt;title&gt; 协调有利于搜索引擎优化。&lt;ul&gt;：无序列表。&lt;li&gt;：有序列表。&lt;small&gt;：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。&lt;strong&gt;：和 em 标签一样，用于强调文本，但它强调的程度更强一些。&lt;em&gt;：将其中的文本表示为强调的内容，表现为斜体。&lt;mark&gt;：使用黄色突出显示部分文本。&lt;figure&gt;：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。&lt;figcaption&gt;：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。&lt;cite&gt;：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。&lt;blockquoto&gt;：定义块引用，块引用拥有它们自己的空间。&lt;q&gt;：短的引述（跨浏览器问题，尽量避免使用）。&lt;time&gt;：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。&lt;abbr&gt;：简称或缩写。&lt;dfn&gt;：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。&lt;address&gt;：作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）。&lt;del&gt;：移除的内容。&lt;ins&gt;：添加的内容。&lt;code&gt;：标记代码。&lt;meter&gt;：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）&lt;progress&gt;：定义运行中的进度（进程）。 h5新增语义化标签1234567&lt;header&gt; 定义文档或者文档的部分区域的页眉&lt;nav&gt; 描述一个含有多个超链接的区域&lt;main&gt; 定义文档的主要内容，该内容在文档中应当是独一无二的&lt;article&gt; 表示文档、页面、应用或网站中的独立结构&lt;aside&gt; 表示一个和其余页面内容几乎无关的部分&lt;footer&gt; 定义最近一个章节内容或者根节点元素的页脚&lt;section&gt; 表示文档中的一个区域（或节），比如，内容中的一个专题组。 重要内容的html代码放最前搜索引擎抓取html的顺序是从上到下，保证重要内容一定会被抓取 重要内容不要用js输出爬虫不会执行js获取内容 提高网站速度网站速度也是搜索引擎排序的一个重要指标]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[行内元素、块元素、行内块元素]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E3%80%81%E5%9D%97%E5%85%83%E7%B4%A0%E3%80%81%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[行内元素 设置宽高无效。 margin水平方向有效，垂直方向无效。 padding水平方向有效，垂直方向在显示上有效果即会增大元素的内容范围，但对其他元素无影响。 不会自动进行换行。 123456789101112131415161718常见行内元素a - 锚点b - 粗体(不推荐)big - 大字体br - 换行em - 强调font - 字体设定(不推荐)i - 斜体img - 图片input - 输入框label - 表格标签select - 项目选择small - 小字体文本span - 常用内联容器，定义文本内区块strong - 粗体强调textarea - 多行文本输入框u - 下划线var - 定义变量 块元素 能够识别宽高。 margin和padding的上下左右均对其有效。 可以自动换行。 多个块状元素标签写在一起，默认排列方式为从上至下。 12345678910111213141516171819常见块元素address - 地址enter - 居中对齐块dir - 目录列表div - 常用块级容器，也是css layout的主要标签dl - 定义列表form - 交互表单h1 - 大标题h2 - 副标题h3 - 3级标题h4 - 4级标题h5 - 5级标题h6 - 6级标题hr - 水平分隔线menu - 菜单列表ol - 排序表单p - 段落table - 表格ul - 非排序列表（无序列表） 可变元素可变元素由上下文语境来决定是块元素还是内联元素 1234567button - 按钮del - 删除文本iframe - inline frameins - 插入的文本map - 图片区块（map）object - object对象script - 客户端脚本 行内块元素 不自动换行 能够识别宽高 默认排列方式为从左到右 三者转换使用display属性能够将三者任意转换： display:inline;转换为行内元素 display:block;转换为块状元素 display:inline-block;转换为行内块状元素]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[回流（Reflow）和重绘（Repaint）]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E5%9B%9E%E6%B5%81%EF%BC%88Reflow%EF%BC%89%E5%92%8C%E9%87%8D%E7%BB%98%EF%BC%88Repaint%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[浏览器渲染解析HTML，生成DOM树，解析CSS，生成CSSOM树。将DOM树和CSSOM树结合，生成渲染树（Render Tree）。 回流当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流。 每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建render tree。 重绘当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。 回流必定触发重绘，而重绘不一定触发回流。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[WebSocket]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2FWebSocket%2F</url>
+    <content type="text"><![CDATA[长连接和短连接长连接是存在于网络层的一种连接状态，而实现它则需要在传输层进行开发，因为它是基于对真实数据的收发，需要在底层进行管控。 http http1.0不支持长连接，http1.1支持长连接 http1.x是文本协议，http2.0是二进制协议 HTTP作为应用层协议，其实它的生命周期在服务器返回结果时就已经结束了，而所谓的支持长连接，其实是基于’Keep-Alive’请求头所约定，从而向下进行长连接发起的一种机制。该长连接依然是基于TCP的。 短连接所谓短连接，即连接只保持在数据传输过程，请求发起，连接建立，数据返回，连接关闭。它适用于一些实时数据请求，配合轮询来进行新旧数据的更替。 长连接长连接便是在连接发起后，在请求关闭连接前客户端与服务端都保持连接，实质是保持这个通信管道，之后便可以对其进行复用。它适用于涉及消息推送，请求频繁的场景（直播，流媒体）。连接建立后，在该连接下的所有请求都可以重用这个长连接管道，避免了频繁了连接请求，提升了效率。 轮询 所谓轮询，即是浏览器通过JavaScript启动一个定时器，然后以固定的间隔给服务器发请求，询问服务器有没有新消息这样一个机制。 然而HTTP请求可能包含较长的头部，其中真正有效的数据可能只是很小的一部分，显然这样会浪费很多的带宽等资源。 只要有请求的的地方，都可以实现轮询，譬如各种事件驱动模型。它的长短是在于某次请求的返回周期。 短轮询短轮询指的是在循环周期内，不断发起请求，每一次请求都立即返回结果，根据新旧数据对比决定是否使用这个结果。 长轮询而长轮询即是在请求的过程中，若是服务器端数据并没有更新，那么则将这个连接挂起，直到服务器推送新的数据，再返回，然后再进入循环周期。 由上可以看到，长短轮询的理想实现都应当基于长连接，否则若是循环周期太短，那么服务器的荷载会相当重；当然，即便是在长连接下，访问人数过多，长短轮询都有可能造成服务器的瞬时访问量庞大，这就需要一些相应的优化实践了。 websocket WebSocket是HTML5新增的一种在单个 TCP 连接上进行全双工通讯的协议，它的目的是在浏览器和服务器之间建立一个不受限的双向通信的通道，比如说，服务器可以在任意时刻发送消息给浏览器。 WebSocket 使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。 在 WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。 为什么http不能实现这是因为HTTP协议是一个请求－响应协议，请求必须先由浏览器发给服务器，服务器才能响应这个请求，再把数据发送给浏览器。换句话说，浏览器不主动请求，服务器是没法主动发数据给浏览器的。 用轮询是可以实现的，但这个机制的缺点一是实时性不够，二是频繁的请求会给服务器带来极大的压力。 websocket实现WebSocket并不是全新的协议，而是利用了HTTP协议来建立连接。 实际上HTTP协议是建立在TCP协议之上的，TCP协议本身就实现了全双工通信，但是HTTP协议的请求－应答机制限制了全双工通信。WebSocket连接建立以后，其实只是简单规定了一下：接下来，咱们通信就不使用HTTP协议了，直接互相发数据吧。 创建websocket连接首先，WebSocket连接必须由浏览器发起，因为请求协议是一个标准的HTTP请求，格式如下： 1234567GET ws://localhost:3000/ws/chat HTTP/1.1Host: localhostUpgrade: websocketConnection: UpgradeOrigin: http://localhost:3000Sec-WebSocket-Key: client-random-stringSec-WebSocket-Version: 13 该请求和普通的HTTP请求有几点不同： GET请求的地址不是类似/path/，而是以ws://开头的地址； 请求头Upgrade: websocket和Connection: Upgrade表示这个连接将要被转换为WebSocket连接； Sec-WebSocket-Key是用于标识这个连接，并非用于加密数据； Sec-WebSocket-Version指定了WebSocket的协议版本。 一个WebSocket连接就建立成功，浏览器和服务器就可以随时主动发送消息给对方。消息有两种，一种是文本，一种是二进制数据。通常，我们可以发送JSON格式的文本。 浏览器通过 JavaScript 向服务器发出建立 WebSocket 连接的请求，连接建立以后，客户端和服务器端就可以通过 TCP 连接直接交换数据。 安全的websocket安全的WebSocket连接机制和HTTPS类似。首先，浏览器用wss://xxx创建WebSocket连接时，会先通过HTTPS创建安全的连接，然后，该HTTPS连接升级为WebSocket连接，底层通信走的仍然是安全的SSL/TLS协议。 浏览器很显然，要支持WebSocket通信，浏览器得支持这个协议，这样才能发出ws://xxx的请求。目前，支持WebSocket的主流浏览器如下： Chrome Firefox IE &gt;= 10 Sarafi &gt;= 6 Android &gt;= 4.4 iOS &gt;= 8 服务器由于WebSocket是一个协议，服务器具体怎么实现，取决于所用编程语言和框架本身。Node.js本身支持的协议包括TCP协议和HTTP协议，要支持WebSocket协议，需要对Node.js提供的HTTPServer做额外的开发。已经有若干基于Node.js的稳定可靠的WebSocket实现，我们直接用npm安装使用即可。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[浏览器渲染机制]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[进程和线程 进程时cpu资源分配的最小单位，是能拥有资源和独立运行的最小的单位。 线程是cpu调度的最小单位，是建立在进程基础上的一次程序运行单位。 对于操作系统来说，一个任务就是一个进程，一个进程至少有一个线程 浏览器的多进程架构 主进程负责浏览器界面的显示与交互。各个页面的管理,创建和销毁其他进程。网络的资源管理、下载等。 第三方插件进程每种类型的插件对应一个进程,仅当使用该插件时才创建。 GPU 进程最多只有一个,用于 3D 绘制等 渲染进程称为浏览器渲染进程或浏览器内核,内部是多线程的。主要负责页面渲染,脚本执行,事件处理等。 渲染进程浏览器的渲染进程是多线程的 GUI 渲染线程 负责渲染浏览器界面，解析 HTML、CSS，构建 DOM 树和 RenderObject 树，布局和绘制等。 当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时，该线程就会执行。 注意，==GUI 渲染线程与 JS 引擎线程是互斥的==，当 JS 引擎执行时 GUI 线程会被挂起（相当于被冻结了），GUI 更新会被保存在一个队列中等到 JS 引擎空闲时立即被执行。 JS 引擎线程 Javascript 引擎，也称为 JS 内核，负责处理 Javascript 脚本程序。（例如 V8 引擎） JS 引擎线程负责解析 Javascript 脚本，运行代码。 JS 引擎一直等待着任务队列中任务的到来,然后加以处理，一个 Tab 页（renderer 进程）中无论什么时候都只有一个 JS 线程在运行 JS 程序。 注意，==GUI 渲染线程与 JS 引擎线程是互斥的==，所以如果 JS 执行的时间过长，这样就会造成页面的渲染不连贯，导致页面渲染加载阻塞。 事件触发线程 归属于浏览器而不是 JS 引擎，用来控制事件循环（可以理解,JS 引擎自己都忙不过来，需要浏览器另开线程协助） 当 JS 引擎执行代码块如 setTimeOut 时（也可来自浏览器内核的其他线程，如鼠标点击、AJAX 异步请求等），会将对应任务添加到事件线程中 当对应的事件符合触发条件被触发时，该线程会把事件添加到待处理队列的队尾，等待 JS 引擎的处理 注意，由于 JS 的单线程关系，所以这些待处理队列中的事件都得排队等待 JS 引擎处理（当 JS 引擎空闲时才会去执行） 定时触发器线程 传说中的 setInterval 与 setTimeout 所在线程 浏览器定时计数器并不是由 JavaScript 引擎计数的，（因为 JavaScript 引擎是单线程的， 如果处于阻塞线程状态就会影响记计时的准确） 因此通过单独线程来计时并触发定时（计时完毕后,添加到事件队列中，等待 JS 引擎空闲后执行） 注意，W3C 在 HTML 标准中规定,规定要求 setTimeout 中低于 4ms 的时间间隔算为 4ms。 异步 http 请求线程 在 XMLHttpRequest 在连接后是通过浏览器新开一个线程请求。 将检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将这个回调再放入事件队列中。再由 JavaScript 引擎执行。 题目1. 为什么 Javascript 要是单线程的 ? 如果 JavaScript 是多线程的方式来操作这些 UI DOM,则可能出现 UI 操作的冲突。 如果 Javascript 是多线程的话,在多线程的交互下,处于 UI 中的 DOM 节点就可能成为一个临界资源, 假设存在两个线程同时操作一个 DOM,一个负责修改一个负责删除,那么这个时候就需要浏览器来裁决如何生效哪个线程的执行结果。 当然我们可以通过锁来解决上面的问题。但为了避免因为引入了锁而带来更大的复杂性,Javascript 在最初就选择了单线程执行。 2. 为什么 JS 阻塞页面加载 ? 由于 JavaScript 是可操纵 DOM 的,如果在修改这些元素属性同时渲染界面（即 JavaScript 线程和 UI 线程同时运行）,那么渲染线程前后获得的元素数据就可能不一致了。 因此为了防止渲染出现不可预期的结果,浏览器设置 GUI 渲染线程与 JavaScript 引擎为互斥的关系。 3. css 加载会造成阻塞吗 ？ CSS 加载不会阻塞 DOM 的解析，会阻塞 Dom 的渲染 DOM 和 CSSOM 通常是并行构建的,所以 CSS 加载不会阻塞 DOM 的解析。 然而,由于 渲染树 是依赖于 DOM树 和 CSSOM树 的,所以他必须等待到 CSSOM树 构建完成,也就是 CSS 资源加载完成(或者 CSS 资源加载失败)后,才能开始渲染。因此,CSS 加载会阻塞 Dom 的渲染。 css 会阻塞后面 js 的执行。 由于 GUI 渲染线程与 JavaScript 引擎为互斥的关系。因此,样式表会在后面的 js 执行前先加载执行完毕,所以css 会阻塞后面 js 的执行。 4. DOMContentLoaded 与 load 的区别 ? 当 DOMContentLoaded 事件触发时,仅当 DOM 解析完成后,不包括样式表,图片。 当文档中没有脚本时,浏览器解析完文档便能触发 DOMContentLoaded 事件。如果文档中包含脚本,则脚本会阻塞文档的解析,而脚本需要等 CSSOM 构建完成才能执行。在任何情况下,DOMContentLoaded 的触发不需要等待图片等其他资源加载完成。 当 onload 事件触发时,页面上所有的 DOM,样式表,脚本,图片等资源已经加载完毕。 DOMContentLoaded -&gt; load 5. defer 和 async 的区别 ? 没有 defer 或 async,浏览器会立即加载并执行指定的脚本,“立即”指的是在渲染该 script 标签之下的文档元素之前,也就是说不等待后续载入的文档元素,读到就加载并执行。 有 async,加载和渲染后续文档元素的过程将和 script.js 的加载与执行并行进行（异步）。 有 defer,加载后续文档元素的过程将和 script.js 的加载并行进行（异步）,但是 script.js 的执行要在所有元素解析完成之后,DOMContentLoaded 事件触发之前完成。 总结 defer 和 async 在网络读取（下载）这块儿是一样的,都是异步的（相较于 HTML 解析），差别在于脚本下载完之后何时执行,显然 defer 是最接近我们对于应用脚本加载和执行的要求的 关于 defer，它是按照加载顺序执行脚本的；async 则是乱序执行的，反正对它来说脚本的加载和执行是紧紧挨着的,所以不管你声明的顺序如何,只要它加载完了就会立刻执行 仔细想想,async 对于应用脚本的用处不大,因为它完全不考虑依赖（哪怕是最低级的顺序执行）,不过它对于那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[算法：青蛙跳台阶和斐波那契数列]]></title>
     <url>%2F2020%2F03%2F17%2F%E7%AE%97%E6%B3%95%2F%E7%AE%97%E6%B3%95%EF%BC%9A%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E5%92%8C%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%2F</url>
     <content type="text"><![CDATA[简单一次跳一层或两层，求跳上一个n级的台阶总共有多少种跳法。因为n级台阶，第一步有n种跳法：跳1级、跳2级跳1级，剩下n-1级，则剩下跳法是f(n-1)跳2级，剩下n-2级，则剩下跳法是f(n-2) f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2) 1234567891011function jump(n)&#123; if(n==0)&#123; return 0; &#125;else if(n==1)&#123; return 1; &#125;else if(n==2)&#123; return 2; &#125;else&#123; return jump(n-1)+jump(n-2); &#125;&#125; 复杂一次可以跳上1级台阶，也可以跳上2级……也可以跳上n级。求跳上一个n级的台阶总共有多少种跳法。因为n级台阶，第一步有n种跳法：跳1级、跳2级、到跳n级跳1级，剩下n-1级，则剩下跳法是f(n-1)跳2级，剩下n-2级，则剩下跳法是f(n-2)所以f(n)=f(n-1)+f(n-2)+…+f(1)因为f(n-1)=f(n-2)+f(n-3)+…+f(1)所以f(n)=2*f(n-1) 123456789function jumpII(number)&#123; if(number == 0)&#123; return 0; &#125;else if(number == 1)&#123; return 1; &#125; return 2*jumpII(number-1)&#125; 斐波那契数列斐波那契数列，又称黄金分割数列、因数学家列昂纳多·斐波那契以兔子繁殖为例子而引入，故又称为“兔子数列”，指的是这样一个数列：1、1、2、3、5、8、13、21、34、…… 性能优化之缓存 缓存: 存储数据的容器(cache) 在js中, 可以使用数组或者是对象进行存储数据,用键存储值,这样就可以实现既能存值也能取值 用缓存的基本思路 创建一个空对象，作为缓存的容器。 首先去缓存容器中查看缓存中是否有对应的数据，如果有，直接取出来使用。 如果没有，就先计算结果，然后把结果存储到缓存容器中，方便下次复用。123456789101112131415161718var cache = &#123; &#125;;var count = 0;function fib(n)&#123; count++; if(n === 1 || n === 2)&#123; return 1; &#125; if(cache[n])&#123; return cache[n]; &#125;else&#123; var ret = fib(n - 1) + fib(n - 2); cache[n] = ret; return ret; &#125;&#125;console.log(fib(10));console.log(&quot;fib函数调用的次数 &quot; + count); 总结 缓存: 存数据(该案例中,用键存月份,值存的对数) 在js中,缓存中如何表示, 对象 || 数组]]></content>
@@ -342,47 +963,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[js：作用域]]></title>
-    <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9A%E4%BD%9C%E7%94%A8%E5%9F%9F%2F</url>
-    <content type="text"><![CDATA[作用域就是变量和函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。 全局作用域在代码任何地方都能访问到的对象拥有全局作用域。拥有作用域的情况： 程序最外层定义的函数或变量。 所有未定义直接赋值的变量，相当于在window对象上创建属性。（不推荐） 所有window对象的属性和方法。 局部作用域（函数作用域）局部作用域在函数内创建，在函数内可访问，函数外不可访问。 变量声明js引擎解析js代码时，会先把变量和函数的声明提前进行预解析，然后再去执行其他代码。 直接赋值不会引起变量提升，在执行期间创建，为window的属性，可删除。 函数声明 function name(){}直接创建 new Function构建函数创建 给变量赋值匿名函数方法创建1var name = function()&#123; &#125; 后两者，在声明前访问，返回undefined。函数名与变量名声明时相同，函数优先声明。 作用域链当代码在一个环境中执行时，会创建变量对象的一个作用域链来保证对执行环境有权访问的变量和函数的有序访问。 作用域链的前端，始终是当前执行代码所在环境的变量对象。如果当前环境是函数，则将其活动对象作为变量对象。活动对象最开始只包含arguments对象（这个对象在全局环境中不存在）。 全局执行环境的变量对象始终都是作用域链的最后一个对象。 js每一个函数执行时，会先在自己创建的AO上找对应的属性值。若找不到，则往父函数的AO上找，直到找到全局作用域，这样就形成一条作用域链。 VO（变量对象）：函数创建阶段，js解析引擎进行预解析时，所有变量和函数的声明组成VO。 AO（活动对象）：函数执行阶段，当函数被调用执行时，会建立一个执行上下文，该执行上下文包含了函数所需的所有变量，这些变量组成AO。 执行上下文可以理解为当前代码的执行环境，它会形成一个作用域。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：ajax]]></title>
-    <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9Aajax%2F</url>
-    <content type="text"><![CDATA[核心XMLHttpRequest，一个js对象，一个构造函数。 方法 open()：准备启动一个AJAX请求； setRequestHeader()：设置请求头部信息； send()：发送AJAX请求； getResponseHeader(): 获得响应头部信息； getAllResponseHeader()：获得一个包含所有头部信息的长字符串； abort()：取消异步请求； 另外，浏览器还为该对象提供了一个onreadystatechange监听事件，大明湖readyState属性改变时，就会触发该事件发送。 为了确保浏览器的兼容性，最好在调用open方法之前指定事件处理程序。 属性 responseText：包含响应主体返回文本； responseXML：如果响应的内容类型时 text/xml或 application/xml，该属性将保存包含着相应数据的XML DOM文档； status：响应的HTTP状态； statusText：HTTP状态的说明； readyState：表示“请求”/“响应”过程的当前活动阶段 拓展 什么是ajax？ajax作用是什么？ 1ajax是用来与后台交互的一种技术。用来实现客户端服务器的异步通信效果，实现页面的局部刷新。 原生js ajax发送http请求需要几个步骤？分别是什么？ 1234567891011121314151617181920//1：创建XMLHttpRequest对象var xhr = new XMLHttpRequest();//2：设置请求参数（请求方式，url，是否异步请求）xhr.open(&quot;GET&quot;,url,false);//3：设置请求头部(也可以不设置)xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);//支持跨域发送cookiexhr.withCredentials = true;//4：发送请求xhr.send(null);//5：设置事件处理程序xhr.onreadystatechange = function()&#123; if(xhr.readystate == 4)&#123; if(xhr.status == 200)&#123; console.log(xhr.responseText); &#125;else&#123; console.log(&quot;出错了&quot;); &#125; &#125;&#125; readyState的取值？ 123450：(未初始化)还没有调用open()方法。1：(正在载入)已调用open()方法，但send()方法还没调用。2：(载入完成)send()方法已经调用，请求已发送。3：(交互)服务器端发送响应，客户端正在解析响应内容。4：(完成)响应内容解析完成，可以在客户端调用了。 http的请求方法 12345678get：获取服务器中的资源。post：传输实体文本put：传输文件。要指出资源在服务器中的位置。head：获取页面的首部。delete：删除服务器中的某个资源。options：获取当前url所支持的方法。trace：追踪路径。connect：要求用隧道协议连接代理。 get和post的区别 1231. 发送方式：get请求数据放在url上，即http的协议头；post把数据放在http的包体中。2. 大小限制：get传的参数有长度限制；post理论上没有限制。3. 安全性：get请求可被缓存，请求保存在浏览器的历史记录中；post不能被缓存。且get传送的数据是url的一部分。 什么情况造成跨域？如何解决？ 123456789受同源策略限制。协议、子域名、主域名、端口号、ip地址、网址，任一不同都为不同源。1. jsonp 只能解决get跨域2. CORS：跨域资源共享，通过设置Access-Control-Allow-Origin来允许跨域（主要后台配置）3. 设置document.domain4. 代理请求解决接口跨域。jsonp通过script标签进行跨域请求①前端设置好回调函数，将回调函数名作为url携带的参数。②后端接到请求后，生成一个函数，函数名为前端传来的回调函数名，数据作为参数传入函数，返回js文档。③客户端解析并执行返回的js文档，将返回的数据传入回调函数执行。 http状态码（status） 状态码 含义 1xx 请求正在被处理 2xx 请求成功被处理 3xx 请求需求附加操作，如重定向 4xx 客户端出错导致请求无法被处理 5xx 服务端处理出错 常用状态码 200 请求成功处理，一切正常 301 永久重定向（新网址替换旧网址，旧网址清零） 302 临时重定向（也是替换，但是旧网址还能参与排名） 304 资源未修改 403 禁止访问 404 页面未找到 405 不允许此请求方法 500 服务器出错 回调函数 1231.一个函数作为参数传递给另一个函数，在功能下载完成后执行，作为参数的函数即为回调函数。2.可用于解决异步。3.典型例子即为ajax请求。 回调地狱 12345当许多功能需要连续调用,环环相扣依赖时。就会产生函数作为参数层层嵌套的一个效果，这就形成回调地狱。使得代码变得难以理解与维护。解决：1.保持代码简短，避免使用匿名函数。2.模块化。将不同功能的代码封装成不同的模块。3.处理每一个错误。为了让代码稳定，永远无法知道这些错误何时发生，所以必须对它们进行计划。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[js：立即执行函数]]></title>
     <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9A%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[立即执行函数12345//一个匿名函数包裹在一个括号运算符中，后面再跟一个小括号( function()&#123;…&#125; )() //等价于( function ()&#123;…&#125; () )//一个匿名函数后面跟一个小括号，然后整个包裹在一个括号运算符中 注意： 函数体后面要有小括号()，函数体必须是函数表达式而不能是函数声明。 （）运算符将匿名函数或函数声明转换为函数表达式。 好处通过定义一个匿名函数，创建了一个新的函数作用域，相当于创建了一个“私有”的命名空间，该命名空间的变量和方法，不会破坏污染全局的命名空间。 此时若是想访问全局对象，将全局对象以参数形式传进去即可 123(function(window)&#123; ...&#125;)(window); 拓展123456789101112131415161718192021222324252627282930313233343536for(var i = 0; i&lt;10; i++)&#123; setTimeout(function()&#123; console.log(i) &#125;);&#125;改写：使打印 0-10//第一种：letfor(let i = 0; i&lt;10; i++)&#123; setTimeout(function()&#123; console.log(i) &#125;);&#125;//第二种：闭包 + 立即执行函数for(var i = 0; i&lt;10; i++)&#123; (function(a)&#123; setTimeout(function()&#123; console.log(a) &#125;); &#125;)(i);&#125;上面的代码即可实现依次打印出0,1,2,3...此处利用闭包每次将i的值传入进去，里面使用参数a接受传过来的值然后setTimeout异步调用，进入异步队列，循环代码很快执行完然后从异步队列里返回执行后的结果，依次打印出0，1,2,3...//实现隔1秒依次打印一个结果for(var i = 0; i&lt;10; i++)&#123; (function(a)&#123; setTimeout(function()&#123; console.log(a) &#125;); &#125;,1000*a)(i);&#125;上面代码在延迟执行时间那块加了一个参数aa的值每次都会增加1，使时间每次扩大比上次大一倍从而实现了每隔一秒就打印出一个结果 异步调用：异步代码执行完后结果存放在队列中，等同步代码执行完，再输出结果]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[CSS：BFC]]></title>
-    <url>%2F2019%2F04%2F23%2Fcss%2Fcss%EF%BC%9ABFC%2F</url>
-    <content type="text"><![CDATA[BFC定义块级格式化上下文，是指一个独立的块级渲染区域。该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。 BFC生成满足下列css声明之一的元素便会生成BFC 根元素或其它包含它的元素 float的值不为none； overflow的值不为visible； position的值不为static； display的值为inline-block、table-cell、table-caption； flex boxes (元素的display: flex或inline-flex)； BFC布局规则 内部的元素会在垂直方向一个接一个地排列，可以理解为是BFC中的一个常规流 元素垂直方向的距离由margin决定，即属于同一个BFC的两个相邻盒子的margin可能会发生重叠 每个元素的左外边距与包含块的左边界相接触(从左往右，否则相反)，即使存在浮动也是如此，这说明BFC中的子元素不会超出它的包含块 BFC的区域不会与float元素区域重叠 计算BFC的高度时，浮动子元素也参与计算 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然 位于不同BFC下的相邻元素之间不会发生margin重叠 BFC的应用解决margin塌陷问题margin塌陷的原理为它们处于同一个BFC中，符合“属于同一个BFC的两个相邻元素的margin会发生重叠”的规则。 解决方法：在其中一个元素外面包裹一层容器，并触发容器生成一个BFC（overflow：hidden），使两个元素处于不同的BFC。 解决浮动问题给父元素设置overflow：hidden可以清除子元素的浮动是应用了BFC的原理：给父元素设置overflow：hidden触发了BFC，形成一个独立的渲染区域，所以内部的元素就不会影响外面的布局，BFC把浮动的子元素的高度当作自己的高度去处理溢出，从外面看起来就是清除了浮动 解决侵占浮动元素的问题当一个元素浮动，另一个元素不浮动时，浮动元素因为脱离文档流，就会盖在不浮动的元素上。 解决方法：不浮动的元素也设为浮动，或者添加overflow：hidden 原理：为不浮动的元素建立BFC环境，BFC不与float box重叠。]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -390,21 +978,10 @@
     <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9AsetTimeout%E5%92%8CsetInterval%2F</url>
     <content type="text"><![CDATA[都是延迟一段时间调用回调函数。 setTimeout setTimeout只调用一次。 setTimeout最短间隔时间为4毫秒。setInterval setInterval会一直循环调用函数，不会自己停止。要用clearInterval(计数器编号)来停止。 setInterval最短间隔时间为10毫秒，小于会被调整为10ms。 拓展 使用setInterval有可能定时器代码可能在代码再次被添加到队列之前还没有完成执行，这样有可能导致代码连续运行。js引擎解决：队列无定时器代码才添加。这样有可能导致某些间隔被跳过。]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[数据类型：json和xml]]></title>
-    <url>%2F2019%2F04%2F23%2F%E5%89%8D%E7%AB%AF%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9Ajson%E5%92%8Cxml%2F</url>
-    <content type="text"><![CDATA[json json是一种轻量级的数据交换格式。 兼容性高。 格式简单，易读写。 易于解析。 xml xml是一种扩展标记语言。 可用来标记数据，定义数据类型。 格式统一。 文件庞大，格式复杂。 客户端和服务器端都需要大量代码来解析，导致代码复杂难以维护。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -445,10 +1022,10 @@
     <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%2F</url>
     <content type="text"><![CDATA[时间复杂度原则 如果运行时间是常数量级，用常数1表示； 只保留时间函数中的最高阶项； 如果最高阶项存在，则省去最高阶项前面的系数。 场景一给小灰一条长n寸的面包，小灰每3天吃掉1寸，那么吃掉整个面包需要几天？ 12345678//T（n） = 3n，执行次数是线性的。void eat1(int n)&#123; for(int i=0; i&lt;n; i++)&#123;; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一寸面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（n） 场景二给小灰一条长16寸的面包，小灰每5天吃掉面包剩余长度的一半，第一次吃掉8寸，第二次吃掉4寸，第三次吃掉2寸……那么小灰把面包吃得只剩下1寸，需要多少天呢？ 这个问题翻译一下，就是数字16不断地除以2，除几次以后的结果等于1？这里要涉及到数学当中的对数，以2位底，16的对数，可以简写为log16。因此，把面包吃得只剩下1寸，需要 5 X log16 = 5 X 4 = 20 天。 如果面包的长度是 N 寸呢？需要 5 X logn = 5logn天，记作 T（n） = 5logn。12345678910//T（n） = 5logn，执行次数是对数的。void eat2(int n)&#123; for(int i=1; i&lt;n; i*=2)&#123; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一半面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（logn） 场景三给小灰一条长10寸的面包和一个鸡腿，小灰每2天吃掉一个鸡腿。那么小灰吃掉整个鸡腿需要多少天呢？ 12345//T（n） = 2，执行次数是常量的。void eat3(int n)&#123; System.out.println(&quot;等待一天&quot;); System.out.println(&quot;吃一个鸡腿&quot;);&#125; 时间复杂度为：T（n） = O（1） 场景四给小灰一条长10寸的面包，小灰吃掉第一个一寸需要1天时间，吃掉第二个一寸需要2天时间，吃掉第三个一寸需要3天时间…..每多吃一寸，所花的时间也多一天。那么小灰吃掉整个面包需要多少天呢？ 答案是从1累加到10的总和，也就是55天。 如果面包的长度是 N 寸呢？此时吃掉整个面包，需要 1+2+3+……+ n-1 + n = (1+n)*n/2 = 0.5n^2 + 0.5n。123456789//T（n） = 0.5n^2 + 0.5n，执行次数是一个多项式。void eat4(int n)&#123; for(int i=0; i&lt;n; i++)&#123; for(int j=0; j&lt;i; j++)&#123; System.out.println(&quot;等待一天&quot;); &#125; System.out.println(&quot;吃一寸面包&quot;); &#125;&#125; 时间复杂度为：T（n） = O（n^2） 总结四种时间复杂度究竟谁用时更长，谁节省时间呢？ 1O（1）&lt; O（logn）&lt; O（n）&lt; O（n^2） 除了上述的四个场景，还有许多不同形式的时间复杂度，比如： 1O（nlogn）, O（n^3）, O（m*n），O（2^n），O（n！）]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -474,28 +1051,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[js：this指向]]></title>
-    <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9Athis%E6%8C%87%E5%90%91%2F</url>
-    <content type="text"><![CDATA[普通函数this指向调用该函数的对象。 箭头函数this对象是定义时所在的对象。 指向调用箭头函数外层function的对象。如果箭头函数没有外层函数，则指向window。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：arguments转为数组]]></title>
-    <url>%2F2019%2F04%2F23%2Fjs%2Fjs%EF%BC%9Aarguments%E8%BD%AC%E4%B8%BA%E6%95%B0%E7%BB%84%2F</url>
-    <content type="text"><![CDATA[arguments，一个类似于数组的对象，一个参数集1234567function toArr()&#123; var arr = []; for（var i in arguments）&#123; arr.push(arguments[i]); &#125; return arr;&#125;]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[各种算法（三）]]></title>
     <url>%2F2019%2F03%2F27%2F%E7%AE%97%E6%B3%95%2F%E5%90%84%E7%A7%8D%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%89%EF%BC%89%2F</url>
     <content type="text"><![CDATA[有一个字符串有很多is，写一个方法只保留一个is？ 123456789function deleteIs(str)&#123; var index = str.search(&quot;is&quot;); var left = str.slice(0,index+2); var right = str.slice(index+2,str.length); right = right.split(&quot;is&quot;).join(&quot;&quot;); return left.concat(right); &#125;console.log(deleteIs(&quot;thisismybook&quot;));//thismybook 有3个-10-10之间的整数，写一个方法这三个数一共有多少可能相加等于10。 改写数组的push方法，保持原有逻辑，添加一个console.log(arguments)，即push什么打印什么。 12345Array.prototype.push = function(val)&#123; console.log(val);&#125;var temp = [1,2,5];temp.push(7);//打印7 传入一个无序数组，要求n数相加，获取特定的sum 12345678910111213141516 function getResult(arr,n,sum)&#123; if(n==0&amp;&amp;sum==0)&#123; return true; &#125; if(n&lt;0)&#123; return false; &#125; if(n&gt;0)&#123; for(var i in arr)&#123; var temp = arr.slice(i+1,arr.length); return getResult(temp,n-1,sum-arr[i]) || getResult(temp,n,sum); &#125; &#125;&#125;console.log(getResult([1,2,3,4],2,7)); //true 用正则表达式去掉两边的空格 123456function remove(str)&#123; var reg = /(^\s+)|(\s+?)/g; return str.replace(reg,&quot;&quot;);&#125;console.log(remove(&quot;this is book&quot;));//&quot;thisisbook&quot; 给定一个非空的数字数组，数组有且只有一个非重复项，实现一个方法获取落单项 12345678910111213function getSingleNumber(arr)&#123; var temp = []; for(var i in arr)&#123; if(temp.indexOf(arr[i]) == -1)&#123; temp.push(arr[i]); &#125;else&#123; temp.splice(temp.indexOf(arr[i]),1); &#125; &#125; return temp[0];&#125;console.log(getSingleNumber([0,1,0,0])); //1 请实现一个函数merge，传入一个数组，合并数组中【相邻且重复】的元素 123456789101112function merge(arr)&#123; var reg = /(.)\1*/g; var str = arr.join(&quot;&quot;); str = str.replace(reg,&quot;$1&quot;); arr = str.split(&quot;&quot;); arr = arr.map(function(val)&#123; return parseInt(val); &#125;) return arr;&#125;console.log(merge([3,2,2,4,5,5,6,2,1]));//[3,2,4,5,6,2,1]]]></content>
@@ -504,28 +1059,6 @@
       </categories>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：字符串常用的方法]]></title>
-    <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[charAt(index) 1返回指定索引的字符。 charCodeAt(index) 1返回指定索引的unicode字符. indexOf(char) 1判断一个字符第一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。 lastIndexOf(char) 1判断一个字符最后一次出现在某个字符串的索引，如果包含返回它的索引，如果不包含返回-1。 concat() (返回一个新字符串) 123456拼接2个字符串，返回一个新字符串，对原有字符串没有任何改变。var str=&apos;qwe&apos;;var str1=&apos;abc&apos;;var str2=str.concat(str1);console.log(str2);//&quot;qweabc&quot; substr(start,number) (不修改原字符串) 1从索引start开始，截取number个字符，将截取的字符返回。start可正可负。 substring(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end.将截取的字符返回。start,end正值。 slice(start,end) (不修改原字符串) 1从索引start开始，截取到索引end,不包括end。将截取的字符返回。start,end可正可负。 split(“分割符”[,limit]) (返回数组，不修改原字符串) 1用指定字符分割字符串，返回一个数组。默认每个字符都分割。 replace(reg,new) (不修改原字符串) 1234替换指定字符，返回替换后新的字符串，对原有字符串有改变。var str=&apos;aaaaee&apos;;var reg=/a/g;str.replace(reg,1); //&quot;1111ee&quot; match(reg) (返回一个数组) 1可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。把符合正则表达式的字符放在数组里，返回一个数组。 search(reg) 1方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。返回第一个匹配字符串的第一个字符的位置。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：数组去重]]></title>
-    <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%2F</url>
-    <content type="text"><![CDATA[ES5 123456789function unique(arr)&#123; var temp = []; for(var i = 0;i&lt;arr.length;i++)&#123; if(temp.indexOf(arr[i]==-1)&#123; temp.push(arr[i); &#125; &#125; return temp;&#125; ES6 1234function unique(arr)&#123; var temp = [...new Set(arr)]; return temp;&#125;]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -540,53 +1073,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[js：数组的常用方法]]></title>
-    <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[join(“分隔符”) 1将数组的元素放入一个字符串，默认用逗号为分隔符。 push() 1把参数逐个添加到数组末尾，返回修改后数组长度。 pop() 1从数组末尾移除最后一项，返回移除的项。 shift() 1移除数组中的第一个项并返回该项。 unshift() 1在数组前面添加任意个项，返回数组长度。 reserve() （会修改原数组） 1反转数组的顺序，返回经过排序后的数组，会修改原数组。 sort([function]) （会修改原数组） 123456789参数必须是函数，若无参数则默认按照字母编码（字符编码）的顺序进行排序。会修改原数组。//数字从小到大排序arr.sort(function(a,b)&#123; return a-b;&#125;);//数字从大到小排序arr.sort(function(a,b)&#123; return b-a;&#125;); concat() (不修改原数组) 123连接两个或多个数组。参数可以为具体的值，也可以为数组对象，可以有任意多个。返回当前数组的一个浅拷贝。 slice(start,end) (不修改原数组) 123基于当前数组的一个或多个项创建一个新数组。左闭右开，返回新数组，不影响原数组。没有参数则原数组的浅拷贝。 splice(start,number,new) (会修改原数组) 1删除原数组的一部份成员，并可以在被删除的位置添加入新的数组成员，会修改原数组。返回一个数组，里面包含被删除的项目。 indexOf(search,start) 1返回search首次出现的位置，没有则返回-1。默认从第0位开始。 lastIndexOf(search,start) 1从右往左找，返回search首次出现的位置，没有则返回-1。 includes(value) 1判断一个数组是否包含一个指定的值。 forEach(callback(value,index,array){}[,this]) (不修改原数组) 123对数组进行遍历循环，对数组中的每一项运行给定函数。这个方法没有返回值。参数都是function类型，默认有传参，参数分别为：遍历的数组内容，对应的数组索引，数组本身。 map(callback(value,index,array){}[,this]) (不修改原数组) 1对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。 filter(callback(value,index,array){}[,this]) (不修改原数组) 1“过滤”功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。 some(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true。 every(callback(value,index,array){}[,this]) (不修改原数组) 1判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true。 find(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的值。 findIndex(callback(value,index,array){}[,this]) (不修改原数组) 1返回数组中满足提供的测试函数的第一个元素的索引。 reduce(function(prev, cur, index, array){}[,初始值])和reduceRight(function(prev, cur, index, array){}[,初始值]) (不修改原数组) 123实现迭代数组的所有项，然后构建一个最终返回的值。前者从第一项开始，后者从最后一项开始。这个函数返回的任何值都会作为第一个参数自动传给下一项。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[浏览器本地缓存]]></title>
     <url>%2F2019%2F03%2F27%2F%E5%89%8D%E7%AB%AF%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%2F</url>
-    <content type="text"><![CDATA[定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力 缓存位置 Service Worker Memory Cache Disk Cache Push Cache 缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告知客户端资源缓存失效的绝对时间。 Cache-Control：告知客户端或服务器如何处理缓存 max-age=xxx：表示缓存内容将在缓存时间的xxx秒后失效 no-cache：表示可以缓存，但每次用都要去向服务器验证缓存是否可用。 no-store：表示所有内容都不会缓存。 private：客户端可以缓存。 public：客户端和代理服务器都可以缓存。默认值。 Last-Modified：资源最后一次修改时间。 Etag：文件的特殊标识。 Cache-Control优先级高于Expires。 Etag优先级高于Last-Modified。 强缓存 根据本地缓存资源的header中的Expires和Cache-Control来判断是否命中强缓存。 如果命中强缓存则返回缓存的数据。 如果没有命中则进入协商缓存。 协商缓存 如果没有命中强缓存，浏览器会将本地缓存资源的header中的Last-Modified和Etag的值分别放入请求头的IF-Modified-Since和IF-None-Match字段中，向服务器发送请求，由服务器根据请求中的相关header信息来对比结果是否命中协商缓存。 若命中即资源未更新，则服务器返回新的响应header信息且返回的http状态为304，但是并不返回资源内容，它会显示一个Not Modified的字符串，来告知浏览器使用缓存。 否则返回最新的数据，并将新数据存入缓存。 总结当浏览器再次访问一个已经访问过的资源时，会 看看是否命中强缓存，如果命中，就直接使用缓存了。 如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存。 如果命中协商缓存，服务器会返回 304。 告诉浏览器使用本地缓存。 否则，返回最新的资源。 拓展ctrl+F5和F5的区别F5只是刷新本地缓存；ctrl+F5是重新向服务器请求。 禁止浏览器缓存方法 设置响应头 12//把Cache-Control设置为no-cache&lt;meta HTTP-EQUIV=&quot;Cache-Control&quot; CONTENT=&quot;no-cache&quot;&gt; 在访问的url后添加一个参数，可以是随机数或者时间戳。这样url时刻在变化，就要重新发送http请求]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：类数组]]></title>
-    <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E7%B1%BB%E6%95%B0%E7%BB%84%2F</url>
-    <content type="text"><![CDATA[类数组对象：只包含使用从零开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象。 1234var arr = [1,2,3];var obj = &#123;0: 1, 1: 2, 2: 3, length: 3&#125;;console.log(arr[0], obj[0])//1, 1console.log(arr[&apos;length&apos;], obj[&apos;length&apos;])//3，3 我们可以使用对象来模拟数组，只要我们定义的对象的每个元素的键名都使用数字并且让其保持递增，且动态的定义一个length属性来表示元素个数，那么从效果上来说，基本就和数组相同了。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[前端SEO（搜索引擎优化）]]></title>
-    <url>%2F2019%2F03%2F27%2F%E5%89%8D%E7%AB%AF%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[回流和重绘]]></title>
-    <url>%2F2019%2F03%2F27%2F%E5%89%8D%E7%AB%AF%2F%E5%9B%9E%E6%B5%81%E5%92%8C%E9%87%8D%E7%BB%98%2F</url>
-    <content type="text"><![CDATA[浏览器渲染解析HTML，生成DOM树，解析CSS，生成CSSOM树。将DOM树和CSSOM树结合，生成渲染树（Render Tree）。 回流当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流。 每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建render tree。 重绘当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。 回流必定触发重绘，而重绘不一定触发回流。]]></content>
+    <content type="text"><![CDATA[定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力 缓存位置 Service Worker Memory Cache Disk Cache Push Cache 缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告知客户端资源缓存失效的绝对时间。 Cache-Control：告知客户端或服务器如何处理缓存 max-age=xxx：表示缓存内容将在缓存时间的xxx秒后失效 no-cache：表示可以缓存，但每次用都要去向服务器验证缓存是否可用。 no-store：表示所有内容都不会缓存。 private：客户端可以缓存。 public：客户端和代理服务器都可以缓存。默认值。 Last-Modified：资源最后一次修改时间。 Etag：文件的特殊标识。用于文件内容对比，判断内容是否修改。 Cache-Control优先级高于Expires。 Etag优先级高于Last-Modified。 强缓存 根据本地缓存资源的header中的Expires和Cache-Control来判断是否命中强缓存。 如果命中强缓存则返回缓存的数据。 如果没有命中则进入协商缓存。 协商缓存 如果没有命中强缓存，浏览器会将本地缓存资源的header中的Last-Modified和Etag的值分别放入请求头的IF-Modified-Since和IF-None-Match字段中，向服务器发送请求，由服务器根据请求中的相关header信息来对比结果是否命中协商缓存。 若命中即资源未更新，则服务器返回新的响应header信息且返回的http状态为304，但是并不返回资源内容，它会显示一个Not Modified的字符串，来告知浏览器使用缓存。 否则返回最新的数据，并将新数据存入缓存。 总结当浏览器再次访问一个已经访问过的资源时，会 先判断是否存在缓存，再看是否命中强缓存，如果命中，就直接使用缓存了。 如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存。 如果命中协商缓存，服务器会返回 304。 告诉浏览器使用本地缓存。 否则，返回最新的资源。 拓展ctrl+F5和F5的区别F5只是刷新本地缓存，强缓存无效，协商缓存有效；ctrl+F5是强缓存与协商缓存均无效，重新向服务器请求。 禁止浏览器缓存方法 设置响应头 12//把Cache-Control设置为no-cache&lt;meta HTTP-EQUIV=&quot;Cache-Control&quot; CONTENT=&quot;no-cache&quot;&gt; 在访问的url后添加一个参数，可以是随机数或者时间戳。这样url时刻在变化，就要重新发送http请求]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -599,10 +1088,10 @@
     <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E7%80%91%E5%B8%83%E6%B5%81%E5%B8%83%E5%B1%80%2F</url>
     <content type="text"><![CDATA[瀑布流布局的要求要进行布置的元素等宽； 然后计算元素的宽度， 与浏览器宽度之比，得到需要布置的列数； 创建一个数组，长度为列数， 里面的值为以已布置元素的总高度（最开始为0）； 然后将未布置的元素的依次布置到高度最小的那一列， 就得到了瀑布流布局； 滚动加载，scroll事件得到scrollTop， 与最后盒子的offsetTop对比， 符合条件就不断滚动加载。]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -619,7 +1108,7 @@
   <entry>
     <title><![CDATA[渐进增强和优雅降级]]></title>
     <url>%2F2019%2F03%2F27%2F%E5%89%8D%E7%AB%AF%2F%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[渐进增强针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。 优雅降级一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。 区别 渐进增强观点认为应该关注于内容本身。 优雅降级观点认为应该针对那些最高级、最完善的浏览器来设计网站。]]></content>
+    <content type="text"><![CDATA[渐进增强针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。123456.transition&#123; -webkit-transition: all .5s; -moz-transition: all .5s; -o-transition: all .5s; transition: all .5s; &#125; 优雅降级一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。123456.transition&#123; transition: all .5s; -o-transition: all .5s; -moz-transition: all .5s; -webkit-transition: all .5s;&#125; 区别 渐进增强观点认为应该关注于内容本身。 优雅降级观点认为应该针对那些最高级、最完善的浏览器来设计网站。]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -628,47 +1117,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[计网：http和https]]></title>
-    <url>%2F2019%2F03%2F27%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Ahttp%E5%92%8Chttps%2F</url>
-    <content type="text"><![CDATA[关于https用处： 建立一个信息安全通道，来保证数据传输的安全。 确认网站的真实性，防止钓鱼网站。 https就是在http下加入了ssl层，从而保护了交换数据隐私和完整性，提供了对网站服务器身份认证的功能，简单来说就是安全版的http。 http和https的区别 http协议是运行在tcp之上的，所有传输的内容都是明文。https协议是运行在ssl\TLS之上的，而ssl\TLS协议运行在tcp之上的，所有传输的内容都经过加密。（加密采用对称加密，而密钥的传输利用非对称加密） http默认使用端口80。https默认使用端口443。 https的工作原理 使用HTTPS的url访问服务器，客户端向服务器端请求建立SSL连接。（可以说TLS为SSL的新版本） 服务器收到客户端请求后，会将网站的证书信息（证书包含公钥）传送一份给客户端。 客户端浏览器和服务器端协商信息加密的等级。 客户端浏览器根据协商好的安全等级，建立会话密钥，然后利用网站的公钥加密会话密钥，并传送给服务器。 服务器利用私钥解密会话密钥，并利用会话密钥加密与客户端之间的通信。]]></content>
-      <categories>
-        <category>计网</category>
-      </categories>
-      <tags>
-        <tag>计网</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：事件循环机制]]></title>
-    <url>%2F2019%2F03%2F27%2Fjs%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6Event%20Loop%2F</url>
-    <content type="text"><![CDATA[前言JavaScript的事件分两种，宏任务(macro-task)和微任务(micro-task) 宏任务：包括整体代码script，setTimeout，setInterval 微任务：Promise.then(new Promise是定义后立即执行的)，process.nextTick(node中) 事件循环先执行宏任务，其中同步任务立即执行，异步任务，加载到对应的的Event Queue中，所有同步宏任务执行完毕后，如果发现微任务的Event Queue中有未执行的任务，会先执行其中的任务，这样算是完成了一次事件循环。接下来查看宏任务的Event Queue中是否有未执行的任务，有的话，就开始第二轮事件循环，依此类推。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[js：实现给数字添加千分位符的方法]]></title>
     <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9A%E5%AE%9E%E7%8E%B0%E7%BB%99%E6%95%B0%E5%AD%97%E6%B7%BB%E5%8A%A0%E5%8D%83%E5%88%86%E4%BD%8D%E7%AC%A6%E7%9A%84%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[toLocaleString方法12const num = 12345678;num.toLocaleString(); toLacalString：返回这个数字在特定语言环境下的表示字符串。 在没有指定区域的基本使用时，返回使用默认的语言环境和默认选项格式化的字符串。 正则表达式1234567const num = 12345678;var reg=/\d&#123;1,3&#125;(?=(\d&#123;3&#125;)+$)/g;num.replace(reg,&quot;$&amp;,&quot;);1. 正则表达式 \d&#123;1,3&#125;(?=(\d&#123;3&#125;)+$) 表示前面有1~3个数字，后面的至少由一组3个数字结尾。2. ?=表示正向引用，可以作为匹配的条件，但匹配到的内容不获取，并且作为下一次查询的开始。3. $&amp; 表示与正则表达式相匹配的内容。]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[CSS：line-height]]></title>
-    <url>%2F2019%2F03%2F26%2Fcss%2Fcss%EF%BC%9Aline-height%2F</url>
-    <content type="text"><![CDATA[line-height在应用到一个块级元素时，它定义了该元素中基线之间的最小距离 1234line-height:15px;//行间距为15pxline-height:150%;//行间距=当前的字体尺寸*150%line-height:1.5;//行间距=当前的字体尺寸*1.5line-height:1.5em;行间距=父元素的字体尺寸*1.5]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -687,32 +1143,10 @@
     <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9A%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E5%92%8C%E8%A7%82%E5%AF%9F%E8%80%85%2F</url>
     <content type="text"><![CDATA[观察者模式（自定义事件）目标和观察者是基类，目标提供维护观察者的一系列方法，观察者提供更新接口。具体观察者和具体目标继承各自的基类，然后具体观察者把自己注册到具体目标里，在具体目标发生变化时候，调度观察者的更新方法。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960// 观察者(订阅者)function Observer(name) &#123; this.name = name;&#125;Observer.prototype = &#123; update: function(context) &#123; console.log(this.name + &quot;：&quot; + context); &#125;&#125;// 观察者(订阅者)列表function ObserverList() &#123; this.observerList = [];&#125;ObserverList.prototype = &#123; add: function(obj) &#123; return this.observerList.push(obj); &#125;, count: function() &#123; return this.observerList.length; &#125;, get: function(index) &#123; if (index &gt; -1 &amp;&amp; index &lt; this.observerList.length) &#123; return this.observerList[index]; &#125; &#125;, removeAt: function(index) &#123; this.observerList.splice(index, 1); &#125;&#125;// 目标(发布者)function Subject() &#123; this.observers = new ObserverList();&#125;Subject.prototype = &#123; addObsever: function(observer) &#123; this.observers.add(observer); &#125;, removeObsever: function(observer) &#123; this.observers.removeAt(this.observers.indexOf(observer, 0)); &#125;, notify: function(context) &#123; var observerCount = this.observers.count(); for (var i = 0; i &lt; observerCount; i++) &#123; this.observers.get(i).update(context); &#125; &#125;&#125;var mySubject = new Subject();mySubject.addObsever(new Observer(&quot;小明&quot;));mySubject.addObsever(new Observer(&quot;小红&quot;));mySubject.notify(&quot;hello world&quot;); 发布-订阅理解发布-订阅模式，用个对象作为调度中心，绑定事件名为属性。订阅者把自己想订阅的事件注册到调度中心，发布者发布事件到调度中心时，即触发这个事件，由调度中心统一调度订阅者注册到调度中心的处理代码。 优点 支持简单的广播通信，当对象状态发生改变时，会自动通知已经订阅过的对象。 发布者与订阅者耦合性降低，发布者只管发布一条消息出去，它不关心这条消息如何被订阅者使用，同时，订阅者只监听发布者的事件名，只要发布者的事件名不变，它不管发布者如何改变。 缺点 创建订阅者需要消耗一定的时间和内存。 虽然可以弱化对象之间的联系，如果过度使用的话，反而使代码不好理解及代码不好维护等等。 一个简单的发布订阅123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051var event = &#123; clientList: &#123;&#125;, listen: function( key, fn )&#123; //添加订阅对象 if( !this.clientList[ key ] )&#123; this.clientList[ key ] = []; &#125; this.clientList[ key ].push( fn ); &#125;, trigger: function()&#123; //绑定发布事件 var key = Array.prototype.shift.apply( arguments ), fns = this.clientList[ key ]; for( var i = 0, fn; fn = fns[ i++]; )&#123; fn.apply( this, arguments ); &#125; &#125;, remove: function( key, fn )&#123; //取消订阅的事件 var fns = this.clientList[ key ]; if( !fns )&#123; //如果key对应的消息没有被人订阅，则直接返回 return false; &#125;; if( !fn )&#123; //如果没有传入具体的回调函数，标示取消key对应消息的所有订阅 fns = []; &#125;else&#123; for( var i = fns.length - 1; i &gt;= 0 ; i-- )&#123; //取消key对应的订阅消息 if( fn === fns[ i ] )&#123; fns.splice( i, 1 ); &#125; &#125; &#125; &#125;&#125;;var saleOffices = &#123;&#125;;//给对象绑定一个调度中心var installEvent = function( obj )&#123; for( i in event )&#123; obj[ i ] = event[ i ]; &#125;&#125;;installEvent( saleOffices );saleOffices.listen( &quot;squareMeter88&quot;, fn1 = function( price )&#123; console.log( &quot;价格&quot; + price );&#125; );saleOffices.listen( &quot;squareMeter88&quot;, function( price )&#123; console.log( &quot;价格&quot; + price );&#125; );saleOffices.remove( &quot;squareMeter88&quot;, fn1 );saleOffices.trigger( &quot;squareMeter88&quot;, 200000 ); 不同观察者模式的订阅者和发布者之间是存在依赖的，发布订阅模式的不会。]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：判断一个空对象]]></title>
-    <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9A%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%A9%BA%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[判断一个空对象1234567function isEmptyObject(obj)&#123; if(JSON.stringify(obj) == &quot;&#123;&#125;&quot;)&#123; console.log(&quot;是空对象&quot;); &#125;else&#123; console.log(&quot;不是空对象&quot;); &#125;&#125; 拓展：判断数组12341. Array.isArray(arr)2. arr instanceof Array3. object.prototype.toString.call(arr) === &apos;[object Array]&apos;4. arr.constructor === Array]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[js：事件委托]]></title>
-    <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9A%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98%2F</url>
-    <content type="text"><![CDATA[概述事件委托就是利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。 为什么要用减少DOM操作，优化性能。 在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能，因为需要不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，这就是为什么性能优化的主要思想之一就是减少DOM操作的原因；如果要用事件委托，就会将所有的操作放到js程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能。 原理事件委托是利用事件的冒泡原理来实现的，何为事件冒泡呢？就是事件从最深的节点开始，然后逐步向上传播事件。 举个例子：页面上有这么一个节点树，div&gt;ul&gt;li&gt;a;比如给最里面的a加一个click点击事件，那么这个事件就会一层一层的往外执行，执行顺序a&gt;li&gt;ul&gt;div，有这样一个机制，那么我们给最外面的div加点击事件，那么里面的ul，li，a做点击事件的时候，都会冒泡到最外层的div上，所以都会触发，这就是事件委托，委托它们父级代为执行事件。 1234567891011121314151617181920212223242526272829&lt;ul id=&quot;ul1&quot;&gt; &lt;li&gt;111&lt;/li&gt; &lt;li&gt;222&lt;/li&gt; &lt;li&gt;333&lt;/li&gt; &lt;li&gt;444&lt;/li&gt;&lt;/ul&gt;window.onload = function()&#123; var oUl = document.getElementById(&quot;ul1&quot;); oUl.onclick = function()&#123; alert(123); &#125;&#125;//改进：只有点击li才会触发window.onload = function()&#123; var oUl = document.getElementById(&quot;ul1&quot;); oUl.onclick = function(ev)&#123; var ev = ev || window.event; var target = ev.target || ev.srcElement; if(target.nodeName.toLowerCase() == &apos;li&apos;)&#123; alert(123); alert(target.innerHTML); &#125; &#125;&#125;//target就可以表示为当前的事件操作的dom，但是不是真正操作dom。//这个是有兼容性的，标准浏览器用ev.target，IE浏览器用event.srcElement，]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -720,21 +1154,10 @@
     <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9AMath%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[12345678910111. Math.sqrt()：计算平方根2. Math.cbrt()：计算立方根3. Math.pow(a, b)：计算a的b次方4. Math.max(a,b,c...)：计算最大值5. Math.min(a,b,c...)：计算最小值6. Math.abs()：求绝对值 7. Math.ceil()：向上取整8. Math.floor()：向下取整9. Math.random()：取得一个[0.0,1.0)的随机数 10. Math.rint()： 四舍五入，返回double值。注意.5的时候会取偶数11. Math.round()： 四舍五入，float时返回int值，double时返回long值]]></content>
       <categories>
-        <category>js</category>
+        <category>JS</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[浅拷贝和深拷贝]]></title>
-    <url>%2F2019%2F03%2F26%2Fjs%2F%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D%2F</url>
-    <content type="text"><![CDATA[浅拷贝拷贝对象的内存地址，新旧对象共享同一块内存，修改新对象会导致旧对象也改变。 12345678910var obj = &#123; a: &#123;a:&quot;kobe&quot;,b:39&#125; &#125;;var arr = [&quot;a&quot;,&quot;b&quot;,&#123;name:&quot;kobe&quot;&#125;];//第一种var obj1 = obj;//第二种var obj2 = Object.assign(&#123;&#125;,obj);//当object只有一层时为深拷贝//第三种var arr1 = arr.concat();//第四种var arr2 = arr.slice(); 深拷贝创造一个一模一样的对象，，新旧对象不共享同一块内存，修改新对象不会导致旧对象改变。 递归实现深拷贝123456789101112131415161718192021222324252627282930function clone(target) &#123; var temp; if (target instanceof Array) &#123; temp = []; &#125; else if (target instanceof Object) &#123; temp = &#123;&#125;; &#125; else &#123; return target; &#125; for (var i in target) &#123; temp[i] = clone(target[i]); &#125; return temp;&#125;console.log(clone([&quot;111&quot;, &quot;222&quot;, &#123; a: &quot;1&quot; &#125;, [1, 1]]));console.log(clone(&#123; a: [1, 1], b: &#123; a: &quot;1&quot;, b: &quot;11&quot; &#125;, c: &quot;11&quot;&#125;));console.log(clone(&quot;111&quot;)); JSON.parse(JSON.stringify())123function clone(target)&#123; return JSON.parse(JSON.stringify(target));&#125; 原理： 用JSON.stringify将对象转成JSON字符串，再用JSON.parse()把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。 这种方法虽然可以实现数组或对象深拷贝，但不能处理函数。]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -763,17 +1186,6 @@
     <title><![CDATA[CSS：position]]></title>
     <url>%2F2019%2F03%2F26%2Fcss%2Fcss%EF%BC%9Apositon%2F</url>
     <content type="text"><![CDATA[position:static没有定位，元素出现在正常的文档流中，忽略left、right、top、bottom和z-index。 position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会影响元素位置，元素的位置与文档流无关，因此不占据空间，可能与其他元素发生重叠。 position:relative 相对于元素自身正常位置定位，元素在正常的文档流中占位。 当设置margin或padding属性时，该对象在标准文档流中的占位空间也随之改变。 position:absolute 元素绝对定位，相对于static定位以外的第一个父元素，若无符合要求的父元素则相对于body，元素脱离文档流。 必须指定left、right、top、bottom中的至少一个，否则left，top值与原文档流位置一致，即跟当它static时的位置一样，但是不占位。 绝对定位对象在可视区域之外会导致滚动条出现，相对定位则不会 绝对定位对象头部超过可视区域会被裁掉。 position:inherit规定应该从父元素继承 position 属性的值。 z-index 如果两个同级元素的此属性具有同样的值，那么将依据它们在HTML文档中流的顺序层叠，写在后面的将会覆盖前面的。 需要注意的是，父子关系是无法用z-index来设定上下关系的，一定是子级在上父级在下。]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[CSS：各种单位]]></title>
-    <url>%2F2019%2F03%2F26%2Fcss%2Fcss%EF%BC%9A%E5%90%84%E7%A7%8D%E5%8D%95%E4%BD%8D%2F</url>
-    <content type="text"><![CDATA[px（pixel，像素）是一个虚拟长度单位，是计算机系统的数字化图像长度单位。 物理像素（px）设备能控制显示的最小单位 逻辑像素（px）又称css像素，浏览器使用的抽象单位，而不是实际存在的 设备独立像素（dip或dp）独立于设备的用于逻辑上衡量像素的单位，包括了CSS像素 设备像素缩放比（dpr）1231. dpr=物理像素/逻辑像素2. 1px = (dpr)^2 * dp3. dpr=ppi/160 屏幕像素密度（PPI） 每英寸内有多少个设备像素点（物理像素） PPI越高，像素数越高，图像越清晰 屏幕分辨率（XxY）指屏幕上垂直有x个物理像素，水平有y个物理像素。 屏幕尺寸（x in）指屏幕对角线的长度有x英寸 em（相对长度单位） 相对于元素其父元素的字体大小，如果自身定义了font-size按自身来计算。 1em等于元素其父元素字体设置的大小。 最多取到小数点后三位。 rem（根em） 相对于html元素上字体的大小。 1rem等于html元素上字体设置的大小。 vw、vh 1vw等于视窗宽度的1%。 1vh等于视窗高度的1%。 单位 含义 vw 相对于视图窗口的宽度，视窗宽度为100vw vh 相对于视图窗口的高度，视窗高度为100vh vmin vw和vh中的较小值 vmax vw和vh中的较大值]]></content>
       <categories>
         <category>CSS</category>
       </categories>
@@ -815,61 +1227,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[js：关于闭包]]></title>
-    <url>%2F2019%2F03%2F26%2Fjs%2Fjs%EF%BC%9A%E5%85%B3%E4%BA%8E%E9%97%AD%E5%8C%85%2F</url>
-    <content type="text"><![CDATA[对闭包的理解 闭包是有权访问另一个函数作用域的一个函数。 是基于词法作用域书写代码时所产生的必然结果。 简单来说就是定义在一个函数内部的函数。 缺点始终在内存中，不会在调用结束后被垃圾回收机制回收 拓展：垃圾回收机制标记清除工作原理：是当变量进入环境时，将这个变量标记为“进入环境”。当变量离开环境时，则将其标记为“离开环境”。标记“离开环境”的就回收内存。 工作流程： 垃圾回收器，在运行的时候会给存储在内存中的所有变量都加上标记。 去掉环境中的变量以及被环境中的变量引用的变量的标记。 再被加上标记的会被视为准备删除的变量。 垃圾回收器完成内存清除工作，销毁那些带标记的值并回收他们所占用的内存空间。 引用计数工作原理：跟踪记录每个值被引用的次数。 工作流程： 声明了一个变量并将一个引用类型的值赋值给这个变量，这个引用类型值的引用次数就是1。 同一个值又被赋值给另一个变量，这个引用类型值的引用次数加1. 当包含这个引用类型值的变量又被赋值成另一个值了，那么这个引用类型值的引用次数减1. 当引用次数变成0时，说明没办法访问这个值了。 当垃圾收集器下一次运行时，它就会释放引用次数是0的值所占的内存。 拓展：引起内存泄漏 全局变量 闭包 原因：都是由于不能被回收]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[仿饿了么app]]></title>
-    <url>%2F2019%2F02%2F26%2F%E4%BB%BF%E9%A5%BF%E4%BA%86%E4%B9%88app%2F</url>
-    <content type="text"><![CDATA[一、前言1、前提 html css js ES6 vue.js 2、学习目标 掌握Vue.js在实战中的运用 学会使用Vue.js完整地开发移动端App 学会组件化、模块化的开发方式 3、学习内容 Vue.js框架介绍 Vue-cli 脚手架 搭建基本代码框架 vue-router 官方插件管理路由 vue-resource Ajax通信 Webpack 构建工具 ES6+eslint eslint：ES6代码风格检查工具 工程化 组件化 模块化 移动端常用开发技巧：flex弹性布局 css stickyfooter 酷炫的交互设计 二、Vue.js1、MVVM框架 针对具有复杂交互逻辑的前端应用 提供基础的架构抽象 通过Ajax数据持久化，保证前端用户体验 对一些数据进行操作时不需要刷新整个页面，只需要改动DOM里需要改动的那部分数据 2、什么是Vue.js 一个轻量级MVVM框架 数据驱动+组件化的前端开发 Github超过25k+的star数，社区完善 3、对比Angular React Vue.js更轻量，gzip后大小只有20k+ Vue.js更易上手，学习曲线平稳 吸取两家之长，借鉴了angular的指令和react的组件化 4、Vue.js核心思想数据驱动 若无vue，则需要手动触发DOM改变，既繁琐又容易出错 组件化组件设计原则 页面每个独立的可视/可交互区域视为一个组件 每个组件对应一个工程目录，组件所需要的各种资源在这个目录下就近维护 页面不过是组件的容器，组件可以嵌套自由组合形成完整的页面 三、开启Vue.js项目1、Vue-cli2、webpack打包四、项目实战]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>仿写</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Electron进阶：打开新窗口]]></title>
-    <url>%2F2019%2F02%2F26%2FElectron%2FElectron%E8%BF%9B%E9%98%B6%EF%BC%9A%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%2F</url>
-    <content type="text"><![CDATA[标签实现新窗口打开 增加 target=”_blank”属性 router-link标签只有tag=”a”模式下 target=”_blank” 属性才会生效（vue2） 编程式导航123456let routeData = this.$router.resolve(&#123; name: &quot;searchGoods&quot;, query: params, params:&#123;catId:params.catId&#125; &#125;); window.open(routeData.href, &apos;_blank&apos;);]]></content>
-      <categories>
-        <category>Electron</category>
-      </categories>
-      <tags>
-        <tag>Electron</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Electron：结合vue创建桌面应用]]></title>
-    <url>%2F2019%2F02%2F26%2FElectron%2FElectron%EF%BC%9A%E7%BB%93%E5%90%88vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[首先创建项目并安装好依赖12345vue init webpack test-electroncd test-electronnpm installnpm install electron --save-devnpm install electron-packager --save-dev 其次将零基础中的main.js拷贝到新建项目的build目录下，并更名为electron.js 按照实际项目路径更改electron.js中的路径 12345mainWindow.loadURL(url.format(&#123; pathname: path.join(__dirname, &apos;../dist/index.html&apos;), protocol: &apos;file:&apos;, slashes: true &#125;)) 最后在新建项目package.json文件中增加一条指令 1234567&quot;scripts&quot;: &#123; ... &quot;lint&quot;: &quot;eslint --ext .js,.vue src test/unit/specs test/e2e/specs&quot;, &quot;build&quot;: &quot;node build/build.js&quot;, //增加这条,JSON文件不支持注释，引用时请清除 &quot;electron_dev&quot;: &quot;npm run build &amp;&amp; electron build/electron.js&quot; &#125;, 启动12npm run build //生成dist目录npm run electron_dev //启动electron PS 打包前：更改config/index.js中生产模式下（build）的assetsPublicPth, 原本为 /, 改为 ./ 。]]></content>
-      <categories>
-        <category>Electron</category>
-      </categories>
-      <tags>
-        <tag>Electron</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Electron：从零到完成一个桌面应用]]></title>
-    <url>%2F2019%2F02%2F26%2FElectron%2FElectron%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Electron 开发环境 安装node 安装cnpm（或者npm） 安装electron 安装打包工具 1npm install -g electron-packager 经典例子electron-quick-start一个简约的记事本12345678//克隆这仓库 git clone https://github.com/electron/electron-quick-start//进入仓库 cd electron-quick-start//安装依赖库 cnpm install//运行应用，也可以用： cnpm run start cnpm start electron-api-demos介绍了主要的一些功能及实现代码 1234git clone https://github.com/electron/electron-api-demoscd electron-api-demoscnpm installcnpm start 开始开发安装electron推荐的安装方法是把electron作为您 app 中的开发依赖项，使您可以在不同的 app 中使用不同的 Electron 版本 在根目录下运行 1npm install --save-dev electron 当然，也可以在 $PATH 中全局安装1npm install electron -g 创建Electron简单文件结构在根目录下创建package.json文件，内容如下 1234567891011&#123; &quot;name&quot;: &quot;test&quot;, &quot;version&quot;: &quot;0.1.0&quot;, &quot;main&quot;: &quot;main.js&quot;, &quot;scripts&quot;: &#123; &quot;start&quot;: &quot;electron .&quot; &#125;, &quot;devDependencies&quot;: &#123; &quot;electron&quot;: &quot;^3.0.4&quot; &#125;&#125; 在根目录下创建main.js，内容如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849const &#123; app, BrowserWindow &#125; = require(&apos;electron&apos;) // Keep a global reference of the window object, if you don&apos;t, the window will // be closed automatically when the JavaScript object is garbage collected. let win function createWindow () &#123; // 创建浏览器窗口。 win = new BrowserWindow(&#123; width: 800, height: 600 &#125;) // 然后加载应用的 index.html。 win.loadFile(&apos;index.html&apos;) // 打开开发者工具 win.webContents.openDevTools() // 当 window 被关闭，这个事件会被触发。 win.on(&apos;closed&apos;, () =&gt; &#123; // 取消引用 window 对象，如果你的应用支持多窗口的话， // 通常会把多个 window 对象存放在一个数组里面， // 与此同时，你应该删除相应的元素。 win = null &#125;) &#125; // Electron 会在初始化后并准备 // 创建浏览器窗口时，调用这个函数。 // 部分 API 在 ready 事件触发后才能使用。 app.on(&apos;ready&apos;, createWindow) // 当全部窗口关闭时退出。 app.on(&apos;window-all-closed&apos;, () =&gt; &#123; // 在 macOS 上，除非用户用 Cmd + Q 确定地退出， // 否则绝大部分应用及其菜单栏会保持激活。 if (process.platform !== &apos;darwin&apos;) &#123; app.quit() &#125; &#125;) app.on(&apos;activate&apos;, () =&gt; &#123; // 在macOS上，当单击dock图标并且没有其他窗口打开时， // 通常在应用程序中重新创建一个窗口。 if (win === null) &#123; createWindow() &#125; &#125;) // 在这个文件中，你可以续写应用剩下主进程代码。 // 也可以拆分成几个文件，然后用 require 导入。 然后创建index.html文件，内容如下 12345678910&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt; &lt;meta charset=&quot;utf-8&quot; /&gt; &lt;title&gt;TEST&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;span style=&quot;color:#fff;&quot;&gt;Hello World&lt;/span&gt;&lt;/body&gt;&lt;/html&gt; 启动app1npm start 或者在package.json中配置1&quot;scripts&quot;: &#123;&quot;start&quot;: &quot;electron .&quot;&#125; 则可以输入一下命令启动1electron . 打包全局安装electron-packager]]></content>
-      <categories>
-        <category>Electron</category>
-      </categories>
-      <tags>
-        <tag>Electron</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[vue+axios解决文件上传问题]]></title>
     <url>%2F2019%2F02%2F26%2Fvue%2Fvue%2Baxios%E8%A7%A3%E5%86%B3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前因关于文件上传，可以使用element-ui中的组件，也可以直接使用input，最近做的一个项目中有用到，查了挺多资料研究了一下，最终就实用性来说还是后者bug少。 现在就这两个介绍一下，如果有错误请提出纠正，或者有更好的可以来分享一下。 Element-UI直接action这个方法很简单，文档中有一一详细列出，重点是下一个 可参考官方文档 利用before-upload属性直接action很方便简单，但是总会有各种难以解决的错误出现如：后台要求请求方式为multipart/form-data时，不能使用data传参数，这时候就要使用formdata对象了。 使用new一个formdata对象，然后对这个对象追加key和value 12345678910//网上给出的例子beforeUpload (file,id) &#123; let fd = new FormData() fd.append(&apos;file&apos;, file) fd.append(&apos;id&apos;,id) axios.post(url, fd, &#123; &#125;) return false // false就是不自动上传&#125;, 改进后我的例子 12345678910111213141516171819202122232425&lt;el-dialog title=&quot;导入报表&quot; :visible.sync=&quot;dialogVisible&quot; width=&quot;30%&quot; :before-close=&quot;handleClose&quot; :append-to-body=&apos;true&apos;&gt; &lt;el-upload class=&quot;upload-demo&quot; ref=&quot;upload&quot; action=&quot;/super_admin/factory/device/import&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot; :auto-upload=&quot;false&quot; :before-upload=&quot;beforeAvatarUpload&quot; :on-error=&quot;error&quot; :before-remove=&quot;beforeRemove&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;/el-upload&gt; &lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt; &lt;el-button type=&quot;primary&quot; @click.native=&quot;importTable()&quot;&gt;确 定&lt;/el-button&gt; &lt;/span&gt; &lt;/el-dialog&gt; ``` data() { return { dialogVisible: false, // 所上传的文件 fileList: [] } }, 12 methods: { // 限制上传文件为一个 handleExceed() { this.$message.warning(‘当前限制上传 1 个文件’); }, // 对文件类型进行判断并上传（重点！） beforeAvatarUpload(file) { const isXLSX = file.type === “application/vnd.openxmlformats-officedocument.spreadsheetml.sheet”; if (!isXLSX) { this.$message.error(“上传的文件只能是 xlsx 格式!”); this.fileList = []; }else { let factoryId = this.factoryId; let fd = new FormData(); fd.append(‘file’, file); fd.append(‘factoryId’, factoryId); api.importTable((err, res) =&gt; { if (err || res.status !== 200) { this.$message.error(“出错了，刷新一下吧”); return; } if (res.data.code == 403) { this.$message.error(“该账号没有此操作权限”); } else if (res.data.code == 200) { this.$message({ message: ‘文件上传成功！’, type: ‘success’ }); } else { this.$message.error(“出错了，刷新一下吧”); } },fd); return true } }, // 文件上传失败 error(err) { this.$message({ message: ‘文件上传失败！’, type: ‘warning’ }); }, // 移除已上传的文件 beforeRemove(file) { return this.$confirm(‘确定移除 ‘+file.name+’ ？’); }, // 导入报表至后台 importTable() { this.$refs.upload.submit(); this.dialogVisible = false; }, }12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { return instance({ method: “post”, url: ‘/super_admin/factory/device/import’, data: data, headers: { “Content-Type”: “multipart/form-data” } })} export{ importTable} 12345678910### 注意1. 这种方法也有弊端，action作为必填参数，无论是填任意数或者填写重复地址，控制台总会报404。2. FormData对象是不可以通过console.log在控制台直接打印出来的，但可以通过FormData.get()获取值。## input上传这个是重点，就实用来说，掌握一种方法就可以了，这个是目前最成功的（结合后台）。### 使用 12 data() { return { // 上传文件所需的参数 upload: { CurrentfactoryId: “” }, }} 12 methods: { // 打开上传文件的弹出框 handleUpload(index, row) { this.upload.CurrentfactoryId = row.factoryId; this.$refs.importFile.click(); }, // 确认导入列表 confirmUpload() { this.$confirm(‘此操作将上传 ‘+this.$refs.importFile.files[0].name+’ , 是否继续?’, ‘提示’, { confirmButtonText: ‘确定’, cancelButtonText: ‘取消’, type: ‘warning’ }).then(() =&gt; { this.$message.info(‘该过程耗时较长，请耐心等待’); this.importTable(); }).catch(() =&gt; { this.$message({ type: ‘info’, message: ‘已取消上传’ }); this.$refs.importFile.value = null; }); }, // 导入报表至后台 importTable() { let fd = new FormData(document.getElementById(“uploadform”)); // fd.append(“file”, this.upload.importFile); // fd.append(“factoryId”, this.upload.CurrentfactoryId); // console.log(fd.get(‘importFile’)); api.importTable((err, res) =&gt; { if (err) { if (err.response.status === 403 &amp;&amp; err.response.data.code==-2) { this.$message.error(“请登录”); session.clear(); this.$router.push({ path: “/login” }); } else if ( err.response.status === 500) { this.$message.error(“系统出错，请稍后再试”); } else if (err.response.status == 403) { this.$message.error(“该账号没有此操作权限”); } return; } if (res.data.code == 200) { this.$message({ message: “文件上传成功！”, type: “success” }); this.visible = false; } else { this.$message.error(“出错了，刷新一下吧”); } },fd); },} 12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { instance.post(‘/super_admin/factory/device/import’, data) .then(function (res) { fn(false, res); }).catch(function (err) { fn(err); });} export{ importTable} ` 注意 如果对于input的样式不满意，可以使用opacity把原来的input透明化来进行美化。 依然是使用formdata对象，虽然使用vue，但不知道为什么用append无法把文件传到后台，因此通过操作节点来新建，如果有人知道可以分享一下。 headers可以不手动添加，浏览器会判定界限，也可以加上。]]></content>
@@ -889,17 +1246,6 @@
       </categories>
       <tags>
         <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hexo+Github 搭建属于自己的博客（进阶）NexT主题]]></title>
-    <url>%2F2018%2F05%2F04%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E8%BF%9B%E9%98%B6%EF%BC%89NexT%E4%B8%BB%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_config.yml文件中修改 12345# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini 基础设置在站点目录下的配置文件_cofig.yml中修改 12345678# Sitetitle: your blog titlesubtitle:description: describe yourselfkeywords:author: yournamelanguage: zh-Hans //简体中文timezone: 修改菜单项在主题目录下修改配置文件_cofig.yml中的menu 123456789menu: home: / || home about: /about/ || user tags: /tags/ || tags categories: /categories/ || th archives: /archives/ || archive #schedule: /schedule/ || calendar #sitemap: /sitemap.xml || sitemap #commonweal: /404/ || heartbeat 这些配置都要与你主题目录下的languages文件中对应的yml文档里配置相关联 12345678910menu: home: 首页 archives: 归档 categories: 分类 tags: 标签 about: 关于 search: 搜索 schedule: 日程表 sitemap: 站点地图 commonweal: 公益404 限定主页文章高度修改主题目录下的值 123auto_excerpt: enable: true length: 150 设置头像修改主题目录下Sidebar Avatar的avatar值1234# Sidebar Avatar# in theme directory(source/images): /images/avatar.gif# in site directory(source/uploads): /uploads/avatar.gifavatar: /images/avatar.jpg 地址可以是网络地址，也可以是本地地址（放置在source/images/ 目录下） 添加标签页面点击标签，跳转的页面会显示page not found 此时需要在站点目录的source文件夹里新建tags文件夹，并新建index.md，添加： 12345---title: tagsdate: type: &quot;tags&quot;--- 当要为某一篇文章添加标签，只需在blog/source/_post目录下的具体文章的tags中添加标签即可 实现点击出现桃心效果将代码copy到/themes/next/source/js/src里面新建的love.js中 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950! function(e, t, a) &#123; function n() &#123; c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &apos;&apos;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r() &#125; function r() &#123; for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;); requestAnimationFrame(r) &#125; function o() &#123; var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick; e.onclick = function(e) &#123; t &amp;&amp; t(), i(e) &#125; &#125; function i(e) &#123; var a = t.createElement(&quot;div&quot;); a.className = &quot;heart&quot;, d.push(&#123; el: a, x: e.clientX - 5, y: e.clientY - 5, scale: 1, alpha: 1, color: s() &#125;), t.body.appendChild(a) &#125; function c(e) &#123; var a = t.createElement(&quot;style&quot;); a.type = &quot;text/css&quot;; try &#123; a.appendChild(t.createTextNode(e)) &#125; catch (t) &#123; a.styleSheet.cssText = e &#125; t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a) &#125; function s() &#123; return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot; &#125; var d = []; e.requestAnimationFrame = function() &#123; return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(e) &#123; setTimeout(e, 1e3 / 60) &#125; &#125;(), n()&#125;(window, document); 打开\themes\next\layout_layout.swig文件,在末尾（在前面引用会出现找不到的bug） ，引用love.js 1&lt;script src=&quot;/js/src/love.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 添加动态背景打开\themes\next\layout_layout.swig文件，在 之前添加代码(注意不要放在&lt; /head&gt;的后面) 123&#123;% if theme.canvas_nest %&#125;&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;&#123;% endif %&#125; 打开开\themes\next_config.yml,在里面修改为如下代码 1canvas_nest: true 在网站底部加上访问量打开\themes\next\layout_partials\footer.swig文件,在类copyright前加上这段代码： 1&lt;script async src=&quot;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt; 然后在合适的位置添加显示统计的代码： 12345&lt;div class=&quot;powered-by&quot;&gt;&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt; 本站访客数:&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt; 在每篇文章末尾添加“本文结束”标记在路径 \themes\next\layout_macro 中新建 passage-end-tag.swig 文件,并添加以下内容 12345&lt;div&gt; &#123;% if not is_index %&#125; &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt; &#123;% endif %&#125;&lt;/div&gt; 接着打开\themes\next\layout_macro\post.swig文件，在post-body 之后， post-footer 之前添加如下代码 12345&lt;div&gt; &#123;% if not is_index %&#125; &#123;% include &apos;passage-end-tag.swig&apos; %&#125; &#123;% endif %&#125;&lt;/div&gt; 打开主题配置文件,在末尾添加 123# 文章末尾添加“本文结束”标记passage_end_tag: enabled: true 侧边栏社交链接在主题配置文件中修改： 12345678910111213# Social linkssocial: GitHub: https://github.com/your-user-name Twitter: https://twitter.com/your-user-name 微博: http://weibo.com/your-user-name# Social Iconssocial_icons: enable: true # Icon Mappings GitHub: github Twitter: twitter 微博: weibo 添加小图标在主题配置文件中修改： 123favicon: #small: /images/favicon.ico medium: /images/favicon.ico NexT主题美化 除了NexT还有很多其他好看的主题，百度会有很多方法的]]></content>
-      <categories>
-        <category>博客搭建</category>
-      </categories>
-      <tags>
-        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -936,17 +1282,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hexo+Github 搭建属于自己的博客（基础）]]></title>
-    <url>%2F2018%2F05%2F03%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[搭建环境准备Node.js 的安装和准备12$ node -v$ npm -v git的安装和准备1$ git --version github账户的配置 github账户注册 创建新仓库 注意：仓库名称一定为 github用户名.github.io 仓库设置 接下来开启github pages功能 ，点击界面右侧的 Settings，你将会打开这个库的settings页面，向下拖动，直到看见GitHub Pages 安装hexo在任意一个地方创建文件夹hexo，进入到该目录输入： 1$ npm install hexo-cli -g 然后可能会看到一个WARN，并不会影响操作，继续输入： 1$ npm install hexo --save 1$ hexo -v hexo的相关配置 初始化hexo 12$ hexo init &lt;新文件夹&gt; $ cd &lt;新文件夹&gt; 首次体验hexo 123$ hexo g$ hexo s //若一直无法跳转，则是端口被占用$ hexo server -p 5000 //改变端口号 配置Git个人信息如果之前已经配置好git个人信息，请跳过这一个步骤 设置Git的user name和email 12$ git config --global user.name &quot;yourusername&quot;$ git config --global user.email &quot;youremail&quot; 生成密钥 1$ ssh-keygen -t rsa -C &quot;youremail&quot; 配置Deployment在_config.yml文件中，找到Deployment，然后按照如下修改： 1234deploy: type: git repo: https://github.com/yourname/yourname.github.io.git branch: master 写博客、发布新文章 新建一篇博客 1$ hexo new post &quot;article title&quot; 用MarDown编辑器打开就可以编辑文章了 生成、部署 12$ hexo g // 生成$ hexo d // 部署 1$ hexo d -g //在部署前先生成 踩坑提醒 注意需要提前安装一个扩展 1npm install hexo-deployer-git --save 如果没有执行这行命令，将会提醒 deloyer not found:git]]></content>
-      <categories>
-        <category>博客搭建</category>
-      </categories>
-      <tags>
-        <tag>博客搭建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[DOM]]></title>
     <url>%2F2018%2F05%2F03%2Fjs%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2FDOM%2F</url>
     <content type="text"><![CDATA[节点层次小结 DOM可以将任何HTML或XML文档描绘成一个由多层次节点构成的结构。 节点之间的关系构成层次，而所有页面标记则表现为一个以特定节点为根节点的树形结构 文档节点是每个文档的根节点，通过文档节点表示的元素称之为文档元素 文档元素是文档的最外层元素，文档中的其他元素都包含在文档元素中 每个文档只能有一个文档元素，在HTML页面中，文档元素始终都是元素 HTML元素通过元素节点表示，特性(属性）通过特性节点表示，注释通过注释节点表示…… 以下类型属性和方法的详细内容可参考红宝书，也可参考第19章DOM基础的pdf，在这里就不一一列出了 Node类型JavaScript中的所有节点类型都继承自Node类型 节点属性（所有节点都有） 属性 用途 nodeName 获取元素的标签名 nodeValue 返回节点的节点值 childNodes 获取当前元素节点的所有子节点 firstChild 获取当前元素节点的第一个子节点 lastChild 获取当前元素节点的最后一个子节点 ownerDocument 获取该文档的文档根节点 parentNode 获取当前节点的父节点 previousSibling 获取当前节点的前一个同级节点 nextSibling 获取当前节点的后一个同级节点 childNodes属性保存着一个NodeList对象，是一种类数组对象，用于保存一组有序的节点 操作节点（所有节点都可用） 方法 用途 appendChild() 将新节点追加到子节点列表的末尾 insertBefore() 将新节点插入到参考节点的前面 replaceChild() 将新节点替换掉旧节点 removeChild() 移除节点 cloneNode() 复制节点 Document类型JavaScript通过Document类型表示文档 查找元素 方法 作用 getElementsByTagName() 获取相同元素的节点列表 getElementByName() 获取相同名称的节点列表 getElementById() 获取特定id元素的节点 文档写入 方法 用途 write() 原样写入 writeln() 在字符串末尾添加换行符（\n） open() 打开网页的输出流 close() 关闭网页的输出流 Element类型 在HTML中，标签名始终都以全部大写表示 1alert(div.tagname);//DIV title特性：鼠标移动到该元素之上时显示的内容 操作特性 方法 用途 getAttribute() 获取特定元素节点属性的值 setAttribute() 设置特定元素节点属性的值 removeAttribute() 移除特定元素节点属性 attributes属性Element类型是使用attributes属性的唯一一个DOM节点类型。attributes属性中包含一个NameNodeMap，是一个“动态”的集合，里面每一项为元素的特性 创建元素 1document.createElement(要创建元素的标签名); 创建的新元素尚未被添加在文档树中，因此浏览器无法显示可以用appendChild()等方法把其添加到文档树中 Text类型文本节点由Text类型表示，包含的是可以照字面解释的纯文本内容 创建文本节点 1document.createTextNode(要插入节点中的文本); 同样，除非把新节点添加到文档树中已经存在的节点中，否则不会在浏览器看到新节点 规范文本节点normalize() 将所有文本节点合并成一个节点 分割文本节点splitText()将一个文本节点分为两个文本节点 Comment类型表示注释 CDATASection类型表示CDATA区域，只针对基于XML的文档 DocumentType类型包含着与文档的doctype有关的所有信息，不常用 DocumentFragment类型表示文档片段 Attr类型表示元素的特性 DOM操作技术以下两种技术均建议插入外部文件 动态脚本 使用script元素包含js代码直接插入head元素中 插入外部文件（建议）可添加到head元素中，也可添加到页面中 1&lt;scripr type=&quot;text/javascript&quot; src=&quot;URL&quot;&gt;&lt;/script&gt; 动态样式 使用style元素包含指定嵌入的样式插入head元素中 插入外部文件（建议）必须将link元素添加到head元素中 1&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;URL&quot;/&gt;]]></content>
@@ -977,17 +1312,6 @@
       </categories>
       <tags>
         <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F04%2F27%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-      <categories>
-        <category>demo</category>
-      </categories>
-      <tags>
-        <tag>demo</tag>
       </tags>
   </entry>
 </search>

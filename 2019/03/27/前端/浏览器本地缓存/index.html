@@ -81,7 +81,7 @@
 <meta property="og:site_name" content="Sivan">
 <meta property="og:description" content="定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力  缓存位置 Service Worker Memory Cache Disk Cache Push Cache  缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-27T07:41:43.181Z">
+<meta property="og:updated_time" content="2020-05-14T08:31:08.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器本地缓存">
 <meta name="twitter:description" content="定义缓存是性能优化中简单高效的一种优化方式。 和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。 好处 减少带宽消耗 提升性能 缓解服务器压力  缓存位置 Service Worker Memory Cache Disk Cache Push Cache  缓存策略浏览器第一次向服务器发起请求拿到请求结果后，根据请求资源时返回的响应头来确定该不该缓存。 浏览器常见字段 Expires：告">
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  735 字
+                  782 字
                 </span>
               
 
@@ -440,7 +440,7 @@
 </ol>
 </li>
 <li>Last-Modified：资源最后一次修改时间。</li>
-<li>Etag：文件的特殊标识。</li>
+<li>Etag：文件的特殊标识。用于文件内容对比，判断内容是否修改。</li>
 <li>Cache-Control优先级高于Expires。</li>
 <li>Etag优先级高于Last-Modified。</li>
 </ul>
@@ -456,13 +456,13 @@
 </ol>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>当浏览器再次访问一个已经访问过的资源时，会</p>
 <ol>
-<li>看看是否命中强缓存，如果命中，就直接使用缓存了。</li>
+<li>先判断是否存在缓存，再看是否命中强缓存，如果命中，就直接使用缓存了。</li>
 <li>如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存。</li>
 <li>如果命中协商缓存，服务器会返回 304。</li>
 <li>告诉浏览器使用本地缓存。</li>
 <li>否则，返回最新的资源。</li>
 </ol>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="ctrl-F5和F5的区别"><a href="#ctrl-F5和F5的区别" class="headerlink" title="ctrl+F5和F5的区别"></a>ctrl+F5和F5的区别</h4><p>F5只是刷新本地缓存；ctrl+F5是重新向服务器请求。</p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="ctrl-F5和F5的区别"><a href="#ctrl-F5和F5的区别" class="headerlink" title="ctrl+F5和F5的区别"></a>ctrl+F5和F5的区别</h4><p>F5只是刷新本地缓存，强缓存无效，协商缓存有效；ctrl+F5是强缓存与协商缓存均无效，重新向服务器请求。</p>
 <h4 id="禁止浏览器缓存方法"><a href="#禁止浏览器缓存方法" class="headerlink" title="禁止浏览器缓存方法"></a>禁止浏览器缓存方法</h4><ol>
 <li>设置响应头</li>
 </ol>
@@ -539,8 +539,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/27/js/js：类数组/" rel="next" title="js：类数组">
-                <i class="fa fa-chevron-left"></i> js：类数组
+              <a href="/2019/03/27/js/js：瀑布流布局/" rel="next" title="js：瀑布流布局">
+                <i class="fa fa-chevron-left"></i> js：瀑布流布局
               </a>
             
           </div>
@@ -549,8 +549,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/27/js/js：数组的常用方法/" rel="prev" title="js：数组的常用方法">
-                js：数组的常用方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/27/算法/各种算法（二）/" rel="prev" title="各种算法（二）">
+                各种算法（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -632,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +643,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -654,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
