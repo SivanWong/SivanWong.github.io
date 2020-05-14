@@ -441,6 +441,39 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数据结构：树的深度遍历和广度遍历]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%85%B6%E4%BB%96%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6%E9%81%8D%E5%8E%86%E5%92%8C%E5%B9%BF%E5%BA%A6%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[普通树深度遍历先访问根结点，然后遍历左子树接着是遍历右子树。利用堆栈的先进后出。 广度遍历从根开始访问,按照根节点左右顺序访问.每次把同层节点左右孩子访问完毕.再访问下一层，所以用队列的先进先出实现。 二叉树前序遍历根 左 右 中序遍历左 根 右 后序遍历左 右 根]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[操作系统：进程、线程、程序]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%85%B6%E4%BB%96%2F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E7%A8%8B%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[程序只是一组指令的有序集合。 进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，是资源分配的最小单位。 线程是程序执行的最小单位。 一个程序至少一个进程，一个进程至少一个线程。 一个线程只能属于一个进程，但是一个进程可以拥有多个线程 进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。 而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。 多线程处理就是允许一个进程中在同一时刻执行多个任务。 但是多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。]]></content>
+      <categories>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[数据类型：json和xml]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%85%B6%E4%BB%96%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9Ajson%E5%92%8Cxml%2F</url>
+    <content type="text"><![CDATA[json json是一种轻量级的数据交换格式。 兼容性高。 格式简单，易读写。 易于解析。 xml xml是一种扩展标记语言。 可用来标记数据，定义数据类型。 格式统一。 文件庞大，格式复杂。 客户端和服务器端都需要大量代码来解析，导致代码复杂难以维护。]]></content>
+      <categories>
+        <category>数据类型</category>
+      </categories>
+      <tags>
+        <tag>数据类型</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[计网：计算机网络体系结构]]></title>
     <url>%2F2020%2F05%2F14%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%2F</url>
     <content type="text"><![CDATA[TCP/IP体系结构五层协议 应用层（http，ftp） 运输层（TCP，UDP） 网络层（IP） 数据链路层 物理层 四层协议 应用层（http，ftp） 运输层（TCP，UDP） 网际层IP 网络接口层 OSI模型 应用层（HTTP） 表示层 会话层（SSL\TLS） 运输层（TCP，UDP） 网络层（IP） 数据链路层 物理层]]></content>
@@ -567,9 +600,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[前端SEO（搜索引擎优化）和语义化]]></title>
-    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%E5%92%8C%E8%AF%AD%E4%B9%89%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[合理的title、description、keywords title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。 语义化语义化的标签，旨在让标签有自己的含义，就是用合理、正确的标签来展示内容，比如h1~h6定义标题。 优点 易于用户阅读，css样式丢失的时候能让页面呈现清晰的结构。 有利于SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。 方便其他设备解析，如盲人阅读器根据语义渲染网页 有利于开发和维护，语义化更具可读性，代码更好维护，与CSS3关系更和谐。 常见语义化标签12345678910111213141516171819202122&lt;title&gt;：页面主体内容。&lt;hn&gt;：h1~h6，分级标题，&lt;h1&gt; 与 &lt;title&gt; 协调有利于搜索引擎优化。&lt;ul&gt;：无序列表。&lt;li&gt;：有序列表。&lt;small&gt;：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。&lt;strong&gt;：和 em 标签一样，用于强调文本，但它强调的程度更强一些。&lt;em&gt;：将其中的文本表示为强调的内容，表现为斜体。&lt;mark&gt;：使用黄色突出显示部分文本。&lt;figure&gt;：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。&lt;figcaption&gt;：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。&lt;cite&gt;：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。&lt;blockquoto&gt;：定义块引用，块引用拥有它们自己的空间。&lt;q&gt;：短的引述（跨浏览器问题，尽量避免使用）。&lt;time&gt;：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。&lt;abbr&gt;：简称或缩写。&lt;dfn&gt;：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。&lt;address&gt;：作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）。&lt;del&gt;：移除的内容。&lt;ins&gt;：添加的内容。&lt;code&gt;：标记代码。&lt;meter&gt;：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）&lt;progress&gt;：定义运行中的进度（进程）。 h5新增语义化标签1234567&lt;header&gt; 定义文档或者文档的部分区域的页眉&lt;nav&gt; 描述一个含有多个超链接的区域&lt;main&gt; 定义文档的主要内容，该内容在文档中应当是独一无二的&lt;article&gt; 表示文档、页面、应用或网站中的独立结构&lt;aside&gt; 表示一个和其余页面内容几乎无关的部分&lt;footer&gt; 定义最近一个章节内容或者根节点元素的页脚&lt;section&gt; 表示文档中的一个区域（或节），比如，内容中的一个专题组。 重要内容的html代码放最前搜索引擎抓取html的顺序是从上到下，保证重要内容一定会被抓取 重要内容不要用js输出爬虫不会执行js获取内容 提高网站速度网站速度也是搜索引擎排序的一个重要指标]]></content>
+    <title><![CDATA[行内元素、块元素、行内块元素]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E3%80%81%E5%9D%97%E5%85%83%E7%B4%A0%E3%80%81%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[行内元素 设置宽高无效。 margin水平方向有效，垂直方向无效。 padding水平方向有效，垂直方向在显示上有效果即会增大元素的内容范围，但对其他元素无影响。 不会自动进行换行。 123456789101112131415161718常见行内元素a - 锚点b - 粗体(不推荐)big - 大字体br - 换行em - 强调font - 字体设定(不推荐)i - 斜体img - 图片input - 输入框label - 表格标签select - 项目选择small - 小字体文本span - 常用内联容器，定义文本内区块strong - 粗体强调textarea - 多行文本输入框u - 下划线var - 定义变量 块元素 能够识别宽高。 margin和padding的上下左右均对其有效。 可以自动换行。 多个块状元素标签写在一起，默认排列方式为从上至下。 12345678910111213141516171819常见块元素address - 地址enter - 居中对齐块dir - 目录列表div - 常用块级容器，也是css layout的主要标签dl - 定义列表form - 交互表单h1 - 大标题h2 - 副标题h3 - 3级标题h4 - 4级标题h5 - 5级标题h6 - 6级标题hr - 水平分隔线menu - 菜单列表ol - 排序表单p - 段落table - 表格ul - 非排序列表（无序列表） 可变元素可变元素由上下文语境来决定是块元素还是内联元素 1234567button - 按钮del - 删除文本iframe - inline frameins - 插入的文本map - 图片区块（map）object - object对象script - 客户端脚本 行内块元素 不自动换行 能够识别宽高 默认排列方式为从左到右 三者转换使用display属性能够将三者任意转换： display:inline;转换为行内元素 display:block;转换为块状元素 display:inline-block;转换为行内块状元素]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -578,9 +611,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[行内元素、块元素、行内块元素]]></title>
-    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E3%80%81%E5%9D%97%E5%85%83%E7%B4%A0%E3%80%81%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%2F</url>
-    <content type="text"><![CDATA[行内元素 设置宽高无效。 margin水平方向有效，垂直方向无效。 padding水平方向有效，垂直方向在显示上有效果即会增大元素的内容范围，但对其他元素无影响。 不会自动进行换行。 123456789101112131415161718常见行内元素a - 锚点b - 粗体(不推荐)big - 大字体br - 换行em - 强调font - 字体设定(不推荐)i - 斜体img - 图片input - 输入框label - 表格标签select - 项目选择small - 小字体文本span - 常用内联容器，定义文本内区块strong - 粗体强调textarea - 多行文本输入框u - 下划线var - 定义变量 块元素 能够识别宽高。 margin和padding的上下左右均对其有效。 可以自动换行。 多个块状元素标签写在一起，默认排列方式为从上至下。 12345678910111213141516171819常见块元素address - 地址enter - 居中对齐块dir - 目录列表div - 常用块级容器，也是css layout的主要标签dl - 定义列表form - 交互表单h1 - 大标题h2 - 副标题h3 - 3级标题h4 - 4级标题h5 - 5级标题h6 - 6级标题hr - 水平分隔线menu - 菜单列表ol - 排序表单p - 段落table - 表格ul - 非排序列表（无序列表） 可变元素可变元素由上下文语境来决定是块元素还是内联元素 1234567button - 按钮del - 删除文本iframe - inline frameins - 插入的文本map - 图片区块（map）object - object对象script - 客户端脚本 行内块元素 不自动换行 能够识别宽高 默认排列方式为从左到右 三者转换使用display属性能够将三者任意转换： display:inline;转换为行内元素 display:block;转换为块状元素 display:inline-block;转换为行内块状元素]]></content>
+    <title><![CDATA[前端SEO（搜索引擎优化）和语义化]]></title>
+    <url>%2F2020%2F05%2F14%2F%E5%89%8D%E7%AB%AF%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%E5%92%8C%E8%AF%AD%E4%B9%89%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[合理的title、description、keywords title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。 语义化语义化的标签，旨在让标签有自己的含义，就是用合理、正确的标签来展示内容，比如h1~h6定义标题。 优点 易于用户阅读，css样式丢失的时候能让页面呈现清晰的结构。 有利于SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。 方便其他设备解析，如盲人阅读器根据语义渲染网页 有利于开发和维护，语义化更具可读性，代码更好维护，与CSS3关系更和谐。 常见语义化标签12345678910111213141516171819202122&lt;title&gt;：页面主体内容。&lt;hn&gt;：h1~h6，分级标题，&lt;h1&gt; 与 &lt;title&gt; 协调有利于搜索引擎优化。&lt;ul&gt;：无序列表。&lt;li&gt;：有序列表。&lt;small&gt;：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。&lt;strong&gt;：和 em 标签一样，用于强调文本，但它强调的程度更强一些。&lt;em&gt;：将其中的文本表示为强调的内容，表现为斜体。&lt;mark&gt;：使用黄色突出显示部分文本。&lt;figure&gt;：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。&lt;figcaption&gt;：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。&lt;cite&gt;：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。&lt;blockquoto&gt;：定义块引用，块引用拥有它们自己的空间。&lt;q&gt;：短的引述（跨浏览器问题，尽量避免使用）。&lt;time&gt;：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。&lt;abbr&gt;：简称或缩写。&lt;dfn&gt;：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。&lt;address&gt;：作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）。&lt;del&gt;：移除的内容。&lt;ins&gt;：添加的内容。&lt;code&gt;：标记代码。&lt;meter&gt;：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）&lt;progress&gt;：定义运行中的进度（进程）。 h5新增语义化标签1234567&lt;header&gt; 定义文档或者文档的部分区域的页眉&lt;nav&gt; 描述一个含有多个超链接的区域&lt;main&gt; 定义文档的主要内容，该内容在文档中应当是独一无二的&lt;article&gt; 表示文档、页面、应用或网站中的独立结构&lt;aside&gt; 表示一个和其余页面内容几乎无关的部分&lt;footer&gt; 定义最近一个章节内容或者根节点元素的页脚&lt;section&gt; 表示文档中的一个区域（或节），比如，内容中的一个专题组。 重要内容的html代码放最前搜索引擎抓取html的顺序是从上到下，保证重要内容一定会被抓取 重要内容不要用js输出爬虫不会执行js获取内容 提高网站速度网站速度也是搜索引擎排序的一个重要指标]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -1227,6 +1260,39 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Electron进阶：打开新窗口]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B6%E4%BB%96%2FElectron%E8%BF%9B%E9%98%B6%EF%BC%9A%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3%2F</url>
+    <content type="text"><![CDATA[标签实现新窗口打开 增加 target=”_blank”属性 router-link标签只有tag=”a”模式下 target=”_blank” 属性才会生效（vue2） 编程式导航123456let routeData = this.$router.resolve(&#123; name: &quot;searchGoods&quot;, query: params, params:&#123;catId:params.catId&#125; &#125;); window.open(routeData.href, &apos;_blank&apos;);]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron：结合vue创建桌面应用]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B6%E4%BB%96%2FElectron%EF%BC%9A%E7%BB%93%E5%90%88vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[首先创建项目并安装好依赖12345vue init webpack test-electroncd test-electronnpm installnpm install electron --save-devnpm install electron-packager --save-dev 其次将零基础中的main.js拷贝到新建项目的build目录下，并更名为electron.js 按照实际项目路径更改electron.js中的路径 12345mainWindow.loadURL(url.format(&#123; pathname: path.join(__dirname, &apos;../dist/index.html&apos;), protocol: &apos;file:&apos;, slashes: true &#125;)) 最后在新建项目package.json文件中增加一条指令 1234567&quot;scripts&quot;: &#123; ... &quot;lint&quot;: &quot;eslint --ext .js,.vue src test/unit/specs test/e2e/specs&quot;, &quot;build&quot;: &quot;node build/build.js&quot;, //增加这条,JSON文件不支持注释，引用时请清除 &quot;electron_dev&quot;: &quot;npm run build &amp;&amp; electron build/electron.js&quot; &#125;, 启动12npm run build //生成dist目录npm run electron_dev //启动electron PS 打包前：更改config/index.js中生产模式下（build）的assetsPublicPth, 原本为 /, 改为 ./ 。]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron：从零到完成一个桌面应用]]></title>
+    <url>%2F2019%2F02%2F26%2F%E5%85%B6%E4%BB%96%2FElectron%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Electron 开发环境 安装node 安装cnpm（或者npm） 安装electron 安装打包工具 1npm install -g electron-packager 经典例子electron-quick-start一个简约的记事本12345678//克隆这仓库 git clone https://github.com/electron/electron-quick-start//进入仓库 cd electron-quick-start//安装依赖库 cnpm install//运行应用，也可以用： cnpm run start cnpm start electron-api-demos介绍了主要的一些功能及实现代码 1234git clone https://github.com/electron/electron-api-demoscd electron-api-demoscnpm installcnpm start 开始开发安装electron推荐的安装方法是把electron作为您 app 中的开发依赖项，使您可以在不同的 app 中使用不同的 Electron 版本 在根目录下运行 1npm install --save-dev electron 当然，也可以在 $PATH 中全局安装1npm install electron -g 创建Electron简单文件结构在根目录下创建package.json文件，内容如下 1234567891011&#123; &quot;name&quot;: &quot;test&quot;, &quot;version&quot;: &quot;0.1.0&quot;, &quot;main&quot;: &quot;main.js&quot;, &quot;scripts&quot;: &#123; &quot;start&quot;: &quot;electron .&quot; &#125;, &quot;devDependencies&quot;: &#123; &quot;electron&quot;: &quot;^3.0.4&quot; &#125;&#125; 在根目录下创建main.js，内容如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849const &#123; app, BrowserWindow &#125; = require(&apos;electron&apos;) // Keep a global reference of the window object, if you don&apos;t, the window will // be closed automatically when the JavaScript object is garbage collected. let win function createWindow () &#123; // 创建浏览器窗口。 win = new BrowserWindow(&#123; width: 800, height: 600 &#125;) // 然后加载应用的 index.html。 win.loadFile(&apos;index.html&apos;) // 打开开发者工具 win.webContents.openDevTools() // 当 window 被关闭，这个事件会被触发。 win.on(&apos;closed&apos;, () =&gt; &#123; // 取消引用 window 对象，如果你的应用支持多窗口的话， // 通常会把多个 window 对象存放在一个数组里面， // 与此同时，你应该删除相应的元素。 win = null &#125;) &#125; // Electron 会在初始化后并准备 // 创建浏览器窗口时，调用这个函数。 // 部分 API 在 ready 事件触发后才能使用。 app.on(&apos;ready&apos;, createWindow) // 当全部窗口关闭时退出。 app.on(&apos;window-all-closed&apos;, () =&gt; &#123; // 在 macOS 上，除非用户用 Cmd + Q 确定地退出， // 否则绝大部分应用及其菜单栏会保持激活。 if (process.platform !== &apos;darwin&apos;) &#123; app.quit() &#125; &#125;) app.on(&apos;activate&apos;, () =&gt; &#123; // 在macOS上，当单击dock图标并且没有其他窗口打开时， // 通常在应用程序中重新创建一个窗口。 if (win === null) &#123; createWindow() &#125; &#125;) // 在这个文件中，你可以续写应用剩下主进程代码。 // 也可以拆分成几个文件，然后用 require 导入。 然后创建index.html文件，内容如下 12345678910&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt; &lt;meta charset=&quot;utf-8&quot; /&gt; &lt;title&gt;TEST&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;span style=&quot;color:#fff;&quot;&gt;Hello World&lt;/span&gt;&lt;/body&gt;&lt;/html&gt; 启动app1npm start 或者在package.json中配置1&quot;scripts&quot;: &#123;&quot;start&quot;: &quot;electron .&quot;&#125; 则可以输入一下命令启动1electron . 打包全局安装electron-packager]]></content>
+      <categories>
+        <category>Electron</category>
+      </categories>
+      <tags>
+        <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue+axios解决文件上传问题]]></title>
     <url>%2F2019%2F02%2F26%2Fvue%2Fvue%2Baxios%E8%A7%A3%E5%86%B3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98%2F</url>
     <content type="text"><![CDATA[前因关于文件上传，可以使用element-ui中的组件，也可以直接使用input，最近做的一个项目中有用到，查了挺多资料研究了一下，最终就实用性来说还是后者bug少。 现在就这两个介绍一下，如果有错误请提出纠正，或者有更好的可以来分享一下。 Element-UI直接action这个方法很简单，文档中有一一详细列出，重点是下一个 可参考官方文档 利用before-upload属性直接action很方便简单，但是总会有各种难以解决的错误出现如：后台要求请求方式为multipart/form-data时，不能使用data传参数，这时候就要使用formdata对象了。 使用new一个formdata对象，然后对这个对象追加key和value 12345678910//网上给出的例子beforeUpload (file,id) &#123; let fd = new FormData() fd.append(&apos;file&apos;, file) fd.append(&apos;id&apos;,id) axios.post(url, fd, &#123; &#125;) return false // false就是不自动上传&#125;, 改进后我的例子 12345678910111213141516171819202122232425&lt;el-dialog title=&quot;导入报表&quot; :visible.sync=&quot;dialogVisible&quot; width=&quot;30%&quot; :before-close=&quot;handleClose&quot; :append-to-body=&apos;true&apos;&gt; &lt;el-upload class=&quot;upload-demo&quot; ref=&quot;upload&quot; action=&quot;/super_admin/factory/device/import&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot; :auto-upload=&quot;false&quot; :before-upload=&quot;beforeAvatarUpload&quot; :on-error=&quot;error&quot; :before-remove=&quot;beforeRemove&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;/el-upload&gt; &lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt; &lt;el-button type=&quot;primary&quot; @click.native=&quot;importTable()&quot;&gt;确 定&lt;/el-button&gt; &lt;/span&gt; &lt;/el-dialog&gt; ``` data() { return { dialogVisible: false, // 所上传的文件 fileList: [] } }, 12 methods: { // 限制上传文件为一个 handleExceed() { this.$message.warning(‘当前限制上传 1 个文件’); }, // 对文件类型进行判断并上传（重点！） beforeAvatarUpload(file) { const isXLSX = file.type === “application/vnd.openxmlformats-officedocument.spreadsheetml.sheet”; if (!isXLSX) { this.$message.error(“上传的文件只能是 xlsx 格式!”); this.fileList = []; }else { let factoryId = this.factoryId; let fd = new FormData(); fd.append(‘file’, file); fd.append(‘factoryId’, factoryId); api.importTable((err, res) =&gt; { if (err || res.status !== 200) { this.$message.error(“出错了，刷新一下吧”); return; } if (res.data.code == 403) { this.$message.error(“该账号没有此操作权限”); } else if (res.data.code == 200) { this.$message({ message: ‘文件上传成功！’, type: ‘success’ }); } else { this.$message.error(“出错了，刷新一下吧”); } },fd); return true } }, // 文件上传失败 error(err) { this.$message({ message: ‘文件上传失败！’, type: ‘warning’ }); }, // 移除已上传的文件 beforeRemove(file) { return this.$confirm(‘确定移除 ‘+file.name+’ ？’); }, // 导入报表至后台 importTable() { this.$refs.upload.submit(); this.dialogVisible = false; }, }12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { return instance({ method: “post”, url: ‘/super_admin/factory/device/import’, data: data, headers: { “Content-Type”: “multipart/form-data” } })} export{ importTable} 12345678910### 注意1. 这种方法也有弊端，action作为必填参数，无论是填任意数或者填写重复地址，控制台总会报404。2. FormData对象是不可以通过console.log在控制台直接打印出来的，但可以通过FormData.get()获取值。## input上传这个是重点，就实用来说，掌握一种方法就可以了，这个是目前最成功的（结合后台）。### 使用 12 data() { return { // 上传文件所需的参数 upload: { CurrentfactoryId: “” }, }} 12 methods: { // 打开上传文件的弹出框 handleUpload(index, row) { this.upload.CurrentfactoryId = row.factoryId; this.$refs.importFile.click(); }, // 确认导入列表 confirmUpload() { this.$confirm(‘此操作将上传 ‘+this.$refs.importFile.files[0].name+’ , 是否继续?’, ‘提示’, { confirmButtonText: ‘确定’, cancelButtonText: ‘取消’, type: ‘warning’ }).then(() =&gt; { this.$message.info(‘该过程耗时较长，请耐心等待’); this.importTable(); }).catch(() =&gt; { this.$message({ type: ‘info’, message: ‘已取消上传’ }); this.$refs.importFile.value = null; }); }, // 导入报表至后台 importTable() { let fd = new FormData(document.getElementById(“uploadform”)); // fd.append(“file”, this.upload.importFile); // fd.append(“factoryId”, this.upload.CurrentfactoryId); // console.log(fd.get(‘importFile’)); api.importTable((err, res) =&gt; { if (err) { if (err.response.status === 403 &amp;&amp; err.response.data.code==-2) { this.$message.error(“请登录”); session.clear(); this.$router.push({ path: “/login” }); } else if ( err.response.status === 500) { this.$message.error(“系统出错，请稍后再试”); } else if (err.response.status == 403) { this.$message.error(“该账号没有此操作权限”); } return; } if (res.data.code == 200) { this.$message({ message: “文件上传成功！”, type: “success” }); this.visible = false; } else { this.$message.error(“出错了，刷新一下吧”); } },fd); },} 12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { instance.post(‘/super_admin/factory/device/import’, data) .then(function (res) { fn(false, res); }).catch(function (err) { fn(err); });} export{ importTable} ` 注意 如果对于input的样式不满意，可以使用opacity把原来的input透明化来进行美化。 依然是使用formdata对象，虽然使用vue，但不知道为什么用append无法把文件传到后台，因此通过操作节点来新建，如果有人知道可以分享一下。 headers可以不手动添加，浏览器会判定界限，也可以加上。]]></content>
@@ -1246,6 +1312,17 @@
       </categories>
       <tags>
         <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hexo+Github 搭建属于自己的博客（进阶）NexT主题]]></title>
+    <url>%2F2018%2F05%2F04%2F%E5%85%B6%E4%BB%96%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E8%BF%9B%E9%98%B6%EF%BC%89NexT%E4%B8%BB%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_config.yml文件中修改 12345# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini 基础设置在站点目录下的配置文件_cofig.yml中修改 12345678# Sitetitle: your blog titlesubtitle:description: describe yourselfkeywords:author: yournamelanguage: zh-Hans //简体中文timezone: 修改菜单项在主题目录下修改配置文件_cofig.yml中的menu 123456789menu: home: / || home about: /about/ || user tags: /tags/ || tags categories: /categories/ || th archives: /archives/ || archive #schedule: /schedule/ || calendar #sitemap: /sitemap.xml || sitemap #commonweal: /404/ || heartbeat 这些配置都要与你主题目录下的languages文件中对应的yml文档里配置相关联 12345678910menu: home: 首页 archives: 归档 categories: 分类 tags: 标签 about: 关于 search: 搜索 schedule: 日程表 sitemap: 站点地图 commonweal: 公益404 限定主页文章高度修改主题目录下的值 123auto_excerpt: enable: true length: 150 设置头像修改主题目录下Sidebar Avatar的avatar值1234# Sidebar Avatar# in theme directory(source/images): /images/avatar.gif# in site directory(source/uploads): /uploads/avatar.gifavatar: /images/avatar.jpg 地址可以是网络地址，也可以是本地地址（放置在source/images/ 目录下） 添加标签页面点击标签，跳转的页面会显示page not found 此时需要在站点目录的source文件夹里新建tags文件夹，并新建index.md，添加： 12345---title: tagsdate: type: &quot;tags&quot;--- 当要为某一篇文章添加标签，只需在blog/source/_post目录下的具体文章的tags中添加标签即可 实现点击出现桃心效果将代码copy到/themes/next/source/js/src里面新建的love.js中 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950! function(e, t, a) &#123; function n() &#123; c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &apos;&apos;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r() &#125; function r() &#123; for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;); requestAnimationFrame(r) &#125; function o() &#123; var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick; e.onclick = function(e) &#123; t &amp;&amp; t(), i(e) &#125; &#125; function i(e) &#123; var a = t.createElement(&quot;div&quot;); a.className = &quot;heart&quot;, d.push(&#123; el: a, x: e.clientX - 5, y: e.clientY - 5, scale: 1, alpha: 1, color: s() &#125;), t.body.appendChild(a) &#125; function c(e) &#123; var a = t.createElement(&quot;style&quot;); a.type = &quot;text/css&quot;; try &#123; a.appendChild(t.createTextNode(e)) &#125; catch (t) &#123; a.styleSheet.cssText = e &#125; t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a) &#125; function s() &#123; return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot; &#125; var d = []; e.requestAnimationFrame = function() &#123; return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(e) &#123; setTimeout(e, 1e3 / 60) &#125; &#125;(), n()&#125;(window, document); 打开\themes\next\layout_layout.swig文件,在末尾（在前面引用会出现找不到的bug） ，引用love.js 1&lt;script src=&quot;/js/src/love.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 添加动态背景打开\themes\next\layout_layout.swig文件，在 之前添加代码(注意不要放在&lt; /head&gt;的后面) 123&#123;% if theme.canvas_nest %&#125;&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;&#123;% endif %&#125; 打开开\themes\next_config.yml,在里面修改为如下代码 1canvas_nest: true 在网站底部加上访问量打开\themes\next\layout_partials\footer.swig文件,在类copyright前加上这段代码： 1&lt;script async src=&quot;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt; 然后在合适的位置添加显示统计的代码： 12345&lt;div class=&quot;powered-by&quot;&gt;&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt; 本站访客数:&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt; 在每篇文章末尾添加“本文结束”标记在路径 \themes\next\layout_macro 中新建 passage-end-tag.swig 文件,并添加以下内容 12345&lt;div&gt; &#123;% if not is_index %&#125; &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt; &#123;% endif %&#125;&lt;/div&gt; 接着打开\themes\next\layout_macro\post.swig文件，在post-body 之后， post-footer 之前添加如下代码 12345&lt;div&gt; &#123;% if not is_index %&#125; &#123;% include &apos;passage-end-tag.swig&apos; %&#125; &#123;% endif %&#125;&lt;/div&gt; 打开主题配置文件,在末尾添加 123# 文章末尾添加“本文结束”标记passage_end_tag: enabled: true 侧边栏社交链接在主题配置文件中修改： 12345678910111213# Social linkssocial: GitHub: https://github.com/your-user-name Twitter: https://twitter.com/your-user-name 微博: http://weibo.com/your-user-name# Social Iconssocial_icons: enable: true # Icon Mappings GitHub: github Twitter: twitter 微博: weibo 添加小图标在主题配置文件中修改： 123favicon: #small: /images/favicon.ico medium: /images/favicon.ico NexT主题美化 除了NexT还有很多其他好看的主题，百度会有很多方法的]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -1282,6 +1359,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Hexo+Github 搭建属于自己的博客（基础）]]></title>
+    <url>%2F2018%2F05%2F03%2F%E5%85%B6%E4%BB%96%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[搭建环境准备Node.js 的安装和准备12$ node -v$ npm -v git的安装和准备1$ git --version github账户的配置 github账户注册 创建新仓库 注意：仓库名称一定为 github用户名.github.io 仓库设置 接下来开启github pages功能 ，点击界面右侧的 Settings，你将会打开这个库的settings页面，向下拖动，直到看见GitHub Pages 安装hexo在任意一个地方创建文件夹hexo，进入到该目录输入： 1$ npm install hexo-cli -g 然后可能会看到一个WARN，并不会影响操作，继续输入： 1$ npm install hexo --save 1$ hexo -v hexo的相关配置 初始化hexo 12$ hexo init &lt;新文件夹&gt; $ cd &lt;新文件夹&gt; 首次体验hexo 123$ hexo g$ hexo s //若一直无法跳转，则是端口被占用$ hexo server -p 5000 //改变端口号 配置Git个人信息如果之前已经配置好git个人信息，请跳过这一个步骤 设置Git的user name和email 12$ git config --global user.name &quot;yourusername&quot;$ git config --global user.email &quot;youremail&quot; 生成密钥 1$ ssh-keygen -t rsa -C &quot;youremail&quot; 配置Deployment在_config.yml文件中，找到Deployment，然后按照如下修改： 1234deploy: type: git repo: https://github.com/yourname/yourname.github.io.git branch: master 写博客、发布新文章 新建一篇博客 1$ hexo new post &quot;article title&quot; 用MarDown编辑器打开就可以编辑文章了 生成、部署 12$ hexo g // 生成$ hexo d // 部署 1$ hexo d -g //在部署前先生成 踩坑提醒 注意需要提前安装一个扩展 1npm install hexo-deployer-git --save 如果没有执行这行命令，将会提醒 deloyer not found:git]]></content>
+      <categories>
+        <category>博客搭建</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[DOM]]></title>
     <url>%2F2018%2F05%2F03%2Fjs%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%2FDOM%2F</url>
     <content type="text"><![CDATA[节点层次小结 DOM可以将任何HTML或XML文档描绘成一个由多层次节点构成的结构。 节点之间的关系构成层次，而所有页面标记则表现为一个以特定节点为根节点的树形结构 文档节点是每个文档的根节点，通过文档节点表示的元素称之为文档元素 文档元素是文档的最外层元素，文档中的其他元素都包含在文档元素中 每个文档只能有一个文档元素，在HTML页面中，文档元素始终都是元素 HTML元素通过元素节点表示，特性(属性）通过特性节点表示，注释通过注释节点表示…… 以下类型属性和方法的详细内容可参考红宝书，也可参考第19章DOM基础的pdf，在这里就不一一列出了 Node类型JavaScript中的所有节点类型都继承自Node类型 节点属性（所有节点都有） 属性 用途 nodeName 获取元素的标签名 nodeValue 返回节点的节点值 childNodes 获取当前元素节点的所有子节点 firstChild 获取当前元素节点的第一个子节点 lastChild 获取当前元素节点的最后一个子节点 ownerDocument 获取该文档的文档根节点 parentNode 获取当前节点的父节点 previousSibling 获取当前节点的前一个同级节点 nextSibling 获取当前节点的后一个同级节点 childNodes属性保存着一个NodeList对象，是一种类数组对象，用于保存一组有序的节点 操作节点（所有节点都可用） 方法 用途 appendChild() 将新节点追加到子节点列表的末尾 insertBefore() 将新节点插入到参考节点的前面 replaceChild() 将新节点替换掉旧节点 removeChild() 移除节点 cloneNode() 复制节点 Document类型JavaScript通过Document类型表示文档 查找元素 方法 作用 getElementsByTagName() 获取相同元素的节点列表 getElementByName() 获取相同名称的节点列表 getElementById() 获取特定id元素的节点 文档写入 方法 用途 write() 原样写入 writeln() 在字符串末尾添加换行符（\n） open() 打开网页的输出流 close() 关闭网页的输出流 Element类型 在HTML中，标签名始终都以全部大写表示 1alert(div.tagname);//DIV title特性：鼠标移动到该元素之上时显示的内容 操作特性 方法 用途 getAttribute() 获取特定元素节点属性的值 setAttribute() 设置特定元素节点属性的值 removeAttribute() 移除特定元素节点属性 attributes属性Element类型是使用attributes属性的唯一一个DOM节点类型。attributes属性中包含一个NameNodeMap，是一个“动态”的集合，里面每一项为元素的特性 创建元素 1document.createElement(要创建元素的标签名); 创建的新元素尚未被添加在文档树中，因此浏览器无法显示可以用appendChild()等方法把其添加到文档树中 Text类型文本节点由Text类型表示，包含的是可以照字面解释的纯文本内容 创建文本节点 1document.createTextNode(要插入节点中的文本); 同样，除非把新节点添加到文档树中已经存在的节点中，否则不会在浏览器看到新节点 规范文本节点normalize() 将所有文本节点合并成一个节点 分割文本节点splitText()将一个文本节点分为两个文本节点 Comment类型表示注释 CDATASection类型表示CDATA区域，只针对基于XML的文档 DocumentType类型包含着与文档的doctype有关的所有信息，不常用 DocumentFragment类型表示文档片段 Attr类型表示元素的特性 DOM操作技术以下两种技术均建议插入外部文件 动态脚本 使用script元素包含js代码直接插入head元素中 插入外部文件（建议）可添加到head元素中，也可添加到页面中 1&lt;scripr type=&quot;text/javascript&quot; src=&quot;URL&quot;&gt;&lt;/script&gt; 动态样式 使用style元素包含指定嵌入的样式插入head元素中 插入外部文件（建议）必须将link元素添加到head元素中 1&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;URL&quot;/&gt;]]></content>
@@ -1312,6 +1400,17 @@
       </categories>
       <tags>
         <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F04%2F27%2F%E5%85%B6%E4%BB%96%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>demo</category>
+      </categories>
+      <tags>
+        <tag>demo</tag>
       </tags>
   </entry>
 </search>
