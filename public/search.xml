@@ -34,6 +34,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Css：stylelint]]></title>
+    <url>%2F2022%2F04%2F26%2FCSS%2FCSS%EF%BC%9Astylelint%2F</url>
+    <content type="text"><![CDATA[安装1npm install -D stylelint 官方推荐基本配置1npm install -D stylelint-config-standard stylelint-config-prettier 共享配置扩展 1npm install -D stylelint-config-standard-scss stylelint-config-prettier-scss 配置文件.stylelintrc.js123456789module.exports = &#123; extends: [ &quot;stylelint-config-standard-scss&quot;, &quot;stylelint-config-prettier-scss&quot; ], rules: &#123; &#125;&#125; vscode插件 安装插件stylelint 修改setting.json 12345&quot;stylelint.enable&quot;: true,&quot;css.validate&quot;: false,&quot;less.validate&quot;: false,&quot;scss.validate&quot;: false,&quot;stylelint.validate&quot;: [&quot;css&quot;, &quot;scss&quot;, &quot;less&quot;] ==修改完成后需要重启编辑器== webpack插件安装1npm i -D stylelint-webpack-plugin 使用 123456const StyleLintPlugin = require(&apos;stylelint-webpack-plugin&apos;);new StyleLintPlugin(&#123; context: &quot;src&quot;, configFile: path.resolve(__dirname, &apos;.stylelintrc.js&apos;), // 指定 stylelint 配置的文件 quiet: true&#125;), 问题 TypeError: Class extends value undefined is not a constructor or null 1npm i -D postcss@8 2.]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[E2E测试]]></title>
     <url>%2F2022%2F02%2F15%2F%E5%89%8D%E7%AB%AF%2FE2E%E6%B5%8B%E8%AF%95%2F</url>
     <content type="text"><![CDATA[E2E (end-to-end) E2E测试就是end to end testing，即端到端测试。 它模仿用户，从某个入口开始，逐步执行操作，直到完成某项工作。 E2E 测试并没有那么强调要覆盖全部使用场景，它关注的是一个完整的操作链是否能够完成。对于 Web 前端来说，还关注 界面布局、内容信息是否符合预期。 不管逻辑使用什么框架什么逻辑写的，只想知道浏览器上我要的交互效果，ui展示效果是不是正确的，功能使用上是不是正确的，那么这就叫E2E测试。 cypresscypress是一款开箱即用,可以跑在Chrome浏览器上的测试工具。可以利用Cypress来模拟用户操作了，一方面可以测试代码是否正确，并且还能看到ui相应变化是否符合预期。 安装1$ npm install cypress --save-dev --registry=https://registry.npm.taobao.org 使用可以只写cypress需要访问的服务地址。123456789101112// cypress.json&#123; &quot;baseUrl&quot;: &quot;http://localhost:8000&quot;, #测试访问的路由地址 &quot;reporter&quot;: &quot;junit&quot;, #报告类型 &quot;reporterOptions&quot;: &#123; &quot;mochaFile&quot;: &quot;results/test-[hash].xml&quot;, #输出的文件 &quot;toConsole&quot;: true #是否输出的命令行 &#125;, &quot;viewportHeight&quot;: 800, # viewPort也就是预览窗的高度 &quot;viewportWidth&quot;: 1600 # viewPort也就是预览窗的宽度&#125; 通过cypress open本地打开测试窗口 1$ cypress open 点击右上角的运行所有集成化测试，或是点击单个测试用例单独测试 目录结构123456789101112├── fixtures # mock数据的存储目录，这里存放了所有mock的json文件│ ├── orders.json│ ├── panicBuyings.json│ └── routers.json├── integration # 测试用例代码目录│ ├── orderManagement.spec.js│ └── panicBuyingManagement.spec.js├── plugins # 插件目录│ └── index.js└── support ├── commands.js └── index.js 代码编写模拟用户操作123456789101112131415161718describe(&apos;测试抢购订单管理&apos;, () =&gt; &#123; beforeEach(() =&gt; &#123; #每个测试用例调用之前的操作 const mock = Cypress.env(&apos;MOCK&apos;) || &apos;false&apos;; # 自定义环境变量，运行时传递的话需要指定CYPRESS_前缀，这里使用是CYPRESS_MOCK=true cypress open cy.server(); # 如果需要mock接口的话，必须要运行server if (mock === true) &#123; cy.intercept(&apos;GET&apos;, &apos;/panic-buying/manager/orders*&apos;, &#123; fixture: &apos;orders.json&apos; &#125;).as( &apos;getOrders&apos;, ); # 拦截/panic-buying/manager/order*路由，并指定返回数据使用orders.json，定义这个接口是getOrders函数，用于后面测试使用。 &#125; else &#123; cy.intercept(&apos;GET&apos;, &apos;/panic-buying/manager/orders*&apos;).as(&apos;getOrders&apos;); &#125; &#125;); it(&apos;测试订单列表搜索&apos;, () =&gt; &#123; cy.visit(&apos;/#/rush-order/list&apos;); #访问页面路径 cy.wait(&apos;@getOrders&apos;).its(&apos;response.statusCode&apos;).should(&apos;be.oneOf&apos;, [200, 304]); # 等待getOrders函数，也就是接口返回并判断返回状态是200或是304中的一个。 cy.wait(1000); # 显示的等待1秒 &#125;);&#125;); API更多api操作参考：Commands 测试套件和用例 describe(): 代表测试套件，里面可以设定，一个测试套件可以不包括任何钩子函数（Hook），但必须包含至少一条测试用例 it() ，能嵌套子测试套件。 context(): 是 describe() 的别名，其行为方式是一致的，可以直接用 context() 代替 describe()。 it(): 代表一条测试用例。 …… 钩子函数 before(): 运行 cypress via cypress open 时，打开项目时将触发该事件。每次 cypress run 执行时都会触发该事件，会在第一个用例之前运行。 after()：会在跑完所有的用例之后运行。 beforeEach()：会在每一个用例前运行。 afterEach()：会在每一个用例结束后运行。 …… dom节点 get(): 用来在 DOM 树中查找 DOM 元素，get方法可以像jquery一样通过selector查找到对应的dom。 children()：获取一组 DOM 元素中每个 DOM 元素的子元素。 parent()：获取一组 DOM 元素的父 DOM 元素。 siblings()：获取兄弟 DOM 元素等。 trigger(): 在 DOM 元素上触发事件。 …… 123456789101112131415161718192021// 触发dom的mouseover事件dom.trigger(&apos;mouseover&apos;)// 语法使用示例// eventName（string）event 在DOM元素上要触发的的名称。.trigger(eventName)// position（string）// 应该触发事件的位置。该center位置是默认位置。// 有效的位置topLeft，top，topRight，left，center，right，bottomLeft，bottom，和bottomRight。.trigger(eventName, position)// options: 传递选项对象以更改的默认行为.trigger(eventName, options)// x（number）: 从元素左侧到触发事件的距离（单位px）。// y（number）: 从元素顶部到触发事件的距离（单位px）。.trigger(eventName, x, y).trigger(eventName, position, options).trigger(eventName, x, y, options) 网络接口 intercept: 在网络层管理 HTTP 请求的行为 1234cy.intercept(url, staticResponse)cy.intercept(method, url, staticResponse)cy.intercept(routeMatcher, staticResponse)cy.intercept(url, routeMatcher, staticResponse) Actions行为事件ui自动化操作页面上的元素，常用的方法输入如文本，点击元素，清空文本，点击按钮。还有一些特殊的checkbox,radio,滚动条等。cypress都可以api操作： type(): 往输入框输入文本元素。 focus(): 聚焦DOM元素。 clear(): 清空DOM元素。 rightclick(): 右击 DOM 元素 click()：点击 DOM 元素 select(): select 选项框 进阶有时候一个项目往往十分庞大，并不是所有组件都需要进行E2E测试，因此可以把需要进行测试的组件单独拿出来，本地部署一下，进行测试。 123456├── cypress # cypress目录│ ├── fixtures│ ├── integration│ ├── ...│ └── plugins├── e2e # 需要进行测试的组件代码 单独设置一个小项目，把需要进行测试的组件引进来，组成一个页面，对此页面进行测试。因此在开始测试前，需要先把这个页面跑起来，再开始测试。 参考 前端E2E测试框架 cypress了解一下 UI自动化测试框架Cypress介绍和使用 Cypress自动化测试入门使用]]></content>
@@ -42,6 +53,83 @@
       </categories>
       <tags>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos：Cocos接入react组件]]></title>
+    <url>%2F2021%2F09%2F17%2FCocos%2FCocos%EF%BC%9ACocos%E6%8E%A5%E5%85%A5react%E7%BB%84%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[接入redeem store，react组件，cocos不支持tsx ts把tsx编译成js引入 有引入别的文件使用，ts无法把两个文件打成一个文件 使用rolllup编译成js 引入文件过大，导致ts文件崩溃 把js改为插件脚本 把js导出项改为全局变量，直接引用 分包 需要把依赖一起打包到js进行分包 window不适用，继续使用引入的方式 load成功后引入redeem store process is not defined，打包时替换js里的process 部署时，无法获取process，无法替换，直接插入html，全局使用，production不替换 需求基于cocos的游戏接入基于react的兑换商店，即cocos接入react组件 tsx由于兑换商店暴露的是react组件，所以封装成一个tsx文件，接入cocos，html中增加一个节点，把兑换商店插入该节点 问题：cocos不支持接入tsx ts编译通过typescript把tsx编译成js 使用命令行参数–project（或-p）指定一个包含tsconfig.json文件的目录1$ tsc -p redeemStore/tsconfig.json 12345678910111213// tsconfig.json&#123; &quot;compilerOptions&quot;: &#123; &quot;allowSyntheticDefaultImports&quot;: true, &quot;jsx&quot;: &quot;react&quot;, &quot;module&quot;:&quot;esnext&quot;, &quot;target&quot;: &quot;es5&quot;, &quot;rootDir&quot;: &quot;./redeemStore.tsx&quot;, // 用来指定编译文件的根目录，编译器会在根目录查找入口文件 &quot;outDir&quot;: &quot;../assets&quot;, // 用来指定输出文件夹 &quot;baseUrl&quot;: &quot;../&quot;, // 用于设置解析非相对模块名称的基本目录，相对模块不会受到baseUrl的影响 &#125;&#125; 由于有引入别的文件，希望可以全部编译成一个文件 12// 指定输出文件合并为一个文件，只有设置module的值为amd和system模块时才支持这个配置&quot;outFile&quot;: &quot;./&quot;, 问题：无法多个文件编译成一个文件输出 rollup打包123456789101112131415161718192021222324252627// rollup.config.jsimport typescript from &apos;rollup-plugin-typescript2&apos;;import resolve from &apos;rollup-plugin-node-resolve&apos;;import commonjs from &apos;rollup-plugin-commonjs&apos;;export default &#123; input: &apos;redeemStore/redeemStore.tsx&apos;, // 源文件入口 output: &#123; file: &apos;assets/script/page/ui/redeemStore/redeemStore.js&apos;, format: &apos;cjs&apos;, sourcemap: true, compact: true &#125;, plugins: [ resolve(), commonjs(), replace(&#123; &apos;process.env.NODE_ENV&apos;: JSON.stringify(process.env.NODE_ENV), &apos;process.env.country&apos;: JSON.stringify(process.env.cid || process.env.country), &apos;process.env.environment&apos;: JSON.stringify(process.env.env || process.env.environment), &#125;), typescript(), uglify() ],&#125; plugins是有顺序的 rollup-plugin-typescript2使rollup可作用于typescript rollup-plugin-node-resolve / @rollup/plugin-node-resolve rollup 不会去寻找从npm安装到你的node_modules文件夹中的软件包 该插件可以告诉 Rollup 如何查找外部模块 解析 node_modules 中的模块，将所有依赖编译进同一个文件 rollup-plugin-commonjs / @rollup/plugin-commonjs 将 CommonJS 模块转换为 ES6 npm中的大多数包都是以 CommonJS 模块的形式出现的。 在它们更改之前，我们需要将CommonJS模块转换为 ES2015 供 Rollup 处理 该插件应该用在其他插件转换你的模块之前 - 这是为了防止其他插件的改变破坏CommonJS的检测 rollup-plugin-commonjs 会有以下问题123[!] Error: &apos;createElement&apos; is not exported by node_modules/react/index.js, imported by node_modules/@gameplatform-fe-component/redeem-store/dist/es/index.mjshttps://rollupjs.org/guide/en/#error-name-is-not-exported-by-modulenode_modules/@gameplatform-fe-component/redeem-store/dist/es/index.mjs (1:25) 12345commonjs(&#123; namedExports: &#123; &apos;react&apos;: Object.keys(React), &#125;&#125;) rollup-plugin-replace / @rollup/plugin-replace编译过程中可以进行字符串替换 @rollup/plugin-replace 会含有如下警告，仅仅是警告⚠️，不会影响编译1(!) Plugin replace: @rollup/plugin-replace: &apos;preventAssignment&apos; currently defaults to false. It is recommended to set this option to `true`, as the next major version will default this option to `true`. rollup-plugin-uglify代码压缩，使编译后的包更小 全局变量 打包后直接import会导致脚本崩溃，失效。 把其设置为插件脚本。 用window，redeem store设为全局变量去调用。 以上，在分包后都不是问题，因此，这里只是一个小插曲，分包后依然是直接import 分包Asset Bundle 中的脚本 构建cocos可以把一个文件夹设置为bundle，其下的文件都会在构建时单独打包成一个子包，仅仅构建时生效，开发预览依然是一个整包。 加载12345678910111213141516171819enterRedeemPage() &#123; let bundle = assetManager.getBundle(&apos;redeemStore&apos;); if (!bundle) &#123; assetManager.loadBundle(&apos;redeemStore&apos;, err =&gt; &#123; if (err) &#123; return console.error(err); &#125; this.loadRedeemStore(); &#125;); &#125; else &#123; this.loadRedeemStore(); &#125;&#125;async loadRedeemStore() &#123; const store = await import(&apos;./redeemStore/redeemStore.js&apos;); store.default.openStore(app.data.gameConfig, app.data.player.uid, () =&gt; app.ui.open(UIDef.UILandingPage)); this.close();&#125; development vs productiondevelopment 开发环境，分包策略不生效，依然是整包。 直接通过特定的命令编译redeemStore，编译过程某些参数通过特定的命令注入。 若切换地区需要重新编译 1rollup:test:id&quot;: &quot;cross-env NODE_ENV=development cid=id env=test rollup -c&quot; production 部署的同时，对redeemStore进行编译 由于参数无法注入，因此在部署时，通过脚本把参数设为全局变量，以供redeemStore直接读取 1234567window.process = &#123; env: &#123; NODE_ENV: &apos;production&apos;, country: &apos;$&#123;buildConfig.COUNTRY&#125;&apos;, environment: &apos;$&#123;buildConfig.ENVIRONMENT&#125;&apos; &#125;&#125;;]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：一些常用的命令]]></title>
+    <url>%2F2021%2F08%2F02%2FGit%2FGit%EF%BC%9A%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[忽略eslint 1git commit --no-verify -m &quot;&quot; 删除本地分支 1git branch -d &lt;branch&gt; 删除远程分支1git push origin --delete &lt;branch&gt;]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm：更换源]]></title>
+    <url>%2F2021%2F07%2F19%2FGit%2Fnpm%EF%BC%9A%E6%9B%B4%E6%8D%A2%E6%BA%90%2F</url>
+    <content type="text"><![CDATA[原始源安装完node之后，默认的原始源是： 1https://registry.npmjs.org/ 使用淘宝镜像临时使用1npm --registry https://registry.npm.taobao.org install express 持久使用1npm config set registry https://registry.npm.taobao.org 通过cnpm1npm install -g cnpm --registry=https://registry.npm.taobao.org 使用官方镜像1npm config set registry https://registry.npmjs.org/ 查看npm源地址1npm config get registry]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos Creator踩坑记]]></title>
+    <url>%2F2021%2F07%2F07%2FCocos%2FCocos%20Creator%E8%B8%A9%E5%9D%91%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[动画编辑 动画在普通模式下是不允许编辑的，只有在动画编辑模式下才可以编辑动画文件。 但是在动画编辑模式下，无法对节点进行添加/删除/重命名操作，并且没有记录在动画关键帧内的属性修改，在退出动画编辑器后也会被还原]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos：事件机制]]></title>
+    <url>%2F2021%2F07%2F05%2FCocos%2FCocos%EF%BC%9A%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[事件监听事件处理大多数是在节点（Node）中完成的。对于组件，可以通过访问节点 this.node 来注册和监听事件。监听事件可以通过 this.node.on() 函数来注册，方法如下： 12345// 该事件监听每次都会触发，需要手动取消注册xxx.on(type, func, target?);// 该事件监听在监听函数响应后就会关闭监听事件。xxx.once(type, func, target?); type 为事件注册字符串 func 为执行事件监听的回调 target 为事件接收对象 如果 target 没有设置，则回调里的 this 指向的就是当前执行回调的对象。 值得一提的是，事件监听函数 on 第三个参数 target，主要是绑定响应函数的调用者。以下两种调用方式，效果上是相同的 123456789// 使用函数绑定this.node.on(Node.EventType.MOUSE_DOWN, function ( event ) &#123; this.enabled = false;&#125;.bind(this));// 使用第三个参数this.node.on(Node.EventType.MOUSE_DOWN, (event) =&gt; &#123; this.enabled = false;&#125;, this); 事件取消当我们不再关心某个事件时，我们可以使用 off 方法关闭对应的监听事件。 off 方法的使用方式有两种： 1234// 取消对象身上所有注册的该类型的事件xxx.off(type);// 取消对象身上该类型指定回调指定目标的事件xxx.off(type, func, target); 需要注意的是，off 方法的参数必须和 on 方法的参数一一对应，才能完成关闭。 我们推荐的书写方法如下： 1234567891011121314151617import &#123; _decorator, Component, Node &#125; from &apos;cc&apos;;const &#123; ccclass &#125; = _decorator;@ccclass(&quot;Example&quot;)export class Example extends Component &#123; onEnable () &#123; this.node.on(&apos;foobar&apos;, this._sayHello, this); &#125; onDisable () &#123; this.node.off(&apos;foobar&apos;, this._sayHello, this); &#125; _sayHello () &#123; console.log(&apos;Hello World&apos;); &#125;&#125; 事件派发触发事件有两种方式： emit dispatchEvent，可以做事件传递 emit12// 事件派发的时候可以指定派发参数，参数最多只支持 5 个事件参数xxx.emit(type, ...args); 在触发事件时，我们可以在 emit 函数的第二个参数开始传递我们的事件参数。同时，在 on 注册的回调里，可以获取到对应的事件参数。 1234567891011121314151617import &#123; _decorator, Component, Node &#125; from &apos;cc&apos;;const &#123; ccclass &#125; = _decorator;@ccclass(&quot;Example&quot;)export class Example extends Component &#123; onLoad () &#123; this.node.on(&apos;foo&apos;, (arg1, arg2, arg3) =&gt; &#123; console.log(arg1, arg2, arg3); // print 1, 2, 3 &#125;); &#125; start () &#123; let arg1 = 1, arg2 = 2, arg3 = 3; // At most 5 args could be emit. this.node.emit(&apos;foo&apos;, arg1, arg2, arg3); &#125;&#125; 需要说明的是，出于底层事件派发的性能考虑，这里最多只支持传递 5 个事件参数。所以在传参时需要注意控制参数的传递个数。 dispatchEvent 通过 dispatchEvent 方法派发的事件，会进入事件派发阶段。 在 Cocos Creator 的事件派发系统中，我们采用冒泡派发的方式。 冒泡派发会将事件从事件发起节点，不断地向上传递给它的父级节点，直到到达根节点或者在某个节点的响应函数中做了中断处理 event.propagationStopped = true。 在 v3.0 中，我们移除了 Event.EventCustom 类，如果要派发自定义事件，需要先实现一个自定义的事件类，该类继承自 Event 类。 12345678910// Event 由 cc 模块导入import &#123; Event &#125; from &apos;cc&apos;;class MyEvent extends Event &#123; constructor(name: string, bubbles?: boolean, detail?: any) &#123; super(name, bubbles); this.detail = detail; &#125; public detail: any = null; // 自定义的属性&#125; 以上图为例，当我们从节点 c 发送事件 “foobar”，倘若节点 a，b 均做了 “foobar” 事件的监听，则事件会经由 c 依次传递给 b，a 节点。如： 12// 节点 c 的组件脚本中this.node.dispatchEvent( new MyEvent(&apos;foobar&apos;, true, &apos;detail info&apos;) ); 如果我们希望在 b 节点截获事件后就不再传递事件，我们可以通过调用 event.propagationStopped = true 函数来完成。具体方法如下： 1234// 节点 b 的组件脚本中this.node.on(&apos;foobar&apos;, (event: MyEvent) =&gt; &#123; event.propagationStopped = true;&#125;); 注意：在发送用户自定义事件的时候，请不要直接创建 cc 内的 Event 对象，因为它是一个抽象类。 系统内置事件123456789// 使用枚举类型来注册，推荐node.on(Node.EventType.MOUSE_DOWN, (event) =&gt; &#123; console.log(&apos;Mouse down&apos;);&#125;, this);// 使用事件名来注册node.on(&apos;mouse-down&apos;, (event) =&gt; &#123; console.log(&apos;Mouse down&apos;);&#125;, this); 触摸事件触摸事件冒泡触摸事件支持节点树的事件冒泡，以下图为例：在图中的场景里，假设 A 节点拥有一个子节点 B，B 拥有一个子节点 C。开发者对 A、B、C 都监听了触摸事件（以下的举例都默认节点监听了触摸事件）。 当鼠标或手指在 C 节点区域内按下时，事件将首先在 C 节点触发，C 节点监听器接收到事件。 接着 C 节点会将事件向其父节点传递这个事件，B 节点的监听器将会接收到事件。 同理 B 节点会将事件传递给 A 父节点。这就是最基本的事件冒泡过程。 需要强调的是，在触摸事件冒泡的过程中不会有触摸检测，这意味着即使触点不在 A B 节点区域内，A B 节点也会通过触摸事件冒泡的机制接收到这个事件。 触摸事件的冒泡过程与普通事件的冒泡过程并没有区别。所以，调用 event.propagationStopped = true; 可以主动停止冒泡过程。 同级节点间的触点归属问题 假设上图中 B、C 为同级节点，C 节点部分覆盖在 B 节点之上。 这时候如果 C 节点接收到触摸事件后，就宣布了触点归属于 C 节点，这意味着同级节点的 B 就不会再接收到触摸事件了， 即使触点同时也在 B 节点内。同级节点间，触点归属于处于顶层的节点。 此时如果 C 节点还存在父节点，则还可以通过事件冒泡的机制传递触摸事件给父节点。 不同 Canvas 的触点归属问题 不同 Canvas 之间的触点拦截是根据优先级决定的。 在下图中的场景里，节点树里的 Canvas 1-5 对应图片显示的 priority 1-5。 可以看出，即使 Canvas 节点 3、4、5 之间是按乱序排的，但是根据 Canvas 上的优先级（priority）关系，触点的响应先后顺序仍然是 Canvas5 -&gt; Canvas4 -&gt; Canvas3 -&gt; Canvas2 -&gt; Canvas1。 只有在优先级相同的情况下， Canvas 之间的排序是按节点树的先后顺序进行。 将触摸或鼠标事件注册在捕获阶段 有时候我们需要父节点的触摸或鼠标事件先于它的任何子节点派发，比如 ScrollView 组件就是这样设计的。 这时候事件冒泡已经不能满足我们的需求了，需要将父节点的事件注册在捕获阶段。 要实现这个需求，可以在给 node 注册触摸或鼠标事件时，传入第四个参数 true，表示 useCapture。 1this.node.on(Node.EventType.TOUCH_START, this.onTouchStartCallback, this, true); 当节点触发 touch-start 事件时，会先将 touch-start 事件派发给所有注册在捕获阶段的父节点监听器，然后派发给节点自身的监听器，最后才到了事件冒泡阶段。 只有触摸或鼠标事件可以注册在捕获阶段，其他事件不能注册在捕获阶段。 事件拦截 正常的事件是会按照以上说明的方式去派发。 但是如果节点身上带有 ==Button==,==Toggle== 或者 ==BlockInputEvents== 这几个组件的话，是会停止事件冒泡。 还是看下图。图中有两个按钮，Canvas0 下的 priority 1 和 Canvas1 下的 priority 2。 如果点击两个按钮的交汇处，也就是图中蓝色区域，会出现按钮 priority 2 成功接收到了触点事件，而按钮 priority 1 则没有。 那是因为按上述的事件接收规则，按钮 priority 2 优先接收到了触点事件，并且对事件进行了拦截（event.propagationStopped = true），防止事件穿透。 如果是非按钮节点，也可以通过添加 BlockInputEvents 组件来对事件进行拦截，防止穿透。 触摸事件举例以下图举例，总结下触摸事件的传递机制。图中有 A、B、C、D 四个节点，其中 A、B 为同级节点。具体层级关系如下： 若触点在 A、B 的重叠区域内，此时 B 接收不到触摸事件，事件的传递顺序是 A -&gt; C -&gt; D 若触点在 B 节点内（可见的绿色区域），则事件的传递顺序是 B -&gt; C -&gt; D 若触点在 C 节点内，则事件的传递顺序是 C -&gt; D 若以第 2 种情况为前提，同时 C D 节点的触摸事件注册在捕获阶段，则事件的传递顺序是 D -&gt; C -&gt; B]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos：生命周期]]></title>
+    <url>%2F2021%2F07%2F05%2FCocos%2FCocos%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%2F</url>
+    <content type="text"><![CDATA[Cocos Creator 为组件脚本提供了生命周期的回调函数。开发者只需要定义特定的回调函数，Creator 就会在特定的时期自动执行相关脚本，开发者不需要手工调用它们。 目前提供给开发者的生命周期回调函数主要有（按生命周期触发先后排列）： onLoad onEnable start update lateUpdate onDisable onDestroy onLoad 组件脚本的初始化阶段，我们提供了 onLoad 回调函数。 onLoad 回调会在节点首次激活时触发，比如所在的场景被载入，或者所在节点被激活的情况下。 在 onLoad 阶段，保证了你可以获取到场景中的其他节点，以及节点关联的资源数据。 onLoad 总是会在任何 start 方法调用前执行，这能用于安排脚本的初始化顺序。 通常我们会在 onLoad 阶段去做一些初始化相关的操作。 1234567891011121314151617import &#123; _decorator, Component, Node, SpriteFrame, find &#125; from &apos;cc&apos;;const &#123; ccclass, property &#125; = _decorator;@ccclass(&quot;test&quot;)export class test extends Component &#123; @property(&#123;type:SpriteFrame&#125;) bulletSprite=null; @property(&#123;type:Node&#125;) gun=null; _bulletRect=null; onLoad()&#123; this._bulletRect=this.bulletSprite.getRect(); this.gun = find(&apos;hand/weapon&apos;, this.node); &#125;&#125; onEnable 当组件的 enabled 属性从 false 变为 true 时，或者所在节点的 active 属性从 false 变为 true 时，会激活 onEnable 回调。 倘若节点第一次被创建且 enabled 为 true，则会在 onLoad 之后，start 之前被调用。 start start 回调函数会在组件第一次激活前，也就是第一次执行 update 之前触发。 start 通常用于初始化一些中间状态的数据，这些数据可能在 update 时会发生改变，并且被频繁的 enable 和 disable。 1234567891011121314151617181920import &#123; _decorator, Component, Node &#125; from &apos;cc&apos;;const &#123; ccclass, property &#125; = _decorator;@ccclass(&quot;starttest&quot;)export class starttest extends Component &#123; private _timer: number = 0.0; start () &#123; this._timer = 1.0; &#125; update (deltaTime: number) &#123; this._timer += deltaTime; if(this._timer &gt;= 10.0)&#123; console.log(&apos;I am done!&apos;); this.enabled = false; &#125; &#125;&#125; update游戏开发的一个关键点是在每一帧渲染前更新物体的行为，状态和方位。这些更新操作通常都放在 update 回调中。 12345678910import &#123; _decorator, Component, Node &#125; from &apos;cc&apos;;const &#123; ccclass, property &#125; = _decorator;@ccclass(&quot;updatetest&quot;)export class updatetest extends Component &#123; update (deltaTime: number) &#123; this.node.setPosition(0.0,40.0*deltaTime,0.0); &#125;&#125; lateUpdateupdate 会在所有动画更新前执行，但如果我们要在动效（如动画、粒子、物理等）更新之后才进行一些额外操作，或者希望在所有组件的 update 都执行完之后才进行其它操作，那就需要用到 lateUpdate 回调。 12345678910import &#123; _decorator, Component, Node &#125; from &apos;cc&apos;;const &#123; ccclass, property &#125; = _decorator;@ccclass(&quot;lateupdatetest&quot;)export class lateupdatetest extends Component &#123; lateUpdate (deltaTime: number) &#123; this.node.setPosition(0.0,50,0.0); &#125;&#125; onDisable当组件的 enabled 属性从 true 变为 false 时，或者所在节点的 active 属性从 true 变为 false 时，会激活 onDisable 回调。 onDestroy当组件或者所在节点调用了 destroy()，则会调用 onDestroy 回调，并在当帧结束时统一回收组件。]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos：计时器]]></title>
+    <url>%2F2021%2F07%2F05%2FCocos%2FCocos%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[下面是 Component 中所有关于计时器的函数： schedule：开始一个计时器 scheduleOnce：开始一个只执行一次的计时器 unschedule：取消一个计时器 unscheduleAllCallbacks：取消这个组件的所有计时器 schedule开始一个计时器 1234this.schedule(function() &#123; // 这里的 this 指向 component this.doSomething(); &#125;, 5); 上面这个计时器将每隔 5s 执行一次。 更灵活的计时器 12345678910// 以秒为单位的时间间隔 let interval = 5; // 重复次数 let repeat = 3; // 开始延时 let delay = 10; this.schedule(function() &#123; // 这里的 this 指向 component this.doSomething(); &#125;, interval, repeat, delay); 上面的计时器将在 10 秒后开始计时，每 5 秒执行一次回调，重复 3 次。 scheduleOnce只执行一次的计时器（快捷方式） 1234this.scheduleOnce(function() &#123; // 这里的 this 指向 component this.doSomething(); &#125;, 2); 上面的计时器将在两秒后执行一次回调函数，之后就停止计时。 unschedule取消计时器 开发者可以使用回调函数本身来取消计时器： 12345678910this.count = 0; this.callback = function () &#123; if (this.count == 5) &#123; // 在第六次执行回调时取消这个计时器 this.unschedule(this.callback); &#125; this.doSomething(); this.count++; &#125; this.schedule(this.callback, 1); 注意：组件的计时器调用回调时，会将回调的 this 指定为组件本身，因此回调中可以直接使用 this。]]></content>
+      <categories>
+        <category>Cocos</category>
+      </categories>
+      <tags>
+        <tag>Cocos</tag>
       </tags>
   </entry>
   <entry>
@@ -78,6 +166,28 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Git：git stash]]></title>
+    <url>%2F2020%2F11%2F02%2FGit%2FGit%EF%BC%9Agit%20stash%2F</url>
+    <content type="text"><![CDATA[参考：git stash的详细讲解 作用 git stash命令用于暂时保存没有提交的工作。运行该命令后，所有没有commit的代码，都会暂时从工作区移除，回到上次commit时的状态。 它处于git reset –hard（完全放弃还修改了一半的代码）与git commit（提交代码）命令之间，很类似于“暂停”按钮。 1234567891011121314151617181920212223242526# 暂时保存没有提交的工作，并且将当前代码切换到HEAD提交上# 可以多次运行，以“先进后出”的stack结构存储$ git stash // git stash save# 展示目前存在的stash$ git stash show -p# 列出所有暂时保存的工作$ git stash liststash@&#123;0&#125;: WIP on workbranch: 56cd5d4 Revert &quot;update old files&quot;stash@&#123;1&#125;: WIP on project1: 1dd87ea commit &quot;fix typos and grammar&quot;# 恢复某个暂时保存的工作$ git stash apply stash@&#123;1&#125;# 恢复最近一次stash的文件$ git stash pop# 丢弃最近一次stash的文件$ git stash drop# 丢弃某一个stash的文件$ git stash drop stash@&#123;1&#125;# 删除所有的stash$ git stash clear 实际应用开发到一半,同步远端代码当你的开发进行到一半,但是代码还不想进行提交 ,然后需要同步去关联远端代码时.如果你本地的代码和远端代码没有冲突时,可以直接通过git pull解决.但是如果可能发生冲突怎么办.直接git pull会拒绝覆盖当前的修改. 遇到这种情况,需要先保存本地的代码,进行git pull,然后再pop出本地代码 123git stashgit pullgit stash pop 工作流被打断,需要先做别的需求当开发进行到一半,老板过来跟你说”线上有个bug,你现在给我改好,不然扣你鸡腿”.当然,你可以开一个新的分支,把当前代码提交过去,回头再merge,具体代码如下 繁琐的工作流示例 1234567$ git checkout -b my_wip$ git commit -a -m &quot;WIP&quot;$ git checkout master// edit emergency fix$ git commit -a -m &quot;Fix in a hurry&quot;$ git checkout my_wip$ git reset --soft HEAD^ 我们可以通过git stash来简化这个流程 正确姿势 1234$ git stash // 保存开发到一半的代码// edit emergency fix$ git commit -a -m &quot;Fix in a hurry&quot;$ git stash pop // 将代码追加到最新的提交]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：git reset和git revert]]></title>
+    <url>%2F2020%2F10%2F23%2FGit%2FGit%EF%BC%9Agit%20reset%E5%92%8Cgit%20revert%2F</url>
+    <content type="text"><![CDATA[参考：Git撤销&amp;回滚操作(git reset 和 get revert) git reset git reset ：回滚到某次提交。 git reset –soft：此次提交之后的修改会被退回到暂存区 git reset –hard：此次提交之后的修改不做任何保留，git status 查看工作区是没有记录的。 git reset的作用是修改HEAD的位置 即将HEAD指向的位置改变为之前存在的某个版本，且那个版本之后提交的版本都会不见 查看版本号 1$ git log 回退，版本号填写前六位即可 1234$ git reset --hard &lt;目标版本号&gt;$ git reset --hard HEAD //当前版本$ git reset --hard HEAD^ //回退到上一个版本$ git reset --hard HEAD^^ //回退到上上一个版本 提交 12// 直接push会报错，需要强制push$ git push origin &lt;分支名&gt; --force git revert git revert用于“反做”某一个版本，以达到撤销该版本的修改的目的 即新增一个版本，该版本与想要回退的版本一致 查看版本号 1$ git log 回退，版本号填写前六位即可 12// -n是--no-commit如果不带这个参数会自动提交一条commit$ git revert -n &lt;目标版本号&gt; 提交 123$ git add .$ git commit -m &quot;revert&quot;$ git push origin &lt;分支名&gt; 实际应用场景场景一 糟了，我刚把不想要的代码，commit到本地仓库中了，但是还没有做push操作！ 在未进行git push前的所有操作，都是在“本地仓库”中执行的。我们暂且将“本地仓库”的代码还原操作叫做“撤销” 情况一文件被修改了，但未执行git add操作(working tree内撤销) 12$ git checkout fileName$ git checkout . 情况二同时对多个文件执行了git add操作，但本次只想提交其中一部分文件 1234$ git add *$ git status// 取消暂存$ git reset HEAD &lt;filename&gt; 情况三文件执行了git add操作，但想撤销对其的修改（index内回滚） 1234// 取消暂存$ git reset HEAD fileName// 撤销修改$ git checkout fileName 情况四修改的文件已被git commit，但想再次修改不再产生新的Commit 123// 修改最后一次提交 $ git add sample.txt$ git commit --amend -m&quot;说明&quot; 情况五已在本地进行了多次git commit操作，现在想撤销到其中某次Commit 1$ git reset [--hard|soft|mixed|merge|keep] [commit|HEAD] 场景二 彻底完了，刚线上更新的代码出现问题了，需要还原这次提交的代码！ 已进行git push，即已推送到“远程仓库”中。我们将已被提交到“远程仓库”的代码还原操作叫做“回滚”！注意：对远程仓库做回滚操作是有风险的，需提前做好备份和通知其他团队成员！ 如果你每次更新线上，都会打tag，那恭喜你，你可以很快的处理上述场景二的情况 1$ git checkout &lt;tag&gt; 如果你回到当前HEAD指向 1$ git checkout &lt;branch_name&gt; 情况一撤销指定文件到指定版本 1234// 查看指定文件的历史版本$ git log &lt;filename&gt;// 回滚到指定commitID$ git checkout &lt;commitID&gt; &lt;filename&gt; 情况二删除最后一次远程提交 方式一：使用revert12$ git revert HEAD$ git push origin master 方式二：使用reset 12$ git reset --hard HEAD^$ git push origin master -f 二者区别： revert是放弃指定提交的修改，但是会生成一次新的提交，需要填写提交注释，以前的历史记录都在； reset是指将HEAD指针指到指定提交，历史记录中不会出现放弃的提交记录。 情况三回滚某次提交 123// 找到要回滚的commitID$ git log$ git revert commitID 场景三刚才我发现之前的某次提交太愚蠢了，现在想要干掉它！ 123$ git log// ^号代表目标版本号的前一次提交$ git rebase -i &lt;目标版本号&gt;^ 进入编辑器 将对应版本号前的 pick 改为 d ，即drop = remove commit，然后保存退出 1$ git push origin &lt;分支名&gt; -f 通过上述操作，如果你想对历史多个commit进行处理或者，可以选择git rebase -i，只需删除对应的记录就好 rebase还可对 commit 消息进行编辑，以及合并多个commit]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode：阶乘后的零]]></title>
     <url>%2F2020%2F10%2F16%2F%E7%AE%97%E6%B3%95%2FLeetCode%EF%BC%9A%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6%2F</url>
     <content type="text"><![CDATA[阶乘后的零给定一个整数 n，返回 n! 结果尾数中零的数量。 测试用例121. 3 // 02. 6 // 1 解法一思路 3! = 3 2 1 6! = 6 5 4 3 2 * 1 10! = （5 2） 8 7 6 5 4 3 2 * 1 每一个5都可以找到偶数配对，就相当于一个5可以产生一个0。 找出阶乘中含有多少个因子5就可以了 算法123456789101112131415/** * @param &#123;number&#125; n * @return &#123;number&#125; */var trailingZeroes = function(n) &#123; let count = 0; for(let i = 5; i &lt;= n; i++)&#123; let temp = i; while(temp % 5 === 0) &#123; count ++; temp /= 5 &#125; &#125; return count;&#125;; 解法二思路 5 的因子一定是每隔 5 个数出现一次 25 = 5 5, 125 = 5 5 * 5 每隔 5 个数，出现一个 5，每隔 25 个数，出现 2 个 5，每隔 125 个数，出现 3 个 5… 因此找出现了多少次五个数，当这个次数大于5时，证明n大于25，有多一个5，以此类推，125同理。 count = n / 5 + n / 25 + n / 125 … 算法123456789101112/** * @param &#123;number&#125; n * @return &#123;number&#125; */var trailingZeroes = function(n) &#123; let count = 0; while (n &gt; 0) &#123; n = Math.floor(n / 5); count += n; &#125; return count;&#125;;]]></content>
@@ -97,6 +207,39 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：git branch -f]]></title>
+    <url>%2F2020%2F08%2F07%2FGit%2FGit%EF%BC%9Agit%20branch%20-f%2F</url>
+    <content type="text"><![CDATA[使用相对引用最多的就是移动分支，可以直接使用 -f 选项让分支指向另一个提交 1git branch -f &lt;分支名&gt; &lt;目的位置&gt; 将mater分支指向HEAD的父级提交，即HEAD后退1步后的那次提交12// 需要注意HEAD指向哪里git branch -f master HEAD^ 将mater分支指向HEAD的第3级父提交，即HEAD后退3步后的那次提交1git branch -f master HEAD~3 将mater分支指向代号为c1那次提交，可通过git log查找其哈希值来替换c11git branch -f master c1]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：删除远程仓库文件但不删除本地]]></title>
+    <url>%2F2020%2F07%2F24%2FGit%2FGit%EF%BC%9A%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6%E4%BD%86%E4%B8%8D%E5%88%A0%E9%99%A4%E6%9C%AC%E5%9C%B0%2F</url>
+    <content type="text"><![CDATA[更新 1$ git pull origin master 删除 1$ git rm -r --cached &lt;文件相对路径&gt; 备注 1$ git commit -m &quot;delete&quot; 上传 1$ git push -u origin master]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：查看克隆下来的代码的信息]]></title>
+    <url>%2F2020%2F07%2F24%2FGit%2FGit%EF%BC%9A%E6%9F%A5%E7%9C%8B%E5%85%8B%E9%9A%86%E4%B8%8B%E6%9D%A5%E7%9A%84%E4%BB%A3%E7%A0%81%E7%9A%84%E4%BF%A1%E6%81%AF%2F</url>
+    <content type="text"><![CDATA[列出已经存在的远程分支 1$ git remote 列出详细信息，在每一个名字后面列出其远程url地址 1$ git remote -v v: verbose，显示对应的克隆地址。]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -199,6 +342,94 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[ES6：箭头函数]]></title>
+    <url>%2F2020%2F03%2F17%2FES6%2FES6%EF%BC%9A%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[箭头函数体内的this对象是定义时所在的对象，而不是使用时所在的对象。 this指向调用箭头函数外层函数的对象（即箭头函数所在作用域的父级作用域），没有外层函数则指向window。 箭头函数相当于匿名函数。 箭头函数不可以当作构造函数，即不可以用new命令。 箭头函数不可以使用arguments对象，该对象在函数体内不存在。要用，就用rest参数代替。 箭头函数的this指向其上下文的this，通过call、apply也无法修改其指向。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：Git使用]]></title>
+    <url>%2F2020%2F03%2F17%2FGit%2FGit%EF%BC%9AGit%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[git的简介、安装就不罗嗦了，详细的教程可参考廖雪峰的git教程 创建版本库（初始化一个git仓库）第一步选择一个合适的地方，创建一个空目录learngit 123$ mkdir learngit$ cd learngit$ pwd pwd命令用于显示当前目录 第二步通过git init命令把这个目录变成Git可以管理的仓库 1$ git init 1、此时可以发现当前目录下多了一个.git的目录，这个目录是Git来跟踪管理版本库的，没事千万不要手动修改这个目录里面的文件，不然改乱了，就把Git仓库给破坏了。 2、如果没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。 添加文件到Git仓库编写一个readme.txt文件内容为： 12Git is a version control system.Git is free software. 第一步用命令git add告诉Git，把文件添加到仓库 1$ git add readme.txt 1、执行上面的命令，没有任何显示，这就对了，Unix的哲学是“没有消息就是好消息”，说明添加成功 2、add可反复多次使用，添加多个文件 第二步用命令git commit告诉Git，把文件提交到仓库 1$ git commit -m &quot;wrote a readme file&quot; 1、-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的 2、commit可以一次提交很多文件，所以你可以多次add不同的文件 修改文件并提交修改readme.txt文件，改成如下内容 12Git is a distributed version control system.Git is free software. git status运行git status命令看看结果 1$ git status git status命令可以让我们时刻掌握仓库当前的状态 git diff比如有一个项目，隔了好几天没碰过了，想要继续写的时候，又忘了上次是怎么修改的，那么运行git diff命令看看具体修改了什么内容 1$ git diff readme.txt git diff顾名思义就是查看difference 提交修改（与提交新文件一样）第一步git add 1$ git add readme.txt 第二步git commit 1$ git commit -m &quot;add distributed&quot; 版本回退现在，我们回顾一下readme.txt文件一共有几个版本被提交到Git仓库里了 版本一：wrote a readme file 12Git is a version control system.Git is free software. 版本二：add distributed 12Git is a distributed version control system.Git is free software. git log运行git log命令可以查看每次修改的历史记录 1$ git log 该命令显示从最近到最远的提交日志 回退git reset运行git reset命令把版本二回退到版本一 123$ git reset --hard HEAD //当前版本$ git reset --hard HEAD^ //回退到上一个版本$ git reset --hard HEAD^^ //回退到上上一个版本 若有多个版本，可继续使用git reset命令回退 cat 看看readme.txt的内容是不是版本一 1$ cat readme.txt 后悔回退，恢复版本此时，使用git log看一下版本库里的版本，哎呀，版本二不见了那如果此时我又后悔了，我想要回退之前的版本了 1$ git reset --hard 所需版本的commit id commit id不知道怎么办？？？1、不怕，只要上面的命令行窗口还没有被关掉，你就可以顺着往上找啊找啊，找到回退前执行git log后的版本库，每一个版本的commit后那一长串乱码一样的东西就是该版本的commit id了当然，commit id很长，没必要写全，写前几位就好了（一般七位吧） 恢复版本二 1$ git reset --hard f3ab58 2、可是，当你关掉了命令行窗口后才后悔怎么办？？？不怕，在Git中，总是有后悔药可以吃的 Git提供了一个命令git reflog用来记录你的每一次命令 1$ git reflog 又可以找回所需版本的commit id了 工作区与暂存区工作区就是你在电脑里能看到的目录，比如我的learngit文件夹就是一个工作区 版本库工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库 Git的版本库里存了很多东西1、最重要的就是称为stage（或者叫index）的暂存区2、还有Git为我们自动创建的第一个分支master3、以及指向master的一个指针叫HEAD 前面讲了提交新文件到Git版本库： 第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区； 第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支 撤销修改git checkout – file场景一（仅修改了文件） 有一次头脑混乱，在readme.txt中加了一行乱码，死定了，要赶紧手动删掉，以为这样就没事了吗？不，事儿可大了，运行git status查看 1$ git status 会显示改动了readme.txt 这时候，运行git checkout – file丢弃工作区的修改即可 1$ git checkout -- readme.txt 有两种情况（都是修改了工作区的文件导致工作区与版本库不一致）： 一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态 一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态 git reset HEAD file场景二（修改文件后，git add到暂存区了） 有一次头脑更混乱，不仅在readme.txt中加了一行乱码，还git add到暂存区了 幸好，用git status查看 1$ git status 显示还没有提交 这时候运行命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区即可 1$ git reset HEAD readme.txt 再用git status查看 1$ git status 现在暂存区是干净的，工作区有修改，回到场景一即可 1$ git checkout -- readme.txt 版本回退场景三（改了文件，不仅添加了，还提交了） 回到上上一个内容版本回退了 删除文件一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了 1$ rm test.txt Git知道你删除了文件，因此，工作区和版本库就不一致了，git status命令会立刻告诉你哪些文件被删除了 1$ git status 此时有两种情况 第一种情况确实要从版本库中删除该文件 运行命令git rm删掉 1$ git rm test.txt 并且git commit 1$ git commit -m &quot;remove test.txt&quot; 第二种情况删错了 因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本 1$ git checkout -- test.txt git checkout – file 其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原” 远程仓库git的杀手级功能—远程仓库这个世界上有个叫GitHub的神奇的网站，这个网站是提供Git仓库托管服务的，只要注册一个GitHub账号，就可以免费获得Git远程仓库 设置SSH Key由于本地Git仓库和GitHub仓库之间的传输是通过SSH加密的 第一步创建SSH Key 在用户主目录下，看看有没有.ssh目录；如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件；如果已经有了，可直接跳到下一步 如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key 1$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot; 一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码 第二步登陆GitHub，打开“Account settings”，“SSH Keys”页面， 然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容 把本地项目添加到远程库第一步通过命令git init把项目文件夹变成Git可管理的仓库 1$ git init 第二步把项目粘贴到这个本地Git仓库里面 1$ git add . 第三步把项目提交到仓库 1$ git commit -m &quot;注释&quot; 第四步登陆GitHub，然后，在右上角找到“Create a new repo”按钮，创建一个新的仓库，在Repository name填入learngit，其他保持默认设置，点击“Create repository”按钮，就成功地创建了一个新的Git仓库 目前，在GitHub上的这个learngit仓库还是空的 第五步在本地的learngit仓库下运行命令 1$ git remote add origin git@github.com:michaelliao/learngit.git michaelliao替换成自己的GitHub账户名使本地仓库关联远程库添加后，远程库的名字就是origin，这是Git默认的叫法 第六步把本地库的所有内容推送到远程库上 1$ git push -u origin master 最后的最后从现在起，只要本地作了提交，就可以运行命令把本地master分支的最新修改推送至GitHub 1$ git push origin master 从远程库克隆到本地库第一步登陆GitHub，创建一个新的仓库，名字叫gitskills勾选Initialize this repository with a README，这样GitHub会自动为我们创建一个README.md文件。创建完毕后，可以看到README.md文件 第二步用命令git clone克隆一个本地库 1$ git clone git@github.com:michaelliao/gitskills.git michaelliao替换成自己的GitHub账户名 分支管理创建与合并分支一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点 每次提交，master分支都会向前移动一步，这样，随着你不断提交，master分支的线也越来越长 第一步创建dev分支 1$ git branch dev 切换到dev分支 1$ git checkout dev 可合并为创建并切换到dev分支 1$ git checkout -b dev 第二步用git branch命令查看当前分支 123$ git branch* dev master git branch命令会列出所有分支，当前分支前面会标一个*号 第三步在dev分支上正常提交比如对readme.txt做个修改，加上一行 1Creating a new branch is quick. 然后提交 12$ git add readme.txt $ git commit -m &quot;branch test&quot; 第四步现在，dev分支的工作完成，我们就可以切换回master分支 1$ git checkout master 切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变 第五步把dev分支的工作成果合并到master分支上 1$ git merge dev git merge命令用于合并指定分支到当前分支注意到上面的Fast-forward信息，Git告诉我们，这次合并是“快进模式 第六步合并完成后，就可以放心地删除dev分支了 1$ git branch -d dev 删除后，查看branch，就只剩下master分支了 12$ git branch* master 解决冲突第一步此时，创建了一个新的分支feature1 1$ git checkout -b feature1 在readme.txt最后添加一行并提交 1Creating a new branch is quick AND simple. 第二步切换到master分支 1$ git checkout master 在master分支上readme.txt最后添加一行并提交 1Creating a new branch is quick &amp; simple. 此时，master分支和feature1分支各自都分别有新的提交 第三步由于两个分支各自有修改，两者合并起来可能会有冲突 1$ git merge feature1 git status会告诉我们冲突的文件 1$ git status 也可以查看readme.txt的内容 1234567Git is a distributed version control system.Git is free software distributed under the GPL.&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEADCreating a new branch is quick &amp; simple.=======Creating a new branch is quick AND simple.&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1 第四步此时，需要手动修改冲突内容 123Git is a distributed version control system.Git is free software distributed under the GPL.Creating a new branch is quick and simple. 再提交 12$ git add readme.txt $ git commit -m &quot;conflict fixed&quot; 现在，master分支和feature1分支变成这样用带参数的git log也可以看到分支的合并情况 1$ git log --graph --pretty=oneline --abbrev-commit 第五步最后，删除feature1分支 1$ git branch -d feature1 分支管理策略通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。 如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息 第一步创建并切换dev分支 1$ git checkout -b dev 第二步修改readme.txt文件，并提交一个新的commit 12$ git add readme.txt $ git commit -m &quot;add merge&quot; 第三步切换回master 1$ git checkout master 第四步准备合并dev分支，请注意–no-ff参数，表示禁用Fast forward 1$ git merge --no-ff -m &quot;merge with no-ff&quot; dev 加上-m参数，把commit描述写进去 合并后，我们用git log看看分支历史 1$ git log --graph --pretty=oneline --abbrev-commit Bug分支某天突然接到一个修复一个代号101的bug的任务时，很自然地，你想创建一个分支issue-101来修复它，但当前正在dev上进行的工作还没有提交，并不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需1天时间。但是，必须在两个小时内修复该bug 第一步把当前工作现场“储藏”起来，等以后恢复现场后继续工作 1$ git stash 现在，用git status查看工作区，就是干净的 第二步首先确定要在哪个分支上修复bug，假定需要在master分支上修复，就从master创建临时分支 1$ git checkout master 1$ git checkout -b issue-101 第三步修复bug，然后提交 12$ git add readme.txt $ git commit -m &quot;fix bug 101&quot; 第四步修复完成后，切换到master分支，并完成合并，最后删除issue-101分支 1$ git checkout master 1$ git merge --no-ff -m &quot;merged bug fix 101&quot; issue-101 1$ git branch -d issue-101 第五步接着回到dev分支干活了 1$ git checkout dev 1$ git status 工作区是干净的，用git stash list命令看看刚才的工作现场存到哪去了？ 1$ git stash list 第六步恢复stash内容 一种是用git stash apply恢复，然后用git stash drop删除stash内容 另一种方式是用git stash pop，恢复的同时把stash内容也删了 1$ git stash pop 可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash 1$ git stash apply stash@&#123;0&#125; 疑问第一个问题在dev中工作，在master中创建分支修改bug，好像互不相干呀，为什么要stash呢？ 暂存区是公用的，如果不通过stash命令隐藏，会带到其它分支（issue-101）去 第二个问题为什么要创建分支修改bug呢，直接在master中改不就好了吗？ 实际项目中，这个bug可能很麻烦，你需要修复一天的时间才能搞定，如果你不创建101分支，那么这时候你们组内其他小伙伴也要紧急修复线上一个bug，但是他的bug可能就1分钟。他修复好了却不能上线，因为你没有创建分支，要等你一天，才能把你处理好的正确代码一起上线。可能也会觉得创建分支不够效率，但是工作中稳健很重要 Feature分支每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支 第一步开发并提交 1$ git checkout -b feature-vulcan 12$ git add vulcan.py$ git commit -m &quot;add feature vulcan&quot; 第二步切回dev，准备合并 1$ git checkout dev 第三步一切顺利的话，feature分支和bug分支是类似的，合并，然后删除但是，由于种种原因，新功能取消，这个分支必须就地销毁 1$ git branch -d feature-vulcan 销毁失败 Git友情提醒，feature-vulcan分支还没有被合并，如果删除，将丢失掉修改如果要强行删除，需要使用命令git branch -D feature-vulcan 1$ git branch -D feature-vulcan 多人协作查看远程库的信息 1$ git remote 显示更详细的信息 1$ git remote -v 推送分支推送分支，就是把该分支上的所有本地提交推送到远程库 推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上 1$ git push origin master 或推送其他分支 1$ git push origin dev 注意： 1、master分支是主分支，因此要时刻与远程同步； 2、dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步； 3、bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug； 4、feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。 抓取分支当push失败时，则因为远程分支比你的本地更新 先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送 1$ git pull git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接 设置dev和origin/dev的链接 1$ git branch --set-upstream dev origin/dev 再pull 1$ git pull git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样 解决后，提交，再push 标签管理创建标签首先，切换到需要打标签的分支上 12345$ git branch* dev master$ git checkout masterSwitched to branch &apos;master&apos; 创建一个新标签 1$ git tag &lt;name&gt; 还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字 1$ git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot; 查看所有标签 12$ git tag //按字母排序$ git show &lt;tagname&gt; 默认标签是打在最新提交的commit上的 有时候，如果忘了打标签 方法是找到历史提交的commit id 1$ git log --pretty=oneline --abbrev-commit 然后打上标签就可以了1$ git tag &lt;name&gt; &lt;commit id&gt; 未完待续]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：分支管理之合并]]></title>
+    <url>%2F2020%2F03%2F17%2FGit%2FGit%EF%BC%9A%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E4%B9%8B%E5%90%88%E5%B9%B6%2F</url>
+    <content type="text"><![CDATA[假设已存在分支dev，且修改部分代码 先把已修改的推上分支dev 把切换回主分支，下拉 运行合并指令 1git merge dev 合并后在本地修改冲突 再次commit并提交到主分支]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：将在master分支上做的修改提交到分支]]></title>
+    <url>%2F2020%2F03%2F17%2FGit%2FGit%EF%BC%9A%E5%B0%86%E5%9C%A8master%E5%88%86%E6%94%AF%E4%B8%8A%E5%81%9A%E7%9A%84%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E5%88%B0%E5%88%86%E6%94%AF%2F</url>
+    <content type="text"><![CDATA[前提我在master上修复了某个bug，但是master被锁定了，我想提交到dev分支，那么使用 cherry-pick可以满足我们的要求 1234//先从主分支记下id$ git log//切换到dev分支上$ git cherry-pick &lt;id&gt;]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：添加到远程github仓库的一个错误]]></title>
+    <url>%2F2020%2F03%2F17%2FGit%2FGit%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%88%B0%E8%BF%9C%E7%A8%8Bgithub%E4%BB%93%E5%BA%93%E7%9A%84%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%2F</url>
+    <content type="text"><![CDATA[问题今天使用git 添加到远程github仓库的时候提示错误：fatal: remote origin already exists. 解决办法 先删除远程 Git 仓库 1$ git remote rm origin 再添加远程 Git 仓库 1$ git remote add origin 仓库地址]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：垂直水平居中]]></title>
+    <url>%2F2020%2F03%2F03%2FCSS%2FCSS%EF%BC%9A%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[基于绝对定位要求元素具有固定的高度和宽度123456789&#123; position:absolute; top:50%; left:50%; margin-top:-20px; margin-left:-20px; height:40px; width:40px;&#125; 局限性：不能自适应，边距大小与padding，box-sizing有关 借助calc()函数 1234567&#123; position:absolute; top:calc(50%-20px); left:calc(50%-20px); height:40px; width:40px;&#125; 不需要在偏移量中把元素尺寸写死123456&#123; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);&#125; 局限性：ie8不支持 基于Flex布局123456&#123; display:flex; justify-content:center;//使子元素水平居中 align-items:center;//使子元素垂直居中 height:40px;&#125; 局限性：ie7/8不兼容 基于table布局12345&#123; display: table-cell; vertical-align: middle;//使子元素垂直居中 text-align: center;//使子元素水平居中&#125; 局限性：需要额外html标记 基于inline-block12345&#123; display: inline-block; vertical-align: middle;//使元素垂直居中 text-align: center;//使元素水平居中&#125; 只有文字1234&#123; line-height: 24px;//使元素垂直居中 text-align: center;//使元素水平居中&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：line-height]]></title>
+    <url>%2F2020%2F02%2F27%2FCSS%2FCSS%EF%BC%9Aline-height%2F</url>
+    <content type="text"><![CDATA[line-height在应用到一个块级元素时，它定义了该元素中基线之间的最小距离 1234line-height:15px;//行间距为15pxline-height:150%;//行间距=当前的字体尺寸*150%line-height:1.5;//行间距=当前的字体尺寸*1.5line-height:1.5em;//行间距=当前的字体尺寸*1.5（若当前没有设置，继承父元素）]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：圣杯布局和双飞翼布局]]></title>
+    <url>%2F2020%2F02%2F27%2FCSS%2FCSS%EF%BC%9A%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80%E5%92%8C%E5%8F%8C%E9%A3%9E%E7%BF%BC%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[圣杯布局 header和footer占屏幕全部宽度，高度固定 中间的contaier部分是一个三栏布局 left和right宽度固定，middle自适应填满整个区域；高度为三栏中最大的高度 浮动1234567&lt;header class=&quot;header&quot;&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;middle&quot;&gt;middle&lt;/div&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer class=&quot;footer&quot;&gt;footer&lt;/footer&gt; 1234567891011121314151617181920212223242526272829303132333435363738394041424344.header&#123; height:50px; width:100%; border:1px solid black;&#125;// 中间部分center设置100%撑满// 这样因为浮动的关系，center会占据整个container，左右两块区域被挤下去了.middle&#123; float: left; width: 100%; height:100%; background-color:pink;&#125;// 设置left的 margin-left: -100%;，让left回到上一行最左侧.left &#123; float: left; width: 100px; height: 100%; margin-left: -100%; background: black;&#125;// left回到第一行后，right位于第二行的最左侧// 设置margin-left把right拉回第一行的最右侧.right&#123; float: left; width:100px; height:100%; margin-left: -100px; background-color:black;&#125;// left和right这会把middle给遮住了// 所以这时给外层的container设置 padding，给left和right空出位置.container&#123; height: 300px; padding: 0 100px;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; flex布局1234567&lt;header class=&quot;header&quot;&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;middle&quot;&gt;middle&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer class=&quot;footer&quot;&gt;footer&lt;/footer&gt; 123456789101112131415161718192021222324252627282930//middle占据除left和right之外的剩余所有空间，并不被遮挡.header&#123; height:50px; width:100%; border:1px solid black;&#125;.container&#123; display: flex; height:300px;&#125;.left&#123; width:100px; height:100%; background-color:black;&#125;.middle&#123; flex:1;//middle占据剩余所有空间 height:100%; background-color:pink;&#125;.right&#123; width:100px; height:100%; background-color:black;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; 绝对定位以上两种dom结构均可1234567891011121314151617181920212223242526272829303132333435.header&#123; height:50px; width:100%; border:1px solid black;&#125;.container&#123; height:300px; position: relative; padding: 0 100px;&#125;.left&#123; position: absolute; top: 0; left: 0; width:100px; height:100%; background-color:black;&#125;.middle&#123; height:100%; background-color:pink;&#125;.right&#123; position: absolute; top:0; right: 0; width:100px; height:100%; background-color:black;&#125;.footer&#123; height:50px; width:100%; border:1px solid black;&#125; 双飞翼布局双飞翼布局和圣杯布局几乎一样，区别在于处理middle中被遮挡的部分。 圣杯布局是在三栏布局的父容器中设置padding。 双飞翼布局是在middle中再放一个div用来显示内容，为其设置margin。 123456789&lt;header&gt;header&lt;/header&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;middle&quot;&gt; &lt;div class=&quot;main&quot;&gt;middle&lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt; &lt;/div&gt;&lt;footer&gt;footer&lt;/footer&gt; 1234//使用圣杯布局的浮动和绝对定位时设置，同时把container中的padding去除.main&#123; margin:0 100px;&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[前端SEO（搜索引擎优化）和语义化]]></title>
     <url>%2F2020%2F02%2F23%2F%E5%89%8D%E7%AB%AF%2F%E5%89%8D%E7%AB%AFSEO%EF%BC%88%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%98%E5%8C%96%EF%BC%89%E5%92%8C%E8%AF%AD%E4%B9%89%E5%8C%96%2F</url>
     <content type="text"><![CDATA[合理的title、description、keywords title值强调重点，要靠前，不同页面title不要相同。 description对页面内容高度概括，长度合适，不同页面有所不同。 keywords列举重点关键词即可，不要过分堆砌关键词。 语义化语义化的标签，旨在让标签有自己的含义，就是用合理、正确的标签来展示内容，比如h1~h6定义标题。 优点 易于用户阅读，css样式丢失的时候能让页面呈现清晰的结构。 有利于SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。 方便其他设备解析，如盲人阅读器根据语义渲染网页 有利于开发和维护，语义化更具可读性，代码更好维护，与CSS3关系更和谐。 常见语义化标签12345678910111213141516171819202122&lt;title&gt;：页面主体内容。&lt;hn&gt;：h1~h6，分级标题，&lt;h1&gt; 与 &lt;title&gt; 协调有利于搜索引擎优化。&lt;ul&gt;：无序列表。&lt;li&gt;：有序列表。&lt;small&gt;：呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权。&lt;strong&gt;：和 em 标签一样，用于强调文本，但它强调的程度更强一些。&lt;em&gt;：将其中的文本表示为强调的内容，表现为斜体。&lt;mark&gt;：使用黄色突出显示部分文本。&lt;figure&gt;：规定独立的流内容（图像、图表、照片、代码等等）（默认有40px左右margin）。&lt;figcaption&gt;：定义 figure 元素的标题，应该被置于 figure 元素的第一个或最后一个子元素的位置。&lt;cite&gt;：表示所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。&lt;blockquoto&gt;：定义块引用，块引用拥有它们自己的空间。&lt;q&gt;：短的引述（跨浏览器问题，尽量避免使用）。&lt;time&gt;：datetime属性遵循特定格式，如果忽略此属性，文本内容必须是合法的日期或者时间格式。&lt;abbr&gt;：简称或缩写。&lt;dfn&gt;：定义术语元素，与定义必须紧挨着，可以在描述列表dl元素中使用。&lt;address&gt;：作者、相关人士或组织的联系信息（电子邮件地址、指向联系信息页的链接）。&lt;del&gt;：移除的内容。&lt;ins&gt;：添加的内容。&lt;code&gt;：标记代码。&lt;meter&gt;：定义已知范围或分数值内的标量测量。（Internet Explorer 不支持 meter 标签）&lt;progress&gt;：定义运行中的进度（进程）。 h5新增语义化标签1234567&lt;header&gt; 定义文档或者文档的部分区域的页眉&lt;nav&gt; 描述一个含有多个超链接的区域&lt;main&gt; 定义文档的主要内容，该内容在文档中应当是独一无二的&lt;article&gt; 表示文档、页面、应用或网站中的独立结构&lt;aside&gt; 表示一个和其余页面内容几乎无关的部分&lt;footer&gt; 定义最近一个章节内容或者根节点元素的页脚&lt;section&gt; 表示文档中的一个区域（或节），比如，内容中的一个专题组。 重要内容的html代码放最前搜索引擎抓取html的顺序是从上到下，保证重要内容一定会被抓取 重要内容不要用js输出爬虫不会执行js获取内容 提高网站速度网站速度也是搜索引擎排序的一个重要指标]]></content>
@@ -240,6 +471,72 @@
       </categories>
       <tags>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：选择器]]></title>
+    <url>%2F2020%2F02%2F22%2FCSS%2FCSS%EF%BC%9A%E9%80%89%E6%8B%A9%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[选择器优先级从高到低 在属性后面使用 !important 会覆盖页面内任何位置定义的元素样式。 内联样式，作为style属性写在元素内的样式 id选择器 class带伪类，如 .input:first-child 标签[指定属性]，如 input[type=’file’] 类选择器 标签带伪类，如input:first-child，与5、6按css的顺序排优先级 标签选择器 通配符选择器 属性选择器属性选择器支持正则匹配 选择器 含义 tag[attr] 匹配具有attr属性的所有元素，不考虑它的值 tag[attr=’val’] 匹配attr属性值等于val的所有元素 tag[attr^=’val’] 匹配attr属性值以指定的值val开头的所有元素 tag[attr$=’val’] 匹配attr属性值以指定的值val结尾的所有元素 tag[attr*=’val’] 匹配attr属性值中包含指定的值val的所有元素 tag为标签名 attr为属性 val为属性值 选择器解析 CSS选择器时==从右往左解析==的 尽量少使用不必要的层级关系]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：各种单位]]></title>
+    <url>%2F2020%2F02%2F21%2FCSS%2FCSS%EF%BC%9A%E5%90%84%E7%A7%8D%E5%8D%95%E4%BD%8D%2F</url>
+    <content type="text"><![CDATA[% padding和margin的%垂直水平方向都是基于父元素的宽度计算px（pixel，像素）是一个虚拟长度单位，是计算机系统的数字化图像长度单位。物理像素（px）设备能控制显示的最小单位逻辑像素（px）又称css像素，浏览器使用的抽象单位，而不是实际存在的设备独立像素（dip或dp）独立于设备的用于逻辑上衡量像素的单位，包括了CSS像素设备像素缩放比（dpr） dpr=物理像素/逻辑像素 1px = (dpr)^2 * dp dpr=ppi/160屏幕像素密度（PPI） 每英寸内有多少个设备像素点（物理像素） PPI越高，像素数越高，图像越清晰 屏幕分辨率（XxY）指屏幕上垂直有x个物理像素，水平有y个物理像素。 屏幕尺寸（x in）指屏幕对角线的长度有x英寸 em（相对长度单位） 子元素字体大小的em是相对于父元素字体大小，如果自身定义了font-size按自身来计算。 元素的width/height/padding/margin用em的话是相对于自身的font-size。 最多取到小数点后三位。 rem（根em） 相对于html元素上字体的大小。 1rem等于html元素上字体设置的大小。 vw、vh 1vw等于视窗宽度的1%。 1vh等于视窗高度的1%。 单位 含义 vw 相对于视图窗口的宽度，视窗宽度为100vw vh 相对于视图窗口的高度，视窗高度为100vh vmin vw和vh中的较小值 vmax vw和vh中的较大值]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：隐藏元素]]></title>
+    <url>%2F2020%2F02%2F20%2FCSS%2FCSS%EF%BC%9A%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[display:none visibility: hidden opacity: 0 空间占据 display隐藏后不占据空间，会产生回流和重绘 其余两个虽隐藏，但仍占据空间，只会引起重绘 子元素继承 display不会被继承，父元素都不存在了，子元素自然也不会显示 visibility会被子元素继承，可以通过设置子元素visibility为visible使其显示 opacity也会被子元素继承，但不能通过设置子元素opacity为1使其显示 事件绑定 display隐藏后已经不存在了，肯定也无法触发事件 其余两个虽隐藏，但仍存在，可以触发事件 过渡动画transition对display和visibility无效，对opacity有效]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：promise]]></title>
+    <url>%2F2020%2F02%2F20%2FES6%2FES6%EF%BC%9Apromise%2F</url>
+    <content type="text"><![CDATA[一句话概述什么是promisePromise对象用于异步操作，它表示一个尚未完成且预计在未来完成的异步操作。 为什么用promise用于异步操作，除了promise还可以用异步回调解决异步操作。 那为什么有异步回调还要promise，promise可以多重链式调用，可以避免层层嵌套回调。可以利用then进行「链式回调」，将异步操作以同步操作的流程表示出来。 注意 Promise在生命周期内有三种状态，分别是pending、fulfilled 和 rejected。 状态改变只能是pending-&gt;fulfilled(成功)，或者pending-&gt;rejected(失败)。而且状态一旦改变，就不能再次改变。 Promise中调用resolve或reject并不会终结 Promise 的参数函数的执行。 Promise的构造函数中代码是同步执行的，但是then方法是异步执行的，then方法需要等到resolve函数执行时才得到执行。 reject 和 catch 的区别 在resolve中发生异常的话，在reject中是捕获不到这个异常的。.then中产生的异常能在.catch中捕获 如果在then中抛错，而没有对错误进行处理（即catch），那么会一直保持reject状态，直到catch了错误。且catch之前的函数都不会执行。 每次调用then都会返回一个新创建的promise对象，而then内部只是返回的数据。 在异步回调中抛错，不会被catch到。 promise状态变为resolve或reject，就凝固了，不会再改变。 Promise一旦执行了resolve函数后，就不会再执行reject和其他的resolve函数了。一旦Promise执行了reject函数，将会被catch函数捕获，执行catch中的代码。 如何处理异步 promise 回调函数 12345678function f1(callback)&#123; setTimeout(function () &#123; // f1的任务代码 callback(); &#125;, 1000);&#125;// 执行f1(f2) 发布订阅 事件监听 async/await 一个简单的promise对象12345new Promise(test).then(function (result) &#123; console.log(&apos;成功：&apos; + result);&#125;).catch(function (reason) &#123; console.log(&apos;失败：&apos; + reason);&#125;);]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：BFC]]></title>
+    <url>%2F2020%2F02%2F17%2FCSS%2FCSS%EF%BC%9ABFC%2F</url>
+    <content type="text"><![CDATA[BFC定义块级格式化上下文，是指一个独立的块级渲染区域。该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。 BFC生成满足下列css声明之一的元素便会生成BFC 根元素或其它包含它的元素 float的值不为none； overflow的值不为visible； position的值不为static； display的值为inline-block、table-cell、table-caption； flex boxes (元素的display: flex或inline-flex)； BFC布局规则 内部的元素会在垂直方向一个接一个地排列，可以理解为是BFC中的一个常规流 元素垂直方向的距离由margin决定，即属于同一个BFC的两个相邻盒子的margin可能会发生重叠 每个元素的左外边距与包含块的左边界相接触(从左往右，否则相反)，即使存在浮动也是如此，这说明BFC中的子元素不会超出它的包含块 BFC的区域不会与float元素区域重叠 计算BFC的高度时，浮动子元素也参与计算 BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然 位于不同BFC下的相邻元素之间不会发生margin重叠 BFC的应用解决margin塌陷和margin合并问题 margin塌陷为父子元素都设置margin，只取最大的一个。解决方法为父元素触发bfc，使其遵循bgc渲染规则。 margin合并的原理为它们处于同一个BFC中，符合“属于同一个BFC的两个相邻元素的margin会发生重叠”的规则。解决方法为在其中一个元素外面包裹一层容器，并触发容器生成一个BFC（overflow：hidden），使两个元素处于不同的BFC。 解决高度塌陷问题当我们不给父节点设置高度，子节点设置浮动的时候，会发生高度塌陷，这个时候我们就要清除浮动。 给父元素设置overflow：hidden可以清除子元素的浮动是应用了BFC的原理：给父元素设置overflow：hidden触发了BFC，形成一个独立的渲染区域，所以内部的元素就不会影响外面的布局，BFC把浮动的子元素的高度当作自己的高度去处理溢出，从外面看起来就是清除了浮动 解决侵占浮动元素的问题当一个元素浮动，另一个元素不浮动时，浮动元素因为脱离文档流，就会盖在不浮动的元素上。 解决方法：不浮动的元素也设为浮动，或者添加overflow：hidden 原理：为不浮动的元素建立BFC环境，BFC不与float box重叠。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：margin塌陷和margin合并]]></title>
+    <url>%2F2020%2F02%2F17%2FCSS%2FCSS%EF%BC%9Amargin%E5%A1%8C%E9%99%B7%E5%92%8Cmargin%E5%90%88%E5%B9%B6%2F</url>
+    <content type="text"><![CDATA[margin塌陷 标准文档流中，垂直方向的margin不叠加，以较大的为准。即父子嵌套元素在垂直方向的margin,父子元素是结合在一起的,他们两个的margin会取其中最大的值。 正常情况下,父级元素应该相对浏览器进行定位,子级相对父级定位。 但由于margin的塌陷,父级相对浏览器定位.而子级没有相对父级定位,子级相对父级,就像坍塌了一样。 原理是他们处于同一个BFC中。 体现 红色方块margin-top为100px 现在给里面的小方块设置margin-top:100px，发现两个方块位置没动 而当给里面的小方块设置margin-top:150px，小方块带着大方块往下移动了50px（100和150取了150，里面的小方块依然紧贴大方块最上面） 解决 给父元素设置边框或内边距(不建议使用) 给父元素添加某些条件触发bfc(块级格式上下文),改变父级的渲染规则 position:absolute/fixed display:inline-block/table float:left/right overflow:hidden 给子元素的前面加一个兄弟元素。 margin合并 标准文档流中，两个兄弟结构的元素在垂直方向上的margin不叠加，是合并的，以较大的为准。 原因是他们处于同一个BFC中。 解决margin塌陷的原理是使两个元素处于不同的bfc中，不同的bfc是不会发生margin塌陷的 解决 给其中一个元素添加盒子div并触发bfc 给两个元素都添加盒子div并触发bfc position:absolute/fixed display:inline-block; float:left/right overflow:hidden]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -320,6 +617,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[CSS：等宽的三栏布局]]></title>
+    <url>%2F2019%2F12%2F05%2FCSS%2FCSS%EF%BC%9A%E7%AD%89%E5%AE%BD%E7%9A%84%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[12345&lt;div class=&quot;box&quot;&gt; &lt;div class=&quot;left&quot;&gt;&lt;/div&gt; &lt;div class=&quot;center&quot;&gt;&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;&lt;/div&gt;&lt;/div&gt; float1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; float: left; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; flex1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black; display: flex;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; table123456789101112131415161718.box &#123; width: 100%; height: 200px; background: black; display: table;&#125;.left, .center, .right &#123; display: table-cell; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125;]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[计网：cdn]]></title>
     <url>%2F2019%2F11%2F16%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Acdn%2F</url>
     <content type="text"><![CDATA[是什么内容分发网络。使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。 cdn缓存用户浏览器和服务器端之间加入cdn 用户在浏览网站的时候，向服务器请求到资源后，cdn会在本地保存网站中的图片或者js、css等其他文件的副本，通过http响应头中的cache-control字段设置数据缓存时间，这样用户再次访问该网站的时候，浏览器就不用再下载全部的文件，减少了下载量意味着提高了页面加载的速度。 再次浏览网站时，客户端浏览器会先向CDN边缘节点发起请求，CDN边缘节点会检测用户请求数据的缓存是否过期，如果没有过期，则直接响应用户请求，此时一个http请求结束；如果数据已经过期，那么CDN还需要向源站发出回源请求,来拉取最新的数据。]]></content>
@@ -331,6 +639,39 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Git：git fetch和git pull]]></title>
+    <url>%2F2019%2F11%2F13%2FGit%2FGit%EF%BC%9Agit%20fetch%E5%92%8Cgit%20pull%2F</url>
+    <content type="text"><![CDATA[git fetch是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。 git pull 则是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Git：关于回退版本的一些小技巧]]></title>
+    <url>%2F2019%2F08%2F27%2FGit%2FGit%EF%BC%9A%E5%85%B3%E4%BA%8E%E5%9B%9E%E9%80%80%E7%89%88%E6%9C%AC%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%8A%80%E5%B7%A7%2F</url>
+    <content type="text"><![CDATA[先通过 git log 查看某次提交的id 使用git reset –hard [id] 回退到某一次提交 若不想保留原来的提交记录，可把原来的分支删除 1git push origin --delete [branchName] 再把本地的修改提交到新的分支 版本回退仅仅是本地版本回退]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：position]]></title>
+    <url>%2F2019%2F08%2F19%2FCSS%2FCSS%EF%BC%9Aposition%2F</url>
+    <content type="text"><![CDATA[position:static没有定位，元素出现在正常的文档流中，忽略left、right、top、bottom和z-index。 position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会影响元素位置，元素的位置与文档流无关，因此不占据空间，可能与其他元素发生重叠。 一定要设置宽度 position:relative 相对于元素自身正常位置定位，元素在正常的文档流中占位。 当设置margin或padding属性时，该对象在标准文档流中的占位空间也随之改变。 position:absolute 元素绝对定位，相对于static定位以外的第一个父元素，若无符合要求的父元素则相对于body，元素脱离文档流。 必须指定left、right、top、bottom中的至少一个，否则left，top值与原文档流位置一致，即跟当它static时的位置一样，margin和padding仍能影响其的位置，但脱离文档流，不占据位置，和其他元素形成折叠。 如果top、bottom都未指定，则其顶端将与原文档流位置一致，即垂直保持位置不变。 绝对定位对象在可视区域之外会导致滚动条出现，相对定位则不会 绝对定位对象头部超过可视区域会被裁掉。 position:inherit规定应该从父元素继承 position 属性的值。 z-index 如果两个同级元素的此属性具有同样的值，那么将依据它们在HTML文档中流的顺序层叠，写在后面的将会覆盖前面的。 需要注意的是，父子关系是无法用z-index来设定上下关系的，一定是子级在上父级在下。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[一些调试小技巧]]></title>
     <url>%2F2019%2F07%2F29%2F%E5%89%8D%E7%AB%AF%2F%E4%B8%80%E4%BA%9B%E8%B0%83%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7%2F</url>
     <content type="text"><![CDATA[一些常用的快捷键 快捷键 功能 ctrl + o 搜索文件 ctrl + shift + F 在所有文件中搜索特定的文字 ctrl + shift + o 在某个文件中搜索特定的文字 ctrl + G 跳转到某一行 ctrl + L 清除控制台的信息 ctrl + [ / ctrl + ] 标签切换 ctrl + shift + c 审查元素 shift + Enter / sources -&gt; snippets 在控制台编写多行代码 选中，H 显示/隐藏元素 一些常用的功能 通过js代码来设置断点：debugger，或者直接在sources中打断点，查看堆栈，了解函数调用情况 elements的event listeners中可以查看元素事件监听器 选中元素，右击Break on.. -&gt; Attributes Modifications，元素改变时启动断点 开发者工具打开的情况下右击chrome的刷新按钮，可清除缓存并硬重载]]></content>
@@ -339,6 +680,17 @@
       </categories>
       <tags>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：模块化]]></title>
+    <url>%2F2019%2F05%2F30%2FCSS%2FCSS%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[文件结构常见文件结构一个项目的CSS最基本结构通常是下面这样的： base.css common.css pages.css 复杂一点的项目可能是这样分： base.css header.css footer.css sidebar.css forms.css icons.css buttons.css dropdown.css modals.css layout.css index.css user.css admin.css pages.css 如果后期不打算合并CSS的，建议尽可能减少 CSS 文件的数量。 SMACSSSMACSS 的全称叫 Scalable and Modular Architecture for CSS。即可扩展和模块化的CSS架构。 SMACSS将样式分成5种类型：Base，Layout，Module，State，Theme Base: 基础样式表，定义了基本的样式，我们平时写CSS比如reset.css就是属于基础样式表，另外我认为清除浮动，一些动画也可以归类为基础样式。 Layout: 布局样式，用于实现网页的基本布局，搭起整个网页的基本骨架。 Module: 网页中不同的区域有这个不同的功能，这些功能是相对独立的，我们可以称其为模块。模块是独立的，可重用的组件，它们不依赖于布局组件，可以安全的删除修改而不影响其他模块。 State: 状态样式，通常和js一起配合使用，表示某个组件或功能不同的状态，比如菜单选中状态，按钮不可用状态等。 Theme: 主题皮肤，对于可更换皮肤的站点来说，这个是很有必要的，分离了结构和皮肤，根据不同的皮肤应用不同的样式文件。 css选择器命名规则它的每一条规则都是全局的，在 CSS 预处理出现之前，这很容易造成命名上的冲突。 当涉及到多人维护同一段 CSS 代码时，命名的意义表达，也会影响到维护效率。 使用独一无二的规则。命名唯一。 使用简短的命名。 嵌套层级不宜过深，建议控制在3层以内。 BEMBEM是Block，Element，Modifier的缩写。是比较流行的一种 CSS 命名方式。 Block：在BEM的理论中，一个网页是由block组成的，比如头部是个block，内容是block，logo也是block，一个block可能由几个子block组成。 Element：element是block的一部分，具有某种功能，element依赖于block，比如在logo中，img是logo的一个element，在菜单中，菜单项是菜单的一个element Modifier：modifier是用来修饰block或者element的，它表示block或者element在外观或行为上的改变 123456789命名规则如下：.block &#123;&#125;.block__element &#123;&#125;.block--modifier &#123;&#125;例如：.login &#123;&#125;.login__btn &#123;&#125;.login__btn--reset &#123;&#125;.login__btn--confirm &#123;&#125; 下划线（__）被用来区分元素，而用连字符(–)是用来修饰元素的。 SUITSuit起源于BEM，但是它对组件名使用驼峰式和连字号把组件从他们的修饰和子孙后代中区分出来.]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -394,6 +746,17 @@
       </categories>
       <tags>
         <tag>计网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：盒模型]]></title>
+    <url>%2F2019%2F04%2F22%2FCSS%2FCSS%EF%BC%9A%E7%9B%92%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[标准模型12盒模型宽高 = margin + border + padding + content元素宽高（元素占据的位置） = content IE盒模型12盒模型宽高 = margin + 元素宽高元素宽高（元素占据的位置） = border + padding + content 修改盒模型（box-sizing）box-sizing content-box：默认属性，标准盒模型 border-box：使元素宽高包括padding和border，内容区的实际宽度会是元素宽高减去border + padding的计算值。（即IE盒模型）]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -474,6 +837,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[ES6：let和const]]></title>
+    <url>%2F2019%2F04%2F02%2FES6%2FES6%EF%BC%9Alet%E5%92%8Cconst%2F</url>
+    <content type="text"><![CDATA[let是定义变量 const是定义常量。若定义基本数据类型，则不能再次改变；若定义复杂数据类型，如对象，则可以修改或者添加属性，但指针是不会变的。 let和const都不会变量提升，在声明之前使用会形成死区。 使用babel工具将es6转换为es5]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据类型：json和xml]]></title>
     <url>%2F2019%2F03%2F29%2F%E5%85%B6%E4%BB%96%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9Ajson%E5%92%8Cxml%2F</url>
     <content type="text"><![CDATA[json json是一种轻量级的数据交换格式。 兼容性高。 格式简单，易读写。 易于解析。 xml xml是一种扩展标记语言。 可用来标记数据，定义数据类型。 格式统一。 文件庞大，格式复杂。 客户端和服务器端都需要大量代码来解析，导致代码复杂难以维护。]]></content>
@@ -482,6 +856,17 @@
       </categories>
       <tags>
         <tag>数据类型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ES6：apply、call和bind]]></title>
+    <url>%2F2019%2F03%2F29%2FES6%2FES6%EF%BC%9Aapply%E3%80%81call%E5%92%8Cbind%2F</url>
+    <content type="text"><![CDATA[都是为了改变某个函数运行时的上下文，即改变函数里的this的指向。将一个函数应用在其他对象上。 第一个参数要绑定给this的值，为nul或undefined时指向window。 apply、call绑定后会立即调用，bind绑定后不会立即调用。 apply第二个参数为数组，call后面为参数列表。]]></content>
+      <categories>
+        <category>ES6</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -504,6 +889,17 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：flex布局]]></title>
+    <url>%2F2019%2F03%2F21%2FCSS%2FCSS%EF%BC%9Aflex%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[前言flex布局称为弹性布局。任何一个容器都可以指定为 Flex 布局。 设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效 基本概念采用 Flex 布局的元素，称为 Flex 容器，简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目，简称”项目”。 水平的主轴（main axis） 垂直的交叉轴（cross axis） 主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end 交叉轴的开始位置叫做cross start，结束位置叫做cross end。 项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。 容器的属性flex-directionflex-direction属性决定主轴的方向（即项目的排列方向）。 row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿。 column-reverse：主轴为垂直方向，起点在下沿 flex-wrap默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。 nowrap（默认）：不换行。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 flex-flowflex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。 123.box &#123; flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;&#125; justify-contentjustify-content属性定义了项目在主轴上的对齐方式。 flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，项目之间的间隔都相等。 space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。 align-itemsalign-items属性定义项目在交叉轴上如何对齐。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 align-contentalign-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。 space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 stretch（默认值）：轴线占满整个交叉轴。 项目的属性orderorder属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。 flex-grow flex-grow属性定义项目的放大比例，默认为0。 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。 如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。（即把剩余空间划分为四份，属性为2的占两份，属性为1的占一份）。 flex-shrink flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。数值大的缩小得多。 如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。 负值对该属性无效。 flex-basisflex-basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。 flexflex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。 123.item &#123; flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;; &#125; 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。 align-selfalign-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto。 该属性可能取6个值，除了auto，其他都与align-items属性完全一致。 auto：表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。 flex-start：交叉轴的起点对齐。 flex-end：交叉轴的终点对齐。 center：交叉轴的中点对齐。 baseline: 项目的第一行文字的基线对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -559,6 +955,17 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CSS：清除浮动]]></title>
+    <url>%2F2019%2F03%2F07%2FCSS%2FCSS%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[浮动产生影响 给父元素设置高度。 给父元素设置overflow:hidden; 父元素也设置浮动。 在结尾处添加空div标签clear:both 父元素定义伪类::after 12345::after&#123; clear: both; content: &quot;&quot;; display: block; &#125; 父元素定义display:table]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -628,6 +1035,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[npm：install 出错]]></title>
+    <url>%2F2018%2F08%2F22%2FGit%2Fnpm%EF%BC%9Ainstall%20%E5%87%BA%E9%94%99%2F</url>
+    <content type="text"><![CDATA[第一种问题123$ npm installnpm WARN registry Unexpected warning for or http://registry.cnpmjs.org/: Mis Miscellaneous Warning ECONNRESET: request to to https://cnpmjs.oss-ap-southeast-1.aliyuncs.com/acorn/-/acorn-5.7.1.tgz fai failed, reason: read ECONNRESETnpm WARN registry Using stale package data from om http://registry.cnpmjs.org/ du/ due to a request error during revalidation. 解决方法12$ npm config set registry ry http://registry.cnpmjs.org$ npm install 第二种问题1234567891011$ npm installnpm ERR! code ECONNRESETnpm ERR! errno ECONNRESETnpm ERR! network request to to https://cnpmjs.oss-ap-southeast-1.aliyuncs.com/arrify/-/arrify-1.0.1.tgz fai failed, reason: read ECONNRESETnpm ERR! network This is a problem related to network connectivity.npm ERR! network In most cases you are behind a proxy or have bad network settings.npm ERR! networknpm ERR! network If you are behind a proxy, please make sure that thenpm ERR! network &apos;proxy&apos; config is set properly. See: &apos;npm help config&apos;npm ERR! A complete log of this run can be found in: 解决方法12$ npm config delete proxy$ npm install 第三种问题12$ npm installnpm ERR! write after end 解决方法降低版本 1npm i -g npm@5.6.0]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo+Github 搭建属于自己的博客（进阶）NexT主题]]></title>
     <url>%2F2018%2F05%2F04%2F%E5%85%B6%E4%BB%96%2FHexo%2BGithub%20%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%EF%BC%88%E8%BF%9B%E9%98%B6%EF%BC%89NexT%E4%B8%BB%E9%A2%98%2F</url>
     <content type="text"><![CDATA[主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_config.yml文件中修改 12345# Schemesscheme: Muse#scheme: Mist#scheme: Pisces#scheme: Gemini 基础设置在站点目录下的配置文件_cofig.yml中修改 12345678# Sitetitle: your blog titlesubtitle:description: describe yourselfkeywords:author: yournamelanguage: zh-Hans //简体中文timezone: 修改菜单项在主题目录下修改配置文件_cofig.yml中的menu 123456789menu: home: / || home about: /about/ || user tags: /tags/ || tags categories: /categories/ || th archives: /archives/ || archive #schedule: /schedule/ || calendar #sitemap: /sitemap.xml || sitemap #commonweal: /404/ || heartbeat 这些配置都要与你主题目录下的languages文件中对应的yml文档里配置相关联 12345678910menu: home: 首页 archives: 归档 categories: 分类 tags: 标签 about: 关于 search: 搜索 schedule: 日程表 sitemap: 站点地图 commonweal: 公益404 限定主页文章高度修改主题目录下的值 123auto_excerpt: enable: true length: 150 设置头像修改主题目录下Sidebar Avatar的avatar值1234# Sidebar Avatar# in theme directory(source/images): /images/avatar.gif# in site directory(source/uploads): /uploads/avatar.gifavatar: /images/avatar.jpg 地址可以是网络地址，也可以是本地地址（放置在source/images/ 目录下） 添加标签页面点击标签，跳转的页面会显示page not found 此时需要在站点目录的source文件夹里新建tags文件夹，并新建index.md，添加： 12345---title: tagsdate: type: &quot;tags&quot;--- 当要为某一篇文章添加标签，只需在blog/source/_post目录下的具体文章的tags中添加标签即可 实现点击出现桃心效果将代码copy到/themes/next/source/js/src里面新建的love.js中 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950! function(e, t, a) &#123; function n() &#123; c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &apos;&apos;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r() &#125; function r() &#123; for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;); requestAnimationFrame(r) &#125; function o() &#123; var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick; e.onclick = function(e) &#123; t &amp;&amp; t(), i(e) &#125; &#125; function i(e) &#123; var a = t.createElement(&quot;div&quot;); a.className = &quot;heart&quot;, d.push(&#123; el: a, x: e.clientX - 5, y: e.clientY - 5, scale: 1, alpha: 1, color: s() &#125;), t.body.appendChild(a) &#125; function c(e) &#123; var a = t.createElement(&quot;style&quot;); a.type = &quot;text/css&quot;; try &#123; a.appendChild(t.createTextNode(e)) &#125; catch (t) &#123; a.styleSheet.cssText = e &#125; t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a) &#125; function s() &#123; return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot; &#125; var d = []; e.requestAnimationFrame = function() &#123; return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(e) &#123; setTimeout(e, 1e3 / 60) &#125; &#125;(), n()&#125;(window, document); 打开\themes\next\layout_layout.swig文件,在末尾（在前面引用会出现找不到的bug） ，引用love.js 1&lt;script src=&quot;/js/src/love.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt; 添加动态背景打开\themes\next\layout_layout.swig文件，在 之前添加代码(注意不要放在&lt; /head&gt;的后面) 123&#123;% if theme.canvas_nest %&#125;&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;&#123;% endif %&#125; 打开开\themes\next_config.yml,在里面修改为如下代码 1canvas_nest: true 在网站底部加上访问量打开\themes\next\layout_partials\footer.swig文件,在类copyright前加上这段代码： 1&lt;script async src=&quot;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt; 然后在合适的位置添加显示统计的代码： 12345&lt;div class=&quot;powered-by&quot;&gt;&lt;i class=&quot;fa fa-user-md&quot;&gt;&lt;/i&gt;&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt; 本站访客数:&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt; 在每篇文章末尾添加“本文结束”标记在路径 \themes\next\layout_macro 中新建 passage-end-tag.swig 文件,并添加以下内容 12345&lt;div&gt; &#123;% if not is_index %&#125; &lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt; &#123;% endif %&#125;&lt;/div&gt; 接着打开\themes\next\layout_macro\post.swig文件，在post-body 之后， post-footer 之前添加如下代码 12345&lt;div&gt; &#123;% if not is_index %&#125; &#123;% include &apos;passage-end-tag.swig&apos; %&#125; &#123;% endif %&#125;&lt;/div&gt; 打开主题配置文件,在末尾添加 123# 文章末尾添加“本文结束”标记passage_end_tag: enabled: true 侧边栏社交链接在主题配置文件中修改： 12345678910111213# Social linkssocial: GitHub: https://github.com/your-user-name Twitter: https://twitter.com/your-user-name 微博: http://weibo.com/your-user-name# Social Iconssocial_icons: enable: true # Icon Mappings GitHub: github Twitter: twitter 微博: weibo 添加小图标在主题配置文件中修改： 123favicon: #small: /images/favicon.ico medium: /images/favicon.ico NexT主题美化 除了NexT还有很多其他好看的主题，百度会有很多方法的]]></content>
@@ -658,6 +1076,17 @@
       </categories>
       <tags>
         <tag>demo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm：清理缓存]]></title>
+    <url>%2F2018%2F03%2F28%2FGit%2Fnpm%EF%BC%9A%E6%B8%85%E7%90%86%E7%BC%93%E5%AD%98%2F</url>
+    <content type="text"><![CDATA[旧版本（4及以下）1$ npm cache clean 新版本（5）先尝试1$ npm cache clean --force 若不行则使用下面的命令 1$ npm cache clear --force &amp;&amp; npm install --no-shrinkwrap --update-binary]]></content>
+      <categories>
+        <category>npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
       </tags>
   </entry>
   <entry>

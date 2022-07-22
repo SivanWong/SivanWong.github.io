@@ -1,0 +1,17 @@
+---
+title: Git：将在master分支上做的修改提交到分支
+date: 2020-03-17
+tags: [Git]
+categories: Git
+comments: true
+---
+
+## 前提
+我在master上修复了某个bug，但是master被锁定了，我想提交到dev分支，那么使用 cherry-pick可以满足我们的要求
+
+```
+//先从主分支记下id
+$ git log
+//切换到dev分支上
+$ git cherry-pick <id>
+```
