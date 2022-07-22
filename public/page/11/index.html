@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/ES6/ES6：apply、call和bind/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：把十六进制的ip地址转换为十进制的/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/ES6/ES6：apply、call和bind/" itemprop="url">ES6：apply、call和bind</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/算法：把十六进制的ip地址转换为十进制的/" itemprop="url">算法：把十六进制的ip地址转换为十进制的</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T17:01:04+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  96 字
+                  114 字
                 </span>
               
 
@@ -418,15 +418,11 @@
       
         
           
-          
-都是为了改变某个函数运行时的上下文，即改变函数里的this的指向。将一个函数应用在其他对象上。
-第一个参数要绑定给this的值，为nul或undefined时指向window。
-apply、call绑定后会立即调用，bind绑定后不会立即调用。
-apply第二个参数为数组，call后面为参数列表。
+          12345678910function change(ip)&#123;  var temp = [];	for(var i=0;i&lt;ip.length;i+=2)&#123;      temp.push(ip.substr(i,2))    &#125;  return temp.map(
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/ES6/ES6：apply、call和bind/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/算法：把十六进制的ip地址转换为十进制的/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -481,7 +477,7 @@ apply第二个参数为数组，call后面为参数列表。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/ES6/ES6：let和const/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：二进制转十进制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -500,7 +496,7 @@ apply第二个参数为数组，call后面为参数列表。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/ES6/ES6：let和const/" itemprop="url">ES6：let和const</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/算法：二进制转十进制/" itemprop="url">算法：二进制转十进制</a></h1>
         
 
         <div class="post-meta">
@@ -512,8 +508,8 @@ apply第二个参数为数组，call后面为参数列表。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T17:00:48+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -535,8 +531,8 @@ apply第二个参数为数组，call后面为参数列表。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -566,7 +562,7 @@ apply第二个参数为数组，call后面为参数列表。
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  92 字
+                  113 字
                 </span>
               
 
@@ -605,207 +601,11 @@ apply第二个参数为数组，call后面为参数列表。
       
         
           
-          
-let是定义变量
-const是定义常量。若定义基本数据类型，则不能再次改变；若定义复杂数据类型，如对象，则可以修改或者添加属性，但指针是不会变的。
-let和const都不会变量提升，在声明之前使用会形成死区。
-
-
-使用babel工具将es6转换为es5
-
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/ES6/ES6：let和const/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/ES6/ES6：箭头函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/17/ES6/ES6：箭头函数/" itemprop="url">ES6：箭头函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T17:00:30+08:00">
-                2020-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  161 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-箭头函数体内的this对象是定义时所在的对象，而不是使用时所在的对象。
-this指向调用箭头函数外层函数的对象（即箭头函数所在作用域的父级作用域），没有外层函数则指向window。
-箭头函数相当于匿名函数。
-箭头函数不可以当作构造函数，即不可以用new命令。
-箭头函数不可以使用arguments对
+          解法一按权相加1234567function toDecimal(str)&#123;  var res = 0;  for(var i=str.length-1;i&gt;=0;i--)&#123;    res = str[i]===&apos;1&apos; ? Math.pow(2,str.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/ES6/ES6：箭头函数/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/算法：二进制转十进制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -860,7 +660,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/ES6/ES6：promise/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：多层数组转化为一层/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -879,7 +679,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/ES6/ES6：promise/" itemprop="url">ES6：promise</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/算法：多层数组转化为一层/" itemprop="url">算法：多层数组转化为一层</a></h1>
         
 
         <div class="post-meta">
@@ -891,8 +691,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T17:00:08+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -914,8 +714,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -945,7 +745,568 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  515 字
+                  145 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          题目给定一个数组，将多层数组转化为一层。
+注意，数组元素不一定是数字，有可能为对象或字符串。
+测试用例121. [&apos;1&apos;,[2,3],-1] // [&apos;1&apos;,2,3,-1]2. [&apos;1&apos;,[2,3],&#123;a:-1&#125;] //
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/07/22/算法/算法：多层数组转化为一层/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：如何找出单链表中的倒数第k个元素/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/07/22/算法/算法：如何找出单链表中的倒数第k个元素/" itemprop="url">算法：如何找出单链表中的倒数第k个元素</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  89 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+首先遍历一遍单链表，求出整个单链表的长度n，然后将倒数第k个，转换为正数第n-k个，接下来遍历一次就可以得到结果。
+
+
+优化：设置两个指针p1和p2，p1在p2前，两者相差k-1个节点，当p1指向null时，p2刚好指向目标元素。
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/07/22/算法/算法：如何找出单链表中的倒数第k个元素/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：两数相加为0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/07/22/算法/算法：两数相加为0/" itemprop="url">算法：两数相加为0</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  295 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          2数相加为0题目给定一个不重复的数字数组，找出该数组中两个数之和等于0的所有情况。
+测试用例121. [1,2,3,-1] // [[1,-1]]2. [1,2,3,-3,-1] // [[1,1],[3,-3]]
+解法思路
+数组长度少于2则直接返回
+取数组首元素，与剩余元素比较是否相加为0，若为0
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/07/22/算法/算法：两数相加为0/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/各种算法（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/07/22/算法/各种算法（三）/" itemprop="url">各种算法（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  453 字
                 </span>
               
 
@@ -984,13 +1345,12 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
       
         
           
-          一句话概述什么是promisePromise对象用于异步操作，它表示一个尚未完成且预计在未来完成的异步操作。
-为什么用promise用于异步操作，除了promise还可以用异步回调解决异步操作。
-那为什么有异步回调还要promise，promise可以多重链式调用，可以避免层层嵌套回调。可以利用th
+          有一个字符串有很多is，写一个方法只保留一个is？
+123456789function deleteIs(str)&#123;  var index = str.search(&quot;is&quot;);  var left = str.slice(0,index+2);  var right 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/ES6/ES6：promise/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/各种算法（三）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1045,7 +1405,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：关于回退版本的一些小技巧/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/各种算法（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1064,7 +1424,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/git/git：关于回退版本的一些小技巧/" itemprop="url">git：关于回退版本的一些小技巧</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/各种算法（二）/" itemprop="url">各种算法（二）</a></h1>
         
 
         <div class="post-meta">
@@ -1076,8 +1436,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:56:38+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -1099,8 +1459,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1130,7 +1490,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  84 字
+                  302 字
                 </span>
               
 
@@ -1146,7 +1506,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -1169,22 +1529,11 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
       
         
           
-          
-先通过 git log 查看某次提交的id
-使用git reset –hard [id] 回退到某一次提交
-
-若不想保留原来的提交记录，可把原来的分支删除
-1git push origin --delete [branchName]
-
-再把本地的修改提交到新的分支
-
-
-版本回退仅仅是本地版本回退
-
+          求“123456789876543212345678987654321…”中的第n位123456789function index(n)&#123;  if(n%16&lt;10)&#123;    return n%16;  &#125;else&#123;    return 9-(n%16-9
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：关于回退版本的一些小技巧/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/各种算法（二）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1239,7 +1588,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：git fetch和git pull/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/算法：二分查找/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1258,7 +1607,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/git/git：git fetch和git pull/" itemprop="url">git：git fetch和git pull</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/算法：二分查找/" itemprop="url">算法：二分查找</a></h1>
         
 
         <div class="post-meta">
@@ -1270,8 +1619,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:56:06+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -1293,8 +1642,8 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1324,7 +1673,7 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  83 字
+                  239 字
                 </span>
               
 
@@ -1363,391 +1712,15 @@ this指向调用箭头函数外层函数的对象（即箭头函数所在作用�
       
         
           
-          
-git fetch是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。
-git pull 则是将远程主机的最新内容拉下来后直接合并，即：git pull = git fetch + git merge，这样可能会产生冲突，需要手动解决。
-
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：git fetch和git pull/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：将在master分支上做的修改提交到分支/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/17/git/git：将在master分支上做的修改提交到分支/" itemprop="url">git：将在master分支上做的修改提交到分支</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:55:34+08:00">
-                2020-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  66 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          前提我在master上修复了某个bug，但是master被锁定了，我想提交到dev分支，那么使用 cherry-pick可以满足我们的要求
-1234//先从主分支记下id$ git log//切换到dev分支上$ git cherry-pick &lt;id&gt;
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：将在master分支上做的修改提交到分支/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：添加到远程github仓库的一个错误/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/17/git/git：添加到远程github仓库的一个错误/" itemprop="url">git：添加到远程github仓库的一个错误</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:55:12+08:00">
-                2020-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  63 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          问题今天使用git 添加到远程github仓库的时候提示错误：fatal: remote origin already exists. 
-解决办法
-先删除远程 Git 仓库
-
-1$ git remote rm origin
-
-再添加远程 Git 仓库
-
-1$ git remote add origi
+          二分法查找，也称折半查找，是一种在有序数组中查找特定元素的搜索算法。
+
+首先，从有序数组的中间的元素开始搜索， 如果该元素正好是目标元素（即要查找的元素），则搜索过程结束，否则进行下一步。
+如果目标元素大于或者小于中间元素， 则在数组大于或小于中间元素的那一半区域查找，然后重复第一步的操作。
+如果某
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：添加到远程github仓库的一个错误/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/算法：二分查找/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1802,7 +1775,7 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：git使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/LeetCode：罗马数字转整数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1821,7 +1794,7 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/git/git：git使用/" itemprop="url">git：git使用</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/LeetCode：罗马数字转整数/" itemprop="url">LeetCode：罗马数字转整数</a></h1>
         
 
         <div class="post-meta">
@@ -1833,8 +1806,8 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:54:26+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -1856,8 +1829,8 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1887,7 +1860,7 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,697 字
+                  500 字
                 </span>
               
 
@@ -1903,7 +1876,7 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  19 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -1926,15 +1899,50 @@ git pull 则是将远程主机的最新内容拉下来后直接合并，即：gi
       
         
           
-          git的简介、安装就不罗嗦了，详细的教程可参考廖雪峰的git教程
-创建版本库（初始化一个git仓库）第一步选择一个合适的地方，创建一个空目录learngit
-123$ mkdir learngit$ cd learngit$ pwd
-pwd命令用于显示当前目录
-第二步通过git init命令把这个目
+          题目罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
+
+
+
+字符
+数值
+
+
+
+
+I
+1
+
+
+V
+5
+
+
+X
+10
+
+
+L
+50
+
+
+C
+100
+
+
+D
+500
+
+
+M
+1000
+
+
+
+例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：git使用/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/LeetCode：罗马数字转整数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1989,7 +1997,7 @@ pwd命令用于显示当前目录
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/17/git/git：分支管理之合并/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/算法/LeetCode：验证回文串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -2008,7 +2016,7 @@ pwd命令用于显示当前目录
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/17/git/git：分支管理之合并/" itemprop="url">git：分支管理之合并</a></h1>
+                <a class="post-title-link" href="/2022/07/22/算法/LeetCode：验证回文串/" itemprop="url">LeetCode：验证回文串</a></h1>
         
 
         <div class="post-meta">
@@ -2020,8 +2028,8 @@ pwd命令用于显示当前目录
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-17T16:53:46+08:00">
-                2020-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:20+08:00">
+                2022-07-22
               </time>
             
 
@@ -2043,8 +2051,8 @@ pwd命令用于显示当前目录
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -2074,7 +2082,7 @@ pwd命令用于显示当前目录
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  70 字
+                  198 字
                 </span>
               
 
@@ -2113,22 +2121,13 @@ pwd命令用于显示当前目录
       
         
           
-          假设已存在分支dev，且修改部分代码
-
-先把已修改的推上分支dev
-把切换回主分支，下拉
-运行合并指令
-
-1git merge dev
-
-合并后在本地修改冲突
-再次commit并提交到主分支
-
-
-          
+          题目给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+说明：本题中，我们将空字符串定义为有效的回文串。
+测试用例121. &quot;A man, a plan, a canal: Panama&quot; // true2. &quot;race a car&quo
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/17/git/git：分支管理之合并/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/算法/LeetCode：验证回文串/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2174,7 +2173,7 @@ pwd命令用于显示当前目录
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2224,7 +2223,7 @@ pwd命令用于显示当前目录
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">149</span>
+                  <span class="site-state-item-count">152</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
