@@ -1717,6 +1717,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Vue基础知识（一）]]></title>
+    <url>%2F2019%2F02%2F25%2FVue%2FVue%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[概述 Vue.js 是一个构建数据驱动的 web 界面的渐进式框架，一个mvvm框架（库），和angular相似。 注意MVC、MVP、MVVM的区别 Vue.js通过尽可能简单的api实现响应的数据绑定和组合的视图组件。 Vue 的核心库只关注视图层，它不仅小巧、易于上手，还便于与第三方库或既有项目整合。 vue: 简单、易学 指令以 v-xxx 一片html代码配合上json，在new出来vue实例 个人维护项目 适合: 移动端项目,小巧 vue的发展势头很猛，github上star数量已经超越angular angular: 上手难 指令以 ng-xxx 所有属性和方法都挂到$scope身上angular由google维护 合适: pc端项目 vue与angular共同点: 不兼容低版本IE步 起步第一个vue123&lt;div id=&quot;box&quot;&gt; &#123;&#123;message&#125;&#125;&lt;/div&gt; 123456789&lt;script type=&quot;text/javascript&quot; src=&quot;../vue.js&quot;&gt;&lt;/script&gt;&lt;script&gt; var app=new Vue(&#123; el: &apos;#box&apos;, //el的值可以为选择器class/id 可以tagName data: &#123; message:&apos;Hello,vue.js!&apos; &#125; &#125;);&lt;/script&gt; 常用指令属性绑定：v-bind条件渲染：v-if、v-else、v-else-if、v-show列表渲染：v-for事件处理：v-on表单输入绑定：v-model防止闪烁 v-cloak 防止花括号闪烁, 比较大段落 （在html标签上作为属性加入） v-text=”msg” 1&lt;span&gt;&#123;&#123;msg&#125;&#125;&lt;/span&gt; -&gt; v-text=&quot;msg&quot; v-html=”msg” 1&#123;&#123;&#123;msg&#125;&#125;&#125;(过滤标签) -&gt; v-html=&quot;msg&quot; vue实例]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[C：冒泡法和选择法]]></title>
     <url>%2F2018%2F12%2F05%2F%E7%AE%97%E6%B3%95%2FC%EF%BC%9A%E5%86%92%E6%B3%A1%E6%B3%95%E5%92%8C%E9%80%89%E6%8B%A9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[冒泡法算法示例用起泡法对10个整数按升序排序。 算法分析如果有n个数，则要进行n-1趟比较。在第1趟比较中要进行n-1次相邻元素的两两比较，在第j趟比较中要进行n-j次两两比较。比较的顺序从前往后，经过一趟比较后，将最值沉底（换到最后一个元素位置），最大值沉底为升序，最小值沉底为降序。 算法源代码12345678910111213141516171819202122232425#include &lt;stdio.h&gt; int main() &#123; int a[10],i,j,t; printf(&quot;Please input 10 numbers: &quot;); /*输入源数据*/ for(i=0;i&lt;10;i++) scanf(&quot;%d&quot;,&amp;a[i]); /*排序*/ for(j=0;j&lt;9;j++) /*外循环控制排序趟数，n个数排n-1趟*/ for(i=0;i&lt;9-j;i++) /*内循环每趟比较的次数，第j趟比较n-j次*/ if(a[i]&gt;a[i+1]) /*相邻元素比较，逆序则交换*/ &#123; t=a[i]; a[i]=a[i+1]; a[i+1]=t; &#125; /*输出排序结果*/ printf(&quot;The sorted numbers: &quot;); for(i=0;i&lt;10;i++) printf(&quot;%d &quot;,a[i]); printf(&quot;\n&quot;); return 0; &#125; 选择法算法示例要求用选择法对10个整数按降序排序。 算法分析每趟选出一个最值和无序序列的第一个数交换，n个数共选n-1趟。第i趟假设i为最值下标，然后将最值和i+1至最后一个数比较，找出最值的下标，若最值下标不为初设值，则将最值元素和下标为i的元素交换。 算法源代码12345678910111213141516171819202122#include &lt;stdio.h&gt; int main() &#123; int a[10],i,j,k,t,n=10; printf(&quot;Please input 10 numbers:&quot;); for(i=0;i&lt;10;i++) scanf(&quot;%d&quot;,&amp;a[i]); for(i=0;i&lt;n-1;i++) /*外循环控制趟数，n个数选n-1趟*/ &#123; k=i; /*假设当前趟的第一个数为最值,记在k中 */ for(j=i+1;j&lt;n;j++) /*从下一个数到最后一个数之间找最值*/ if(a[k]&lt;a[j]) /*若其后有比最值更大的*/ k=j; /*则将其下标记在k中*/ if(k!=i) /*若k不为最初的i值，说明在其后找到比其更大的数*/ &#123; t=a[k]; a[k]=a[i]; a[i]=t; &#125; /*则交换最值和当前序列的第一 个数*/ &#125; printf(&quot;The sorted numbers: &quot;); for(i=0;i&lt;10;i++) printf(&quot;%d &quot;,a[i]); printf(&quot;\n&quot;); &#125; 区别：（个人见解） 冒泡法要进行对n个数进行n-1趟，第j趟要进行n-j次比较，每次比较相邻的数不符合则要交换，每趟最多需要n-j次数的交换 选择法也要进行n-1趟，每趟是选出最值，而选最值是把下标交换，直到选出最值的下标，把最值和第一位交换，每趟最多仅需1次数的交换 简单地说，冒泡法每次都是数的交换（各个下标对应的数是变化的），而选择法是通过下标交换（这时候各个下标对应的数是不变的）选出最值的下标，最后再进行数的交换]]></content>
