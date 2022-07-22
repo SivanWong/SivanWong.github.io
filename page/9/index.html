@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：盒模型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：清除浮动/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/css/css：盒模型/" itemprop="url">CSS：盒模型</a></h1>
+                <a class="post-title-link" href="/2022/07/22/css/css：清除浮动/" itemprop="url">CSS：清除浮动</a></h1>
         
 
         <div class="post-meta">
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  115 字
+                  73 字
                 </span>
               
 
@@ -418,15 +418,18 @@
       
         
           
-          标准模型12盒模型宽高 = margin + border + padding + content元素宽高（元素占据的位置） = content
+          浮动产生影响
 
-IE盒模型12盒模型宽高 = margin + 元素宽高元素宽高（元素占据的位置） = border + padding + content
-
-修改盒模
+给父元素设置高度。
+给父元素设置overflow:hidden;
+父元素也设置浮动。
+在结尾处添加空div标签clear:both
+父元素定义伪类::after
+12345::after&#123;		clear: both;		content: &quot;&quot;;		dis
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/css/css：盒模型/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/css/css：清除浮动/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -670,189 +673,6 @@ left和right宽度固定，middle自适应填满整个区域；高度为三栏�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：垂直居中/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/07/22/css/css：垂直居中/" itemprop="url">CSS：垂直居中</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:25+08:00">
-                2022-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  175 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          基于绝对定位要求元素具有固定的高度和宽度123456789&#123;    position:absolute;    top:50%;    left:50%;    margin-top:-20px;    margin-left:-20px;    height:40px;    width
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/css/css：垂直居中/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：垂直水平居中/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1036,7 +856,7 @@ left和right宽度固定，middle自适应填满整个区域；高度为三栏�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：positon/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：垂直居中/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1055,7 +875,7 @@ left和right宽度固定，middle自适应填满整个区域；高度为三栏�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/css/css：positon/" itemprop="url">CSS：position</a></h1>
+                <a class="post-title-link" href="/2022/07/22/css/css：垂直居中/" itemprop="url">CSS：垂直居中</a></h1>
         
 
         <div class="post-meta">
@@ -1121,7 +941,7 @@ left和right宽度固定，middle自适应填满整个区域；高度为三栏�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  384 字
+                  175 字
                 </span>
               
 
@@ -1160,13 +980,11 @@ left和right宽度固定，middle自适应填满整个区域；高度为三栏�
       
         
           
-          position:static没有定位，元素出现在正常的文档流中，忽略left、right、top、bottom和z-index。
-position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会影响元素位置，元素的位置与文档流无关，因此不占据空间，可能与其他元素发生重叠。
-position
+          基于绝对定位要求元素具有固定的高度和宽度123456789&#123;    position:absolute;    top:50%;    left:50%;    margin-top:-20px;    margin-left:-20px;    height:40px;    width
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/css/css：positon/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/css/css：垂直居中/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1598,7 +1416,7 @@ padding和margin的%垂直水平方向都是基于父元素的宽度计算px（p
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：margin塌陷/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：positon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1617,7 +1435,7 @@ padding和margin的%垂直水平方向都是基于父元素的宽度计算px（p
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/css/css：margin塌陷/" itemprop="url">CSS：margin塌陷</a></h1>
+                <a class="post-title-link" href="/2022/07/22/css/css：positon/" itemprop="url">CSS：position</a></h1>
         
 
         <div class="post-meta">
@@ -1683,7 +1501,7 @@ padding和margin的%垂直水平方向都是基于父元素的宽度计算px（p
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  96 字
+                  384 字
                 </span>
               
 
@@ -1722,18 +1540,13 @@ padding和margin的%垂直水平方向都是基于父元素的宽度计算px（p
       
         
           
-          标准文档流中，垂直方向的margin不叠加，以较大的为准。原理是他们处于同一个BFC中。
-
-给父盒子添加border。
-给父盒子添加padding。
-给父盒子添加overflow:hidden。
-给父盒子添加position:fixed。
-给父盒子添加display:table。
-给子元素的前面加一
+          position:static没有定位，元素出现在正常的文档流中，忽略left、right、top、bottom和z-index。
+position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会影响元素位置，元素的位置与文档流无关，因此不占据空间，可能与其他元素发生重叠。
+position
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/css/css：margin塌陷/#more" rel="contents">
+            <a class="btn" href="/2022/07/22/css/css：positon/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2110,6 +1923,196 @@ position:fixed相对于浏览器窗口定位，即浏览器窗口滚动也不会
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2022/07/22/css/css：position/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/css/css：margin塌陷/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/07/22/css/css：margin塌陷/" itemprop="url">CSS：margin塌陷</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:25+08:00">
+                2022-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  96 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          标准文档流中，垂直方向的margin不叠加，以较大的为准。原理是他们处于同一个BFC中。
+
+给父盒子添加border。
+给父盒子添加padding。
+给父盒子添加overflow:hidden。
+给父盒子添加position:fixed。
+给父盒子添加display:table。
+给子元素的前面加一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/07/22/css/css：margin塌陷/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
