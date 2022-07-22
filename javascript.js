@@ -16,7 +16,7 @@ function unshiftString(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const header = `---
 title: ${path.basename(filePath, '.md')}
-Date: 2021-07-07
+date: 2021-07-07
 tags: [${tag}]
 categories: ${tag}
 comments: true
