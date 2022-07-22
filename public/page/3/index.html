@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/Git/Git：删除远程仓库文件但不删除本地/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/07/Cocos/Cocos Creator踩坑记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/24/Git/Git：删除远程仓库文件但不删除本地/" itemprop="url">Git：删除远程仓库文件但不删除本地</a></h1>
+                <a class="post-title-link" href="/2021/07/07/Cocos/Cocos Creator踩坑记/" itemprop="url">Cocos Creator踩坑记</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-24T00:00:00+08:00">
-                2020-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-07T00:00:00+08:00">
+                2021-07-07
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/Cocos/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos</span>
                   </a>
                 </span>
 
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  39 字
+                  96 字
                 </span>
               
 
@@ -418,27 +418,15 @@
       
         
           
-          
-更新
+          动画编辑
+动画在普通模式下是不允许编辑的，只有在动画编辑模式下才可以编辑动画文件。
+但是在动画编辑模式下，无法对节点进行添加/删除/重命名操作，并且没有记录在动画关键帧内的属性修改，在退出动画编辑器后也会被还原
 
-1$ git pull origin master
-
-删除
-
-1$ git rm -r --cached &lt;文件相对路径&gt;
-
-备注
-
-1$ git commit -m &quot;delete&quot;
-
-上传
-
-1$ git push -u origin master
 
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/07/24/Git/Git：删除远程仓库文件但不删除本地/#more" rel="contents">
+            <a class="btn" href="/2021/07/07/Cocos/Cocos Creator踩坑记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -493,7 +481,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/Git/Git：查看克隆下来的代码的信息/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：事件机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -512,7 +500,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/24/Git/Git：查看克隆下来的代码的信息/" itemprop="url">Git：查看克隆下来的代码的信息</a></h1>
+                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：事件机制/" itemprop="url">Cocos：事件机制</a></h1>
         
 
         <div class="post-meta">
@@ -524,8 +512,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-24T00:00:00+08:00">
-                2020-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-05T00:00:00+08:00">
+                2021-07-05
               </time>
             
 
@@ -547,8 +535,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
+                  <a href="/categories/Cocos/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos</span>
                   </a>
                 </span>
 
@@ -578,568 +566,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  51 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          列出已经存在的远程分支
-1$ git remote
-列出详细信息，在每一个名字后面列出其远程url地址
-1$ git remote -v
-v: verbose，显示对应的克隆地址。
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/24/Git/Git：查看克隆下来的代码的信息/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/17/前端/whistle：利用whistle mock 数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/17/前端/whistle：利用whistle mock 数据/" itemprop="url">whistle：利用whistle mock 数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-17T00:00:00+08:00">
-                2020-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  388 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          vasevase 是 whistle 提供了一个强大的 mock 数据的插件，强大之处是可以结合 js 语句 + mock 语法去生成数据。
-安装1$ npm i -g whistle.vase
-使用在whistle界面的“Plugins”菜单中可以打开 vase 的界面
-mock 语法在vase界
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/17/前端/whistle：利用whistle mock 数据/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/其他/安全：XSS和CSRF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/14/其他/安全：XSS和CSRF/" itemprop="url">安全：XSS和CSRF</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,126 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          XSS攻击（跨站脚本攻击）原理恶意攻击者往web页面里插入恶意可执行网页脚本代码，当用户浏览该页面时，嵌入其中web里面的脚本代码会被执行，从而达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。
-分类
-存储型XSS恶意代码存储在数据库中
-反射型XSS恶意代码存储在url中
-DOM型XSS取出和执行
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/其他/安全：XSS和CSRF/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/其他/安全：cookie和session/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/14/其他/安全：cookie和session/" itemprop="url">安全：cookie和session</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/安全/" itemprop="url" rel="index">
-                    <span itemprop="name">安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,517 字
+                  2,292 字
                 </span>
               
 
@@ -1178,16 +605,12 @@ DOM型XSS取出和执行
       
         
           
-          前言
-会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。
-Cookie通过在客户端记录信息确定用户身份。
-Session通过在服务器端记录信息确定用户身份。
-
-cookie在程序中，会话跟踪是很重要的事情。理论上，一个用户的
+          事件监听事件处理大多数是在节点（Node）中完成的。对于组件，可以通过访问节点 this.node 来注册和监听事件。监听事件可以通过 this.node.on() 函数来注册，方法如下：
+12345// 该事件监听每次都会触发，需要手动取消注册xxx.on(type, func, target?)
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/其他/安全：cookie和session/#more" rel="contents">
+            <a class="btn" href="/2021/07/05/Cocos/Cocos：事件机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1242,7 +665,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/前端/web页面性能优化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1261,7 +684,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/前端/web页面性能优化/" itemprop="url">web页面性能优化</a></h1>
+                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：生命周期/" itemprop="url">Cocos：生命周期</a></h1>
         
 
         <div class="post-meta">
@@ -1273,8 +696,8 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-05T00:00:00+08:00">
+                2021-07-05
               </time>
             
 
@@ -1296,8 +719,8 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/Cocos/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos</span>
                   </a>
                 </span>
 
@@ -1327,7 +750,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  758 字
+                  769 字
                 </span>
               
 
@@ -1366,12 +789,17 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
       
         
           
-          请求和响应减少http请求。一个完整的请求都需要经过 DNS寻址、与服务器建立连接、发送数据、等待服务器响应、接收数据这样一个 “漫长” 而复杂的过程。资源上由于每个请求都需要携带数据，因此每个请求都需要占用带宽。
-使用CDN加速（缓存）。CDN（内容发布网络）是一组分布在多个不同地理位置的Web服
+          Cocos Creator 为组件脚本提供了生命周期的回调函数。开发者只需要定义特定的回调函数，Creator 就会在特定的时期自动执行相关脚本，开发者不需要手工调用它们。
+目前提供给开发者的生命周期回调函数主要有（按生命周期触发先后排列）：
+
+onLoad
+onEnable
+start
+updat
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/前端/web页面性能优化/#more" rel="contents">
+            <a class="btn" href="/2021/07/05/Cocos/Cocos：生命周期/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1426,7 +854,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/前端/浏览器本地缓存/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：计时器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1445,7 +873,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/前端/浏览器本地缓存/" itemprop="url">浏览器本地缓存</a></h1>
+                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：计时器/" itemprop="url">Cocos：计时器</a></h1>
         
 
         <div class="post-meta">
@@ -1457,8 +885,8 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-05T00:00:00+08:00">
+                2021-07-05
               </time>
             
 
@@ -1480,8 +908,8 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/Cocos/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos</span>
                   </a>
                 </span>
 
@@ -1511,7 +939,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  782 字
+                  354 字
                 </span>
               
 
@@ -1527,7 +955,7 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  1 分钟
                 </span>
               
             </div>
@@ -1550,24 +978,19 @@ cookie在程序中，会话跟踪是很重要的事情。理论上，一个用�
       
         
           
-          定义缓存是性能优化中简单高效的一种优化方式。
-和本地存储不一样，浏览器缓存是浏览器请求网站留下的资源副本。
-好处
-减少带宽消耗
-提升性能
-缓解服务器压力
+          下面是 Component 中所有关于计时器的函数：
 
-缓存位置
-Service Worker
-Memory Cache
-Disk Cache
-Push Cache
+schedule：开始一个计时器
+scheduleOnce：开始一个只执行一次的计时器
+unschedule：取消一个计时器
+unscheduleAllCallbacks：取消这个组件的所有计时器
 
-缓存策略浏览器第一次向服务器发起
+schedule开始一个计时器
+1234th
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/前端/浏览器本地缓存/#more" rel="contents">
+            <a class="btn" href="/2021/07/05/Cocos/Cocos：计时器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1622,7 +1045,7 @@ Push Cache
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/前端/浏览器渲染机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/11/React/React：useCallback、useMemo、memo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1641,7 +1064,7 @@ Push Cache
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/前端/浏览器渲染机制/" itemprop="url">浏览器渲染机制</a></h1>
+                <a class="post-title-link" href="/2021/05/11/React/React：useCallback、useMemo、memo/" itemprop="url">React：useCallback、useMemo、memo</a></h1>
         
 
         <div class="post-meta">
@@ -1653,8 +1076,8 @@ Push Cache
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-11T00:00:00+08:00">
+                2021-05-11
               </time>
             
 
@@ -1676,8 +1099,8 @@ Push Cache
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -1707,7 +1130,7 @@ Push Cache
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,549 字
+                  1,287 字
                 </span>
               
 
@@ -1746,17 +1169,12 @@ Push Cache
       
         
           
-          进程和线程
-进程时cpu资源分配的最小单位，是能拥有资源和独立运行的最小的单位。
-线程是cpu调度的最小单位，是建立在进程基础上的一次程序运行单位。
-对于操作系统来说，一个任务就是一个进程，一个进程至少有一个线程
-
-浏览器的多进程架构
-主进程负责浏览器界面的显示与交互。各个页面的管理,创建和销毁其他
+          useMome、useCallback用法都差不多，都会在第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行，并且这两个hooks都返回缓存的值，useMemo返回缓存的变量，useCallback返回缓存的函数。
+123const value = useMemo(fnM, [a]);co
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/前端/浏览器渲染机制/#more" rel="contents">
+            <a class="btn" href="/2021/05/11/React/React：useCallback、useMemo、memo/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1811,7 +1229,7 @@ Push Cache
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/计网/计网：TCP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/11/React/React：useLayoutEffect和useEffect的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1830,7 +1248,7 @@ Push Cache
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/计网/计网：TCP/" itemprop="url">计网：TCP</a></h1>
+                <a class="post-title-link" href="/2021/05/11/React/React：useLayoutEffect和useEffect的区别/" itemprop="url">React：useLayoutEffect和useEffect的区别</a></h1>
         
 
         <div class="post-meta">
@@ -1842,8 +1260,8 @@ Push Cache
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-11T00:00:00+08:00">
+                2021-05-11
               </time>
             
 
@@ -1865,8 +1283,8 @@ Push Cache
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计网/" itemprop="url" rel="index">
-                    <span itemprop="name">计网</span>
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -1896,7 +1314,7 @@ Push Cache
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  566 字
+                  1,351 字
                 </span>
               
 
@@ -1912,7 +1330,7 @@ Push Cache
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -1935,20 +1353,13 @@ Push Cache
       
         
           
-          TCP和UDP
-都是运输层协议
-tcp有连接，可靠：数据包校验、对失序数据包重排序、丢弃重复数据、应答机制、超时重传、流量控制。
-udp无连接，快。只是传输数据，不管服务器是否收到。
-
-TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中的路由器或链路不致过载。
-
-慢开始
-
-把初始拥塞窗口cwn
+          渲染流程
+react 在 diff 后，会进入到 commit 阶段，准备把虚拟 DOM 发生的变化映射到真实 DOM 上。
+在 commit 阶段的前期，会调用一些生命周期方法，对于类组件来说，需要触发组件的 getSnapshotBeforeUpdate 生命周期，对于函数组件，此时会调度 us
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/计网/计网：TCP/#more" rel="contents">
+            <a class="btn" href="/2021/05/11/React/React：useLayoutEffect和useEffect的区别/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2003,7 +1414,7 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/计网/计网：http和https/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/11/React/React：useRef/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -2022,7 +1433,7 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/计网/计网：http和https/" itemprop="url">计网：http和https</a></h1>
+                <a class="post-title-link" href="/2021/05/11/React/React：useRef/" itemprop="url">React：useRef</a></h1>
         
 
         <div class="post-meta">
@@ -2034,8 +1445,8 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T00:00:00+08:00">
-                2020-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-11T00:00:00+08:00">
+                2021-05-11
               </time>
             
 
@@ -2057,8 +1468,8 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计网/" itemprop="url" rel="index">
-                    <span itemprop="name">计网</span>
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -2088,7 +1499,7 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  506 字
+                  661 字
                 </span>
               
 
@@ -2104,7 +1515,7 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -2127,19 +1538,569 @@ TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中�
       
         
           
-          关于https用处：
-
-建立一个信息安全通道，来保证数据传输的安全。
-确认网站的真实性，防止钓鱼网站。
-
-https就是在http下加入了ssl层，从而保护了交换数据隐私和完整性，提供了对网站服务器身份认证的功能，简单来说就是安全版的http。
-http和https的区别
-同属于应用层的协议
-htt
+          介绍类组件、React 元素用 React.createRef，函数组件使用 useRef
+useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。
+使用绑定DOM类组件1234567
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/计网/计网：http和https/#more" rel="contents">
+            <a class="btn" href="/2021/05/11/React/React：useRef/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/11/React/ant-design：Form.list使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/11/React/ant-design：Form.list使用/" itemprop="url">Ant-Design：Form.list使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-11T00:00:00+08:00">
+                2021-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  180 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          使用1234567891011121314&lt;Form&gt;    &lt;Form.List name=&apos;data&apos;&gt;        &#123;(fields) =&gt; (            fields.map(field =&gt; (        
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/11/React/ant-design：Form.list使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/08/React/React：踩坑记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/08/React/React：踩坑记/" itemprop="url">React：踩坑记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-08T00:00:00+08:00">
+                2021-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  110 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+使用useState时没有触发渲染，可能是因为将已有的对象传递过去，它认为没有改变，可以这样处理
+
+1setNumbers([..old]);
+
+多个表单不要放同一页面，拆分成多个组件
+Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如果上面的路由都匹配不到时，跳转到
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/08/React/React：踩坑记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/28/React/React：重定向Redirect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/04/28/React/React：重定向Redirect/" itemprop="url">React：重定向Redirect</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-28T00:00:00+08:00">
+                2021-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          React-Router实战：重定向Redirect
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/28/React/React：重定向Redirect/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2185,7 +2146,7 @@ htt
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2235,7 +2196,7 @@ htt
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">162</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
