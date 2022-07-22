@@ -914,6 +914,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Vue：组件间的传值]]></title>
+    <url>%2F2020%2F02%2F20%2FVue%2FVue%EF%BC%9A%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E4%BC%A0%E5%80%BC%2F</url>
+    <content type="text"><![CDATA[父组件向子组件传值 父组件把要传递的值绑定在调用的子组件上 子组件通过props[“”]来接收值来使用 子组件向父组件传值 子组件通过$emit(‘函数名’,’参数’)来抛出事件传递参数 父组件通过在调用的子组件上绑定函数名来使用参数（@函数名） vuex 兄弟之间传值 vuex 通过路由带参数进行传值 123this.$router.push(&#123; path: &apos;/conponentsB&apos;, query: &#123; orderId: 123 &#125; &#125;) // 跳转到Bthis.$route.query.orderId // 在B组件拿到的参数 通过设置本地存储，如Session Storage缓存的形式进行传递 123const orderData = &#123; &apos;orderId&apos;: 123, &apos;price&apos;: 88 &#125;sessionStorage.setItem(&apos;缓存名称&apos;, JSON.stringify(orderData))const dataB = JSON.parse(sessionStorage.getItem(&apos;缓存名称&apos;)) // 在其他组件拿到session Storage缓存的值]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS：作用域]]></title>
     <url>%2F2020%2F02%2F19%2FJS%2FJS%EF%BC%9A%E4%BD%9C%E7%94%A8%E5%9F%9F%2F</url>
     <content type="text"><![CDATA[作用域就是变量和函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。 全局作用域在代码任何地方都能访问到的对象拥有全局作用域。拥有作用域的情况： 程序最外层定义的函数或变量。 所有未定义直接赋值的变量，相当于在window对象上创建属性。（不推荐） 所有window对象的属性和方法。 局部作用域（函数作用域）局部作用域在函数内创建，在函数内可访问，函数外不可访问。 变量声明js引擎解析js代码时，会先把变量和函数的声明提前进行预解析，然后再去执行其他代码。 直接赋值不会引起变量提升，在执行期间创建，为window的属性，可删除。 函数声明 function name(){}直接创建 new Function构建函数创建 给变量赋值匿名函数方法创建1var name = function()&#123; &#125; 后两者，在声明前访问，返回undefined。函数名与变量名声明时相同，函数优先声明。 作用域链 当代码在一个环境中执行时，一般情况下，会到当前执行环境中访问变量。 但是如果在当前作用域中没有查到值，就会向上级作用域去查，直到查到全局作用域，这么一个查找过程形成的链条（即这样逐层的作用域形成的链条）就叫做作用域链。 作用域链是函数被创建的作用域中对象的集合。作用域链保证了对变量和函数的有序访问。 每次进入一个新的执行环境，都会创建一个用于搜索变量和函数的作用域链。 作用域链的前端，始终是当前执行代码所在环境的变量对象。如果当前环境是函数，则将其活动对象作为变量对象。活动对象最开始只包含arguments对象（这个对象在全局环境中不存在）。 全局执行环境的变量对象始终都是作用域链的最后一个对象。 js每一个函数执行时，会先在自己创建的AO上找对应的属性值。若找不到，则往父函数的AO上找，直到找到全局作用域，这样就形成一条作用域链。 VO（变量对象）：函数创建阶段，js解析引擎进行预解析时，所有变量和函数的声明组成VO。 AO（活动对象）：函数执行阶段，当函数被调用执行时，会建立一个执行上下文，该执行上下文包含了函数所需的所有变量，这些变量组成AO。 执行上下文可以理解为当前代码的执行环境，它会形成一个作用域。]]></content>
@@ -966,6 +977,17 @@
       </categories>
       <tags>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue：路由原理]]></title>
+    <url>%2F2020%2F02%2F15%2FVue%2FVue%EF%BC%9A%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"><![CDATA[单页面应用随着前端应用的业务功能越来越复杂、用户对于使用体验的要求越来越高，单页应用（SPA）成为前端应用的主流形式。大型单页应用最显著特点之一就是采用前端路由系统，通过改变URL，在不重新请求页面的情况下，更新页面视图。 vue-router实现方式“更新视图但不重新请求页面”是前端路由原理的核心之一，目前在浏览器环境中这一功能的实现主要有两种方式： hash模式，url带#号，但是访问网页不会404。 history模式。url不带#号。前端的 URL 必须和实际向后端发起请求的 URL 一致，如果后端没有规定好路由，直接复制url会404。 1234// hashhttp://localhost:8080/#/test// historyhttp://localhost:8080/test mode在vue-router中是通过mode这一参数控制路由的实现模式的，创建VueRouter的实例对象时，mode以构造函数参数的形式传入。 123456789const router = new VueRouter(&#123; mode: &apos;history&apos;, routes: [...]&#125;)// mode 参数：- 默认hash- history 注：如果浏览器不支持history新特性,则采用hash方式- 如果不在浏览器环境则使用abstract（node环境下） history对象当选择mode类型之后，程序会根据你选择的mode 类型创建不同的history对象 HashHistory HTML5History AbstractHistory 1234567891011121314151617// 源码// 根据mode确定history实际的类并实例化switch (mode) &#123; case &apos;history&apos;: this.history = new HTML5History(this, options.base) break case &apos;hash&apos;: this.history = new HashHistory(this, options.base, this.fallback) break case &apos;abstract&apos;: this.history = new AbstractHistory(this, options.base) break default: if (process.env.NODE_ENV !== &apos;production&apos;) &#123; assert(false, `invalid mode: $&#123;mode&#125;`) &#125;&#125; HashHistory替换路由的两个方法 HashHistory.push() HashHistory.replace() HashHistory.push()将新路由添加到浏览器访问历史的栈顶 1234561 $router.push() //调用方法2 HashHistory.push() //根据hash模式调用,设置hash并添加到浏览器历史记录（添加到栈顶）（window.location.hash= XXX）3 History.transitionTo() //监测更新，更新则调用History.updateRoute()4 History.updateRoute() //更新路由5 &#123;app._route= route&#125; //替换当前app路由6 vm.render() //更新视图 HashHistory.replace()replace()方法与push()方法不同之处在于，它并不是将新路由添加到浏览器访问历史的栈顶，而是替换掉当前的路由 12345678910111213replace (location: RawLocation, onComplete?: Function, onAbort?: Function) &#123; this.transitionTo(location, route =&gt; &#123; replaceHash(route.fullPath) onComplete &amp;&amp; onComplete(route) &#125;, onAbort)&#125; function replaceHash (path) &#123; const i = window.location.href.indexOf(&apos;#&apos;) window.location.replace( window.location.href.slice(0, i &gt;= 0 ? i : 0) + &apos;#&apos; + path )&#125; 监听地址栏在浏览器中，用户还可以直接在浏览器地址栏中输入改变路由，因此VueRouter还需要能监听浏览器地址栏中路由的变化，并具有与通过代码调用相同的响应行为。在HashHistory中这一功能通过setupListeners实现 12345678910setupListeners () &#123; window.addEventListener(&apos;hashchange&apos;, () =&gt; &#123; if (!ensureSlash()) &#123; return &#125; this.transitionTo(getHash(), route =&gt; &#123; replaceHash(route.fullPath) &#125;) &#125;)&#125; 该方法设置监听了浏览器事件hashchange，调用的函数为replaceHash，即在浏览器地址栏中直接输入路由相当于代码调用了replace()方法 HTML5History History interface是浏览器历史记录栈提供的接口，通过back(), forward(), go()等方法，我们可以读取浏览器历史记录栈的信息，进行各种跳转操作。 从HTML5开始，History interface有进一步修炼：pushState(), replaceState() 这下不仅是读取了，还可以对浏览器历史记录栈进行修改 当然了，HTML5History用到了HTML5的新特特性，是需要特定浏览器版本的支持的 window.history.pushState()和window.history.replaceState() window.history.pushState(stateObject, title, URL) window.history.replaceState(stateObject, title, URL) stateObject: 当浏览器跳转到新的状态时，将触发popState事件，该事件将携带这个stateObject参数的副本 title: 所添加记录的标题 URL: 所添加记录的URL 监听地址变化在HTML5History的构造函数中监听popState（window.onpopstate） 在HTML5History中添加对修改浏览器地址栏URL的监听是直接在构造函数中执行的 1234567891011constructor (router: Router, base: ?string) &#123; window.addEventListener(&apos;popstate&apos;, e =&gt; &#123; const current = this.current this.transitionTo(getLocation(this.base), route =&gt; &#123; if (expectScroll) &#123; handleScroll(router, route, current, true) &#125; &#125;) &#125;)&#125; 两者区别 pushState设置的新URL可以是与当前URL同源的任意URL；而hash只可修改#后面的部分，故只可设置与当前同文档的URL pushState设置的新URL可以与当前URL一模一样，这样也会把记录添加到栈中；而hash设置的新值必须与原来不一样才会触发记录添加到栈中 pushState通过stateObject可以添加任意类型的数据到记录中；而hash只可添加短字符串 pushState可额外设置title属性供后续使用 一个问题用户直接在地址栏中输入并回车，浏览器重启重新加载应用时 hash模式仅改变hash部分的内容，而hash部分是不会包含在HTTP请求中的，故在hash模式下遇到根据URL请求页面的情况不会有问题。 12http://oursite.com/#/user/id // 如重新请求只会发送http://oursite.com/ 而history模式则会将URL修改得就和正常请求后端的URL一样。1http://oursite.com/user/id 如后端没有配置对应/user/id的路由处理，则会返回404错误。 官方推荐的解决办法是在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1090,6 +1112,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Vue：数据双向绑定原理]]></title>
+    <url>%2F2019%2F11%2F17%2FVue%2FVue%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"><![CDATA[vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()（相当于observer）来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。 observer：遍历data中的属性，使用Object.defineProperty()的get/set方法对其进行数据劫持。 dep：每个属性拥有自己的消息订阅器dep，用于存放所有订阅了该属性的观察者对象。 watcher：观察者（对象），通过dep实现对响应属性的监听，监听到结果后，主动触发自己的回调进行响应。 要对数据进行劫持监听，我们需要设置数据监听器Observer，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并发布通知（给dep）。 因为订阅者是有很多个，所以我们需要有一个消息订阅器Dep来专门收集这些订阅者，然后在监听器Observer和订阅者Watcher之间进行统一管理的。 接着，我们还需要有一个指令解析器Compile，对每个节点元素进行扫描和解析，将相关指令对应初始化成一个订阅者Watcher，并替换模板数据或者绑定相应的函数。 当订阅者Watcher接收到相应属性的变化，就会执行对应的更新函数，从而更新视图。 拓展Object.defineProperty12345//在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。Object.defineProperty(obj, prop, descriptor)//obj 要在其上定义属性的对象。//prop 要定义或修改的属性的名称。//descriptor 将被定义或修改的属性描述符。 object.defineproperty()缺点 无法监听数组的变化（把对象属性换成数组就无法监听） 只能劫持对象的属性，不能劫持完整的对象（若对象属性为一个对象，则无法深度遍历劫持） 计算属性计算属性computed：一个属性通过其他属性计算而来 侦听器就是检测某一属性是否发生变化，一旦发生变化，我们就可以在侦听器里面写一下业务逻辑]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[计网：cdn]]></title>
     <url>%2F2019%2F11%2F16%2F%E8%AE%A1%E7%BD%91%2F%E8%AE%A1%E7%BD%91%EF%BC%9Acdn%2F</url>
     <content type="text"><![CDATA[是什么内容分发网络。使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。 cdn缓存用户浏览器和服务器端之间加入cdn 用户在浏览网站的时候，向服务器请求到资源后，cdn会在本地保存网站中的图片或者js、css等其他文件的副本，通过http响应头中的cache-control字段设置数据缓存时间，这样用户再次访问该网站的时候，浏览器就不用再下载全部的文件，减少了下载量意味着提高了页面加载的速度。 再次浏览网站时，客户端浏览器会先向CDN边缘节点发起请求，CDN边缘节点会检测用户请求数据的缓存是否过期，如果没有过期，则直接响应用户请求，此时一个http请求结束；如果数据已经过期，那么CDN还需要向源站发出回源请求,来拉取最新的数据。]]></content>
@@ -1109,6 +1142,17 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue：MVVM、MVC、MVP]]></title>
+    <url>%2F2019%2F11%2F08%2FVue%2FVue%EF%BC%9AMVVM%E3%80%81MVC%E3%80%81MVP%2F</url>
+    <content type="text"><![CDATA[MVCM代表Model，代表数据模型。 V代表View，代表视图。 C代表Controller，代表控制器，用来处理数据。 工作模式用户操作视图View，当数据改变时，传到Controller进行数据的处理，继而更新到Model，Model的更新会通过观察者模式通知View，View通过观察者模式收到Model变更的消息后，向Model请求最新的数据，自己同步更新视图。 优点观察者模式可以做到多视图同时更新。 缺点 controller测试困难。 view无法组件化，它强依赖特定的Model，不同程序的Model不一样。 MVPM代表Model，代表数据模型。 V代表View，代表视图。 P代表Presenter，代表呈现。 工作模式用户操作视图View，当数据改变时，传到Presenter进行数据的处理，继而更新到Model，Model的更新会通过观察者模式通知Presenter，Presenter获取到Model变更的消息后，通过View提供的接口更新界面。 和MVC的不同M和V是隔离的。 优点 便于测试。 可以组件化缺点由于需要大量的手动同步View和Model，导致维护起来很困难。 MVVMvue和angular都为mvvm框架 M代表Model，代表数据模型，可以在Model中定义数据修改和操作的业务逻辑。 V代表View，代表视图，它负责将数据模型转化成UI展现出来。 VM代表ViewModel，负责监听模型数据的改变和控制视图行为、处理用户交互。简单理解就是一个同步View和Model的对象，连接View和Model。 MVVM是以双向数据传输为思想的。ViewModel通过双向数据绑定把View和Model连接起来，View数据的变化会同步到Model中，而Model数据的变化也会立即反映到View上。 优点解决MVP大量的手动同步View和Model的问题，提供双向绑定机制。 缺点 过于简单的图形界面不适用。 没法断点debug，数据绑定的声明是指令式地写在View的模板当中的。]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1189,6 +1233,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Vue：移动端适配]]></title>
+    <url>%2F2019%2F07%2F29%2FVue%2FVue%EF%BC%9A%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%2F</url>
+    <content type="text"><![CDATA[lib-flexible原理 在页面中引入flexible.js后，flexible会在html标签上增加一个data-dpr属性和font-size样式。 js首先会获取设备型号和对应的dpr，然后根据不同设备添加不同的data-dpr值，比如说1、2或者3，从源码中我们可以看到。 vue中适配通过npm下载1npm i lib-flexible --save 在main.js中引入 1import &apos;lib-flexible/flexible&apos; 把视觉稿中的px转换成remFlexible会将视觉稿分成100份（主要为了以后能更好的兼容vh和vw），而每一份被称为一个单位a。同时1rem单位被认定为10a。 px2rem-loader在build文件中找到util.js，将px2rem-loader添加到cssLoaders中，将下面代码加进cssLoaders方法中 123456const px2remLoader = &#123; loader: &apos;px2rem-loader&apos;, options: &#123; remUint: 75 &#125;&#125; 同时，对generateLoaders方法进行修改 1const loaders = options.usePostCSS ? [cssLoader, postcssLoader,px2remLoader] : [cssLoader,px2remLoader] fastclick为了检测是否为双击，从点击屏幕上的元素到触发元素的 click 事件，移动浏览器会有大约 300 毫秒的等待时间。 解决引入fastclick第三方库，其实现原理是在检测到touchend事件的时候，会通过DOM自定义事件立即出发模拟一个click事件，并把浏览器在300ms之后真正的click事件阻止掉。]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CSS：模块化]]></title>
     <url>%2F2019%2F05%2F30%2FCSS%2FCSS%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%2F</url>
     <content type="text"><![CDATA[文件结构常见文件结构一个项目的CSS最基本结构通常是下面这样的： base.css common.css pages.css 复杂一点的项目可能是这样分： base.css header.css footer.css sidebar.css forms.css icons.css buttons.css dropdown.css modals.css layout.css index.css user.css admin.css pages.css 如果后期不打算合并CSS的，建议尽可能减少 CSS 文件的数量。 SMACSSSMACSS 的全称叫 Scalable and Modular Architecture for CSS。即可扩展和模块化的CSS架构。 SMACSS将样式分成5种类型：Base，Layout，Module，State，Theme Base: 基础样式表，定义了基本的样式，我们平时写CSS比如reset.css就是属于基础样式表，另外我认为清除浮动，一些动画也可以归类为基础样式。 Layout: 布局样式，用于实现网页的基本布局，搭起整个网页的基本骨架。 Module: 网页中不同的区域有这个不同的功能，这些功能是相对独立的，我们可以称其为模块。模块是独立的，可重用的组件，它们不依赖于布局组件，可以安全的删除修改而不影响其他模块。 State: 状态样式，通常和js一起配合使用，表示某个组件或功能不同的状态，比如菜单选中状态，按钮不可用状态等。 Theme: 主题皮肤，对于可更换皮肤的站点来说，这个是很有必要的，分离了结构和皮肤，根据不同的皮肤应用不同的样式文件。 css选择器命名规则它的每一条规则都是全局的，在 CSS 预处理出现之前，这很容易造成命名上的冲突。 当涉及到多人维护同一段 CSS 代码时，命名的意义表达，也会影响到维护效率。 使用独一无二的规则。命名唯一。 使用简短的命名。 嵌套层级不宜过深，建议控制在3层以内。 BEMBEM是Block，Element，Modifier的缩写。是比较流行的一种 CSS 命名方式。 Block：在BEM的理论中，一个网页是由block组成的，比如头部是个block，内容是block，logo也是block，一个block可能由几个子block组成。 Element：element是block的一部分，具有某种功能，element依赖于block，比如在logo中，img是logo的一个element，在菜单中，菜单项是菜单的一个element Modifier：modifier是用来修饰block或者element的，它表示block或者element在外观或行为上的改变 123456789命名规则如下：.block &#123;&#125;.block__element &#123;&#125;.block--modifier &#123;&#125;例如：.login &#123;&#125;.login__btn &#123;&#125;.login__btn--reset &#123;&#125;.login__btn--confirm &#123;&#125; 下划线（__）被用来区分元素，而用连字符(–)是用来修饰元素的。 SUITSuit起源于BEM，但是它对组件名使用驼峰式和连字号把组件从他们的修饰和子孙后代中区分出来.]]></content>
@@ -1197,6 +1252,17 @@
       </categories>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue-cli脚手架]]></title>
+    <url>%2F2019%2F05%2F21%2FVue%2FVue-cli%E8%84%9A%E6%89%8B%E6%9E%B6%2F</url>
+    <content type="text"><![CDATA[vue-cli介绍Vue-cli是Vue的脚手架工具 脚手架：在工地上，是帮助工人们作业的搭建好的架子；在技术上，是编写好基础代码的工具。 安装环境查看版本（具体安装方法百度很多） 123$ node -v$ npm -v$ cnpm -v vue-cli 1.x或2.x全局安装12$ npm install -g vue-cli$ cnpm install -g vue-cli //国内镜像安装，较快 若安装失败，则先清理缓存，再重新安装 查看版本 1$ vue -V 生成项目生成项目文件夹1$ vue init &lt;template-name&gt; &lt;project-name&gt; 输入命令后，会跳出几个选项让你回答： Project name (baoge)：项目名称，直接回车，按照括号中默认名字（注意这里的名字不能有大写字母，如果有会报错Sorry, name can no longer contain capital letters），阮一峰老师博客为什么文件名要小写 ，可以参考一下。 Project description (A Vue.js project)：项目描述，也可直接点击回车，使用默认名字 Author ()： 作者，输入你的大名 接下来会让用户选择： Runtime + Compiler: recommended for most users运行加编译，既然已经说了推荐，就选它了 Runtime-only: about 6KB lighter min+gzip, but templates (or any Vue-specificHTML) are ONLY allowed in .vue files - render functions are required elsewhere仅运行时，已经有推荐了就选择第一个了 Install vue-router? (Y/n)是否安装vue-router，这是官方的路由，大多数情况下都使用，这里就输入“y”后回车即可。 Use ESLint to lint your code? (Y/n)是否使用ESLint管理代码，ESLint是个代码风格管理工具，是用来统一代码风格的，一般项目中都会使用。 接下来也是选择题Pick an ESLint preset (Use arrow keys) 选择一个ESLint预设，编写vue项目时的代码风格，直接y回车 Setup unit tests with Karma + Mocha? (Y/n)是否安装单元测试，我选择安装y回车 Setup e2e tests with Nightwatch(Y/n)?是否安装e2e测试 ，我选择安装y回车 一般一路回车就好了 Official Templates webpack（常用） webpack-simplae browaerify browserify-simple simple 自定义 运行 （在项目文件目录下运行）1$ cnpm install 1$ npm run dev 项目文件介绍 build和config文件夹：webpack配置相关 node_modules文件夹：npm install安装的依赖代码库 src文件夹：存放项目源码 static文件夹：存放第三方静态资源 .babelrc文件：babel的配置（大多数浏览器不能直接支持ES6，则需通过babel编译成ES5） .editorconfig文件：编译器的配置 .eslintignore文件：忽略语法检查的目录文件（忽略对build和config进行ES6语法检查） .eslintrc.js：eslint的配置文件 .gitignore文件：使git仓库忽略里边的文件或者目录 index.html：编译过程中会自动插入到这个html中 package.json：项目的配置文件 README.md：项目的描述文件 运行 创建组件 创建一个.vue对象，由三部分组成：template、script、style，其中在script中使用export default导出一个对象（里面为组件的各种选项、属性） 使用组件 打包上线 1$ npm run build 所遇到的坑 使用vue安装项目文件后，若提示版本过低，则需把node、npm、cnpm全部升级到最新版本 命令cnpm install需要在==项目文件目录下==运行，若还运行不了，再找其他原因 vue-cli 3.0]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1307,6 +1373,17 @@
       </categories>
       <tags>
         <tag>红宝书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue：生命周期]]></title>
+    <url>%2F2019%2F04%2F22%2FVue%2FVue%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%2F</url>
+    <content type="text"><![CDATA[8个阶段创建前(beforeCreate)在数据观测和初始化事件还未开始时。 创建后(created)完成数据观测，属性和方法的运算，初始化事件，el属性还没有显示出来。 载入前(beforeMount)在挂载开始之前被调用，相关的render函数首次被调用。vue实例的el和data都初始化了，生成了html，但还没有挂载html到页面上。 载入后(mounted)vue实例挂载完成，html页面成功渲染。 更新前(beforeUpdate)在数据更新之前调用。 更新后(updated)调用时，组件DOM已经更新，可以执行依赖于DOM的操作。 销毁前(beforeDestroy)在实例销毁之前调用。实例仍然完全可用。 销毁后(destroy)在实例销毁之后调用。调用后，所有的事件监听器会被移除，所有的子实例也会被销毁。 相关问题什么是vue生命周期？答： Vue 实例从创建到销毁的过程，就是生命周期。也就是从开始创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。 vue生命周期的作用是什么？答：它的生命周期中有多个事件钩子，让我们在控制整个Vue实例的过程时更容易形成好的逻辑。 vue生命周期总共有几个阶段？答：它可以总共分为8个阶段：创建前/后, 载入前/后,更新前/后,销毁前/销毁后 第一次页面加载会触发哪几个钩子？答：第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子 DOM 渲染、挂载在哪个周期中就已经完成？答：DOM 渲染、挂载在 mounted 中就已经完成了。 vue能不能挂载到body或html标签上？提供的元素只能作为挂载点。不同于 Vue 1.x，所有的挂载元素会被 Vue 生成的 DOM 替换。因此不推荐挂载vue实例到html或者body标签上。 简单描述每个周期具体适合哪些场景？答：生命周期钩子的一些使用方法： beforecreate : 可以在这加个loading事件，在加载实例时触发 created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用 mounted : 挂载元素，获取到DOM节点 updated : 如果对数据统一处理，在这里写上相应函数 beforeDestroy : 可以做一个确认停止事件的确认框 nextTick : 更新数据后立即操作dom]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -1585,6 +1662,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Vue：其他]]></title>
+    <url>%2F2019%2F03%2F15%2FVue%2FVue%EF%BC%9A%E5%85%B6%E4%BB%96%2F</url>
+    <content type="text"><![CDATA[如何理解vuevue是一套用于构建用户界面的渐进式框架，采用MVVM架构。其核心库只关注视图层，采用自底向上增量开发的设计。vue的目标是通过尽可能简单的API实现响应的数据绑定和组合的视图组件。 优势： 低耦合。视图可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。 简单的语法及项目创建，提供vue-cli脚手架，能非常容易地构建项目。 更快的渲染速度和更小的体积。 缺点：不支持IE8。 vuex(可以在vue1.0使用)vue框架中状态管理。在main.js引入store，注入。新建一个目录store，….. export 。 场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车 vue1.0和vue2.0的区别生命周期不一样vue1.0：init、created、beforeCompile、compiled、ready、beforeDestroy、destroyed vue2.0：beforeCreate、created、beforeMount、mounted、beforeUpload、uploaded、beforeDestroy、destroyed 绑定一次12vue1.0：&#123;&#123;*msg&#125;&#125;vue2.0：v-once，上述已废除 绑定html代码12vue1.0：&#123;&#123;&#123;msg&#125;&#125;&#125;vue2.0：v-html，上述已废除]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS：Math的常用方法]]></title>
     <url>%2F2019%2F03%2F13%2FJS%2FJS%EF%BC%9AMath%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[12345678910111. Math.sqrt()：计算平方根2. Math.cbrt()：计算立方根3. Math.pow(a, b)：计算a的b次方4. Math.max(a,b,c...)：计算最大值5. Math.min(a,b,c...)：计算最小值6. Math.abs()：求绝对值 7. Math.ceil()：向上取整8. Math.floor()：向下取整9. Math.random()：取得一个[0.0,1.0)的随机数 10. Math.rint()： 四舍五入，返回double值。注意.5的时候会取偶数11. Math.round()： 四舍五入，float时返回int值，double时返回long值]]></content>
@@ -1670,6 +1758,17 @@
       </categories>
       <tags>
         <tag>Electron</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vue+Axios解决文件上传问题]]></title>
+    <url>%2F2018%2F09%2F01%2FVue%2FVue%2BAxios%E8%A7%A3%E5%86%B3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[前因关于文件上传，可以使用element-ui中的组件，也可以直接使用input，最近做的一个项目中有用到，查了挺多资料研究了一下，最终就实用性来说还是后者bug少。 现在就这两个介绍一下，如果有错误请提出纠正，或者有更好的可以来分享一下。 Element-UI直接action这个方法很简单，文档中有一一详细列出，重点是下一个 可参考官方文档 利用before-upload属性直接action很方便简单，但是总会有各种难以解决的错误出现如：后台要求请求方式为multipart/form-data时，不能使用data传参数，这时候就要使用formdata对象了。 使用new一个formdata对象，然后对这个对象追加key和value 12345678910//网上给出的例子beforeUpload (file,id) &#123; let fd = new FormData() fd.append(&apos;file&apos;, file) fd.append(&apos;id&apos;,id) axios.post(url, fd, &#123; &#125;) return false // false就是不自动上传&#125;, 改进后我的例子 12345678910111213141516171819202122232425&lt;el-dialog title=&quot;导入报表&quot; :visible.sync=&quot;dialogVisible&quot; width=&quot;30%&quot; :before-close=&quot;handleClose&quot; :append-to-body=&apos;true&apos;&gt; &lt;el-upload class=&quot;upload-demo&quot; ref=&quot;upload&quot; action=&quot;/super_admin/factory/device/import&quot; :limit=&quot;1&quot; :on-exceed=&quot;handleExceed&quot; :file-list=&quot;fileList&quot; :auto-upload=&quot;false&quot; :before-upload=&quot;beforeAvatarUpload&quot; :on-error=&quot;error&quot; :before-remove=&quot;beforeRemove&quot;&gt; &lt;el-button size=&quot;small&quot; type=&quot;primary&quot;&gt;点击上传&lt;/el-button&gt; &lt;/el-upload&gt; &lt;span slot=&quot;footer&quot; class=&quot;dialog-footer&quot;&gt; &lt;el-button type=&quot;primary&quot; @click.native=&quot;importTable()&quot;&gt;确 定&lt;/el-button&gt; &lt;/span&gt; &lt;/el-dialog&gt; ``` data() { return { dialogVisible: false, // 所上传的文件 fileList: [] } }, 12 methods: { // 限制上传文件为一个 handleExceed() { this.$message.warning(‘当前限制上传 1 个文件’); }, // 对文件类型进行判断并上传（重点！） beforeAvatarUpload(file) { const isXLSX = file.type === “application/vnd.openxmlformats-officedocument.spreadsheetml.sheet”; if (!isXLSX) { this.$message.error(“上传的文件只能是 xlsx 格式!”); this.fileList = []; }else { let factoryId = this.factoryId; let fd = new FormData(); fd.append(‘file’, file); fd.append(‘factoryId’, factoryId); api.importTable((err, res) =&gt; { if (err || res.status !== 200) { this.$message.error(“出错了，刷新一下吧”); return; } if (res.data.code == 403) { this.$message.error(“该账号没有此操作权限”); } else if (res.data.code == 200) { this.$message({ message: ‘文件上传成功！’, type: ‘success’ }); } else { this.$message.error(“出错了，刷新一下吧”); } },fd); return true } }, // 文件上传失败 error(err) { this.$message({ message: ‘文件上传失败！’, type: ‘warning’ }); }, // 移除已上传的文件 beforeRemove(file) { return this.$confirm(‘确定移除 ‘+file.name+’ ？’); }, // 导入报表至后台 importTable() { this.$refs.upload.submit(); this.dialogVisible = false; }, }12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { return instance({ method: “post”, url: ‘/super_admin/factory/device/import’, data: data, headers: { “Content-Type”: “multipart/form-data” } })} export{ importTable} 12345678910### 注意1. 这种方法也有弊端，action作为必填参数，无论是填任意数或者填写重复地址，控制台总会报404。2. FormData对象是不可以通过console.log在控制台直接打印出来的，但可以通过FormData.get()获取值。## input上传这个是重点，就实用来说，掌握一种方法就可以了，这个是目前最成功的（结合后台）。### 使用 12 data() { return { // 上传文件所需的参数 upload: { CurrentfactoryId: “” }, }} 12 methods: { // 打开上传文件的弹出框 handleUpload(index, row) { this.upload.CurrentfactoryId = row.factoryId; this.$refs.importFile.click(); }, // 确认导入列表 confirmUpload() { this.$confirm(‘此操作将上传 ‘+this.$refs.importFile.files[0].name+’ , 是否继续?’, ‘提示’, { confirmButtonText: ‘确定’, cancelButtonText: ‘取消’, type: ‘warning’ }).then(() =&gt; { this.$message.info(‘该过程耗时较长，请耐心等待’); this.importTable(); }).catch(() =&gt; { this.$message({ type: ‘info’, message: ‘已取消上传’ }); this.$refs.importFile.value = null; }); }, // 导入报表至后台 importTable() { let fd = new FormData(document.getElementById(“uploadform”)); // fd.append(“file”, this.upload.importFile); // fd.append(“factoryId”, this.upload.CurrentfactoryId); // console.log(fd.get(‘importFile’)); api.importTable((err, res) =&gt; { if (err) { if (err.response.status === 403 &amp;&amp; err.response.data.code==-2) { this.$message.error(“请登录”); session.clear(); this.$router.push({ path: “/login” }); } else if ( err.response.status === 500) { this.$message.error(“系统出错，请稍后再试”); } else if (err.response.status == 403) { this.$message.error(“该账号没有此操作权限”); } return; } if (res.data.code == 200) { this.$message({ message: “文件上传成功！”, type: “success” }); this.visible = false; } else { this.$message.error(“出错了，刷新一下吧”); } },fd); },} 12 // 引用instanceimport instance from ‘./instance.js’ function importTable(fn,data) { instance.post(‘/super_admin/factory/device/import’, data) .then(function (res) { fn(false, res); }).catch(function (err) { fn(err); });} export{ importTable} ` 注意 如果对于input的样式不满意，可以使用opacity把原来的input透明化来进行美化。 依然是使用formdata对象，虽然使用vue，但不知道为什么用append无法把文件传到后台，因此通过操作节点来新建，如果有人知道可以分享一下。 headers可以不手动添加，浏览器会判定界限，也可以加上。]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
