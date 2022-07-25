@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/react/react：初学react/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/26/SDK/SDK：SDK框架搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/react/react：初学react/" itemprop="url">react：初学react</a></h1>
+                <a class="post-title-link" href="/2022/04/26/SDK/SDK：SDK框架搭建/" itemprop="url">SDK：SDK框架搭建</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:51+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-04-26T00:00:00+08:00">
+                2022-04-26
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index">
-                    <span itemprop="name">react</span>
+                  <a href="/categories/SDK/" itemprop="url" rel="index">
+                    <span itemprop="name">SDK</span>
                   </a>
                 </span>
 
@@ -379,7 +379,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  95 字
+                  849 字
                 </span>
               
 
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -418,14 +418,21 @@
       
         
           
-          chrome中的react插件
-点击chrome浏览器右上角三个点-更多工具-&gt;扩展程序（或者在浏览器里面直接输入chrome://extensions/也可以进入到扩展程序里面）
-点击左上角【扩展程序】-【打开Chrome网上应用店】
-搜索React，将会出现一系列与react有关的插件，安
+          踩坑
+eslint安装，需要node 10以上
+注意rollup plugins的顺序，看eslint要使用在打包前还是后
+本地调试包时，若包内容有修改，不需要重连，如果修改不起作用，可以尝试先断开连接，重新link
+
+
+package.json
+rollup配置
+eslint
+babel
+jest
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/react/react：初学react/#more" rel="contents">
+            <a class="btn" href="/2022/04/26/SDK/SDK：SDK框架搭建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -480,7 +487,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/react/react：踩坑记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/26/SDK/SDK：反作弊SDK实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -499,7 +506,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/react/react：踩坑记/" itemprop="url">react：踩坑记</a></h1>
+                <a class="post-title-link" href="/2022/04/26/SDK/SDK：反作弊SDK实现/" itemprop="url">SDK：反作弊SDK实现</a></h1>
         
 
         <div class="post-meta">
@@ -511,8 +518,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:48+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-04-26T00:00:00+08:00">
+                2022-04-26
               </time>
             
 
@@ -534,8 +541,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index">
-                    <span itemprop="name">react</span>
+                  <a href="/categories/SDK/" itemprop="url" rel="index">
+                    <span itemprop="name">SDK</span>
                   </a>
                 </span>
 
@@ -565,7 +572,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  110 字
+                  1,097 字
                 </span>
               
 
@@ -581,7 +588,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -604,17 +611,11 @@
       
         
           
-          
-使用useState时没有触发渲染，可能是因为将已有的对象传递过去，它认为没有改变，可以这样处理
-
-1setNumbers([..old]);
-
-多个表单不要放同一页面，拆分成多个组件
-Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如果上面的路由都匹配不到时，跳转到
+          行为数据src目录结构123456789├── bridgeUtil.ts // jsBridge├── config.ts ├── encode.ts // 编码模块├── index.ts├── record.ts // 记录模块├── report.ts // 上报模块├── service.
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/react/react：踩坑记/#more" rel="contents">
+            <a class="btn" href="/2022/04/26/SDK/SDK：反作弊SDK实现/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -669,7 +670,7 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/react/ant-design：Form.list使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/15/前端/E2E测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -688,7 +689,7 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/react/ant-design：Form.list使用/" itemprop="url">ant-design：Form.list使用</a></h1>
+                <a class="post-title-link" href="/2022/02/15/前端/E2E测试/" itemprop="url">E2E测试</a></h1>
         
 
         <div class="post-meta">
@@ -700,8 +701,8 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:45+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-15T00:00:00+08:00">
+                2022-02-15
               </time>
             
 
@@ -723,8 +724,8 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index">
-                    <span itemprop="name">react</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -754,190 +755,7 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  180 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          使用1234567891011121314&lt;Form&gt;    &lt;Form.List name=&apos;data&apos;&gt;        &#123;(fields) =&gt; (            fields.map(field =&gt; (        
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/react/ant-design：Form.list使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：路由原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/07/22/vue/vue：路由原理/" itemprop="url">vue：路由原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,425 字
+                  1,433 字
                 </span>
               
 
@@ -976,12 +794,14 @@ Redirect一般都放Switch里面，必须放在Switch最后一行（含义：如
       
         
           
-          单页面应用随着前端应用的业务功能越来越复杂、用户对于使用体验的要求越来越高，单页应用（SPA）成为前端应用的主流形式。大型单页应用最显著特点之一就是采用前端路由系统，通过改变URL，在不重新请求页面的情况下，更新页面视图。
-vue-router实现方式“更新视图但不重新请求页面”是前端路由原理的核心
+          E2E (end-to-end)
+E2E测试就是end to end testing，即端到端测试。
+它模仿用户，从某个入口开始，逐步执行操作，直到完成某项工作。
+E2E 测试并没有那么强调要覆盖全部使用场景，它关注的是一个完整的操作链是否能够完成。对于 Web 前端来说，还关注 界面布局、内容信息
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：路由原理/#more" rel="contents">
+            <a class="btn" href="/2022/02/15/前端/E2E测试/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1036,7 +856,7 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：移动端适配/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/JS/JS：正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1055,7 +875,7 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/vue/vue：移动端适配/" itemprop="url">移动端适配</a></h1>
+                <a class="post-title-link" href="/2021/11/24/JS/JS：正则表达式/" itemprop="url">JS：正则表达式</a></h1>
         
 
         <div class="post-meta">
@@ -1067,8 +887,8 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-24T00:00:00+08:00">
+                2021-11-24
               </time>
             
 
@@ -1090,8 +910,8 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
                   </a>
                 </span>
 
@@ -1121,7 +941,197 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  325 字
+                  1,167 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          正则的三种属性
+g：全局匹配
+i：忽略大小写（默认区分大小写）
+m：多行模式
+
+常用方法12let str = &apos;abc&apos;;let reg = /a/gi;
+test()在字符串中查找符合正则的内容，若找到返回true，否则false
+12// 用法：正则.test(字符串)re
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/11/24/JS/JS：正则表达式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/22/服务器端/Node/Node：删除文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/22/服务器端/Node/Node：删除文件/" itemprop="url">Node：删除文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-22T00:00:00+08:00">
+                2021-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  185 字
                 </span>
               
 
@@ -1160,15 +1170,20 @@ vue-router实现方式“更新视图但不重新请求页面”是前端路由�
       
         
           
-          lib-flexible原理
-在页面中引入flexible.js后，flexible会在html标签上增加一个data-dpr属性和font-size样式。
-js首先会获取设备型号和对应的dpr，然后根据不同设备添加不同的data-dpr值，比如说1、2或者3，从源码中我们可以看到。
+          步骤
 
-vue中适配
+先删文件，清空文件夹
+删除空文件夹
+
+相关命令
+
+fs.stat &amp;&amp; fs.statSync 提供了访问文件的属性信息
+fs.readdir &amp;&amp; fs.readdirSync 提供读取文件目录信息
+fs.unlink &amp;&amp; unlinkSy
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：移动端适配/#more" rel="contents">
+            <a class="btn" href="/2021/11/22/服务器端/Node/Node：删除文件/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1223,7 +1238,7 @@ vue中适配
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：组件间的传值/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/05/服务器端/Node/Node：版本管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1242,7 +1257,7 @@ vue中适配
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/vue/vue：组件间的传值/" itemprop="url">vue：组件间的传值</a></h1>
+                <a class="post-title-link" href="/2021/11/05/服务器端/Node/Node：版本管理/" itemprop="url">Node：版本管理</a></h1>
         
 
         <div class="post-meta">
@@ -1254,8 +1269,8 @@ vue中适配
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-05T00:00:00+08:00">
+                2021-11-05
               </time>
             
 
@@ -1277,8 +1292,8 @@ vue中适配
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
                   </a>
                 </span>
 
@@ -1308,7 +1323,7 @@ vue中适配
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  212 字
+                  262 字
                 </span>
               
 
@@ -1347,22 +1362,15 @@ vue中适配
       
         
           
-          父组件向子组件传值
-父组件把要传递的值绑定在调用的子组件上
-子组件通过props[“”]来接收值来使用
-
-子组件向父组件传值
-子组件通过$emit(‘函数名’,’参数’)来抛出事件传递参数
-父组件通过在调用的子组件上绑定函数名来使用参数（@函数名）
-vuex
-
-兄弟之间传值
-vuex 
-通过路由带参
+          使用homebrew进行管理查看当前版本1$ node -v
+查看当前有哪些可以安装的版本1$ brew search node
+安装node 101$ brew install node@10
+解除高版本的关联关系1$ brew unlink node@12
+关联node10版本12$ echo 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：组件间的传值/#more" rel="contents">
+            <a class="btn" href="/2021/11/05/服务器端/Node/Node：版本管理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1417,7 +1425,7 @@ vuex
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：生命周期/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/02/JS/JS：MJS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1436,7 +1444,7 @@ vuex
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/vue/vue：生命周期/" itemprop="url">vue：生命周期</a></h1>
+                <a class="post-title-link" href="/2021/11/02/JS/JS：MJS/" itemprop="url">JS：MJS</a></h1>
         
 
         <div class="post-meta">
@@ -1448,8 +1456,8 @@ vuex
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-02T00:00:00+08:00">
+                2021-11-02
               </time>
             
 
@@ -1471,8 +1479,8 @@ vuex
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
                   </a>
                 </span>
 
@@ -1502,378 +1510,7 @@ vuex
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  658 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-8个阶段创建前(beforeCreate)在数据观测和初始化事件还未开始时。
-创建后(created)完成数据观测，属性和方法的运算，初始化事件，el属性还没有显示出来。
-载入前(beforeMount)在挂载开始之前被调用，相关的render函数首次被调用。vue实例的el和data都初始化了，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：生命周期/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：数据双向绑定原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/07/22/vue/vue：数据双向绑定原理/" itemprop="url">vue：数据双向绑定原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  579 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-           vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()（相当于observer）来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
-
-observer：遍历data中的属性，使用Object.defi
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：数据双向绑定原理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：其他/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sivan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sivan">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/07/22/vue/vue：其他/" itemprop="url">vue：其他</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  310 字
+                  83 字
                 </span>
               
 
@@ -1912,14 +1549,12 @@ observer：遍历data中的属性，使用Object.defi
       
         
           
-          如何理解vuevue是一套用于构建用户界面的渐进式框架，采用MVVM架构。其核心库只关注视图层，采用自底向上增量开发的设计。vue的目标是通过尽可能简单的API实现响应的数据绑定和组合的视图组件。
-优势：
+          .mjs 是什么文件呢？很明显因为 ESM 和 CJS 的加载方式不同，为了更高的区分这两种不同的加载方式，于是创建了 .mjs(Module JavaScript)。.mjs 就是表示当前文件用 ESM 的方式进行加载，如果是普通的 .js 文件，则采用 CJS 的方式加载。
 
-低耦合。视图可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View
-          ...
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：其他/#more" rel="contents">
+            <a class="btn" href="/2021/11/02/JS/JS：MJS/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1974,7 +1609,7 @@ observer：遍历data中的属性，使用Object.defi
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/22/vue/vue：MVVM、MVC、MVP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/02/JS/JS：setTimeout和setInterval/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1993,7 +1628,7 @@ observer：遍历data中的属性，使用Object.defi
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2022/07/22/vue/vue：MVVM、MVC、MVP/" itemprop="url">vue：MVVM、MVC、MVP</a></h1>
+                <a class="post-title-link" href="/2021/11/02/JS/JS：setTimeout和setInterval/" itemprop="url">JS：setTimeout和setInterval</a></h1>
         
 
         <div class="post-meta">
@@ -2005,8 +1640,8 @@ observer：遍历data中的属性，使用Object.defi
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T14:57:40+08:00">
-                2022-07-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-02T00:00:00+08:00">
+                2021-11-02
               </time>
             
 
@@ -2028,8 +1663,8 @@ observer：遍历data中的属性，使用Object.defi
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
                   </a>
                 </span>
 
@@ -2059,7 +1694,7 @@ observer：遍历data中的属性，使用Object.defi
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  520 字
+                  219 字
                 </span>
               
 
@@ -2075,7 +1710,7 @@ observer：遍历data中的属性，使用Object.defi
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  1 分钟
                 </span>
               
             </div>
@@ -2098,14 +1733,403 @@ observer：遍历data中的属性，使用Object.defi
       
         
           
-          MVCM代表Model，代表数据模型。
-V代表View，代表视图。
-C代表Controller，代表控制器，用来处理数据。
-工作模式用户操作视图View，当数据改变时，传到Controller进行数据的处理，继而更新到Model，Model的更新会通过观察者模式通知View，View通过观察者模式收
+          都是延迟一段时间调用回调函数。
+setTimeout
+setTimeout只调用一次。
+setTimeout最短间隔时间为4毫秒。setInterval
+setInterval会一直循环调用函数，不会自己停止。要用clearInterval(计数器编号)来停止。
+setInterval最短间隔时间为
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2022/07/22/vue/vue：MVVM、MVC、MVP/#more" rel="contents">
+            <a class="btn" href="/2021/11/02/JS/JS：setTimeout和setInterval/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/17/Cocos/Cocos：Cocos接入react组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/09/17/Cocos/Cocos：Cocos接入react组件/" itemprop="url">Cocos：Cocos接入react组件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-17T00:00:00+08:00">
+                2021-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cocos/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,242 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+接入redeem store，react组件，cocos不支持tsx
+ts把tsx编译成js引入
+有引入别的文件使用，ts无法把两个文件打成一个文件
+使用rolllup编译成js
+引入文件过大，导致ts文件崩溃
+把js改为插件脚本
+把js导出项改为全局变量，直接引用
+分包
+需要把依赖一起打包到js
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/09/17/Cocos/Cocos：Cocos接入react组件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/02/Git/Git：一些常用的命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sivan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sivan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/08/02/Git/Git：一些常用的命令/" itemprop="url">Git：一些常用的命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-02T00:00:00+08:00">
+                2021-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  32 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+忽略eslint
+1git commit --no-verify -m &quot;&quot;
+
+删除本地分支
+
+
+1git branch -d &lt;branch&gt;
+
+删除远程分支1git push origin --delete &lt;branch&gt;
+
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/08/02/Git/Git：一些常用的命令/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2151,7 +2175,7 @@ C代表Controller，代表控制器，用来处理数据。
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2201,7 +2225,7 @@ C代表Controller，代表控制器，用来处理数据。
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-count">194</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2212,7 +2236,7 @@ C代表Controller，代表控制器，用来处理数据。
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2223,7 +2247,7 @@ C代表Controller，代表控制器，用来处理数据。
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
