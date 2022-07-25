@@ -155,6 +155,28 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Node：删除文件]]></title>
+    <url>%2F2021%2F11%2F22%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9A%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%2F</url>
+    <content type="text"><![CDATA[步骤 先删文件，清空文件夹 删除空文件夹 相关命令 fs.stat &amp;&amp; fs.statSync 提供了访问文件的属性信息 fs.readdir &amp;&amp; fs.readdirSync 提供读取文件目录信息 fs.unlink &amp;&amp; unlinkSync 进行删除文件操作，不可以删除文件夹 fs.rmdir &amp;&amp; fs.rmdirSync 进行删除文件夹操作，但文件夹必须为空文件夹 12345678910111213141516171819202122// dirPath为需要删除的文件夹路径function removeDir(dirPath) &#123; return new Promise(async (resolve, reject) =&gt; &#123; const files = fs.readdirSync(dirPath); for (let i = 0; i &lt; files.length; i++) &#123; const filePath = path.join(dirPath, files[i]); if (fs.statSync(filePath).isDirectory()) &#123; removeDebug(filePath); continue; &#125; else &#123; fs.unlinkSync(filePath); &#125; &#125; try &#123; fs.rmdirSync(dirPath); &#125; catch(e) &#123; console.error(e); return reject(e); &#125; return resolve(); &#125;)&#125;]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node：版本管理]]></title>
+    <url>%2F2021%2F11%2F05%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%2F</url>
+    <content type="text"><![CDATA[使用homebrew进行管理查看当前版本1$ node -v 查看当前有哪些可以安装的版本1$ brew search node 安装node 101$ brew install node@10 解除高版本的关联关系1$ brew unlink node@12 关联node10版本12$ echo &apos;export PATH=&quot;/usr/local/opt/node@10/bin:$PATH&quot;&apos; &gt;&gt; ~/.zshrc$ brew link node@10 执行强制关联低版本命令1$ brew link --force --overwrite node@10 经典案例1背景使用n模块升级node版本后降级失败 解决方法1234567$ sudo chown -R &apos;XinweiWang&apos;:admin /usr/local/include/node$ sudo chown -R &apos;XinweiWang&apos;:admin /usr/local/bin$ sudo chown -R &apos;XinweiWang&apos;:admin /usr/local/share$ sudo chown -R &apos;XinweiWang&apos;:admin /usr/local/lib/dtrace$ brew link --overwrite node@10// 或者$ brew link --overwrite node 经典案例2在unlink node@10且link node@12后，不停提醒 123Warning: Already linked: /usr/local/Cellar/node@12/12.22.3To relink, run: brew unlink node@12 &amp;&amp; brew link --force node@12 但node版本依然是10 解决：打开/usr/local/Cellar，把node@10删掉即可 参考链接mac 系统node.js降级及修改node.js版本失败解决办法]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS：MJS]]></title>
     <url>%2F2021%2F11%2F02%2FJS%2FJS%EF%BC%9AMJS%2F</url>
     <content type="text"><![CDATA[.mjs 是什么文件呢？很明显因为 ESM 和 CJS 的加载方式不同，为了更高的区分这两种不同的加载方式，于是创建了 .mjs(Module JavaScript)。.mjs 就是表示当前文件用 ESM 的方式进行加载，如果是普通的 .js 文件，则采用 CJS 的方式加载。]]></content>
@@ -342,6 +364,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Egg：入门]]></title>
+    <url>%2F2021%2F04%2F15%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FEgg%2FEgg%EF%BC%9A%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[完整目录结构12345678910111213141516171819202122232425262728293031323334353637egg-project├── package.json├── app.js (可选)├── agent.js (可选)├── app| ├── router.js│ ├── controller│ | └── home.js│ ├── service (可选)│ | └── user.js│ ├── middleware (可选)│ | └── response_time.js│ ├── schedule (可选)│ | └── my_task.js│ ├── public (可选)│ | └── reset.css│ ├── view (可选)│ | └── home.tpl│ └── extend (可选)│ ├── helper.js (可选)│ ├── request.js (可选)│ ├── response.js (可选)│ ├── context.js (可选)│ ├── application.js (可选)│ └── agent.js (可选)├── config| ├── plugin.js| ├── config.default.js│ ├── config.prod.js| ├── config.test.js (可选)| ├── config.local.js (可选)| └── config.unittest.js (可选)└── test ├── middleware | └── response_time.test.js └── controller └── home.test.js 初始化可以使用脚手架快速生成项目（npm &gt;=6.1.0） 123$ mkdir egg-example &amp;&amp; cd egg-example$ npm init egg[ --type=simple]$ npm i 此时目录结构为 12345678egg-example├── app│ ├── controller│ │ └── home.js│ └── router.js├── config│ └── config.default.js└── package.json 启动项目: 12$ npm run dev$ open http://localhost:7001 项目各模块Router主要用来描述请求 URL 和具体承担执行动作的 Controller 的对应关系 12345// app/router.jsmodule.exports = app =&gt; &#123; const &#123; router, controller &#125; = app; router.get(&apos;/user/:id&apos;, controller.user.info);&#125;; 框架约定了app/router.js文件用于统一所有路由规则。 我们通过 Router 将用户的请求基于 method 和 URL 分发到了对应的 Controller 上 Controller负责解析用户的输入，处理后返回相应的结果 框架推荐 Controller 层主要对用户的请求参数进行处理（校验、转换），然后调用对应的service方法处理业务，得到业务结果后封装并返回： 获取用户通过 HTTP 传递过来的请求参数。 校验、组装参数。 调用 Service 进行业务处理，必要时处理转换 Service 的返回结果，让它适应用户的需求。 通过 HTTP 将结果响应给用户。 Modelapp/model/**用于放置领域模型，可选，由领域类相关插件约定，如egg-sequelize。 我们使用egg-sequelize来操作数据库，通过映射数据库条目到对象，或者对象到数据库条目，这样，我们读写的都是JavaScript对象，并且还会辅助我们将定义好的 Model 对象加载到 app 和 ctx 上，对前端更加友好。 Sequelize我们选择Node的ORM框架Sequelize来操作数据库。这样，我们读写的都是JavaScript对象，Sequelize帮我们把对象变成数据库中的行。 ORM 对象关系映射（Object Relational Mapping，简称ORM）模式是一种为了解决面向对象与关系数据库存在的互不匹配的现象的技术。 简单来说，将程序中的对象自动持久化到关系数据库中。 ORM提供了实现持久化层的另一种模式，它采用映射元数据来描述对象关系的映射，使得ORM中间件能在任何一个应用的业务逻辑层和数据库层之间充当桥梁。 简单来说，ORM框架把关系数据库的表结构映射到对象上。 实际使用 Model（可选）：操作数据库，可以通过一些插件简化对数据库的读写操作，如egg-sequelize。 Service：业务逻辑层，在此对数据库进行读写操作。若在 Model 中通过框架操作数据库，则调用Model中的方法。 Controller：接收并处理请求参数，调用 Service 进行业务处理，对返回的参数进行处理并返回给用户。]]></content>
+      <categories>
+        <category>Egg</category>
+      </categories>
+      <tags>
+        <tag>Egg</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS：内存泄漏]]></title>
     <url>%2F2021%2F03%2F23%2FJS%2FJS%EF%BC%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%2F</url>
     <content type="text"><![CDATA[内存泄露什么是内存泄露？应用程序不再需要占用内存的时候，由于某些原因，内存没有被操作系统或可用内存池回收。 编程语言管理内存的方式各不相同。只有开发者最清楚哪些内存不需要了，操作系统可以回收。一些编程语言提供了语言特性，可以帮助开发者做此类事情。另一些则寄希望于开发者对内存是否需要清晰明了。 JavaScript 内存管理JavaScript 是一种垃圾回收语言。垃圾回收语言通过周期性地检查先前分配的内存是否可达，帮助开发者管理内存。换言之，垃圾回收语言减轻了“内存仍可用”及“内存仍可达”的问题。两者的区别是微妙而重要的：仅有开发者了解哪些内存在将来仍会使用，而不可达内存通过算法确定和标记，适时被操作系统回收。 JavaScript 内存泄露垃圾回收语言的内存泄露主因是不需要的引用。理解它之前，还需了解垃圾回收语言如何辨别内存的可达与不可达。 内存泄漏排查工具主要借助 Chrome 浏览器进行排查 Performance 在录制前先选中Screenshots、Memory。 点击 record 。 对页面进行操作。 操作结束后，停止录制。 通过JS Heap查看内存泄漏情况。 如果内存占用基本平稳，接近水平，就说明不存在内存泄漏。反之，则有内存泄漏。 MemoryHeap snapshot当生成了第一个快照的时候，开发者工具窗口已经显示了很详细的内存占用情况。字段解释： Constructor — 占用内存的资源类型 Distance — 当前对象到根的引用层级距离 Shallow Size — 对象所占内存（不包含内部引用的其它对象所占的内存）(单位：字节) Retained Size — 对象所占总内存（包含内部引用的其它对象所占的内存）(单位：字节) 将每项展开可以查看更详细的数据信息。 生成第一个快照，通过Summary可以查看内存占用情况。 切回网页进行操作。 再次生成一个快照，可以通过Comparison与第一个快照进行对比。 需要特别注意这个 #Delta ，如果是正值，就代表新生成的内存多，释放的内存少。其中的闭包项 closure ，如果是正值，就说明存在内存泄漏。 Allocation instrumentation on timeline Start recording heap profile 对页面进行操作 操作结束后停止录制 最后会生成柱状图。 高度表示内存大小，蓝色柱是在timeline最后还存在的内存，灰色柱是在timeline结束前已经被回收的内存。 可以通过 Constructor 查看哪些依然被持有 参考链接 JavaScript 内存泄漏教程 记录一次前端内存泄漏排查经历]]></content>
@@ -350,6 +383,17 @@
       </categories>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TS：修饰符]]></title>
+    <url>%2F2021%2F03%2F09%2FTS%2FTS%EF%BC%9A%E4%BF%AE%E9%A5%B0%E7%AC%A6%2F</url>
+    <content type="text"><![CDATA[TypeScript 修饰符TypeScript 可以使用三种访问修饰符（Access Modifiers），分别是 public、private 和 protected。 修饰符 在类内可访问 在子类中可访问 可通过类实例从外部访问 public (default) Yes Yes Yes protected Yes Yes No private Yes No No public public 修饰的属性或方法是公有的。 所有定义成public的属性和方法都可以在任何地方进行访问。 默认所有的属性和方法都是 public 的。 private private 修饰的属性或方法是私有的。 所有定义成private的属性和方法都只能在类定义内部进行访问。 protected protected 修饰的属性或方法是受保护的。 所有定义成protected的属性和方法可以从类定义内部访问，也可以从子类中访问。]]></content>
+      <categories>
+        <category>TS</category>
+      </categories>
+      <tags>
+        <tag>TS</tag>
       </tags>
   </entry>
   <entry>
@@ -408,6 +452,50 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Egret：EXML]]></title>
+    <url>%2F2021%2F02%2F20%2FEgret%2FEgret%EF%BC%9AEXML%2F</url>
+    <content type="text"><![CDATA[在EUI中，EXML是可以运行时加载解析的。可以把它当做标准的文本文件加载后解析，或者直接将exml文本内容嵌入代码中解析。 使用EXML下面的示例描述一个按钮的皮肤12345678910&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; &lt;e:Skin class=&quot;skins.ButtonSkin&quot; states=&quot;up,down,disabled&quot; minHeight=&quot;50&quot; minWidth=&quot;100&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Image width=&quot;100%&quot; height=&quot;100%&quot; scale9Grid=&quot;1,3,8,8&quot; alpha.disabled=&quot;0.5&quot; source=&quot;button_up_png&quot; source.down=&quot;button_down_png&quot;/&gt; &lt;e:Label id=&quot;labelDisplay&quot; top=&quot;8&quot; bottom=&quot;8&quot; left=&quot;8&quot; right=&quot;8&quot; size=&quot;20&quot; fontFamily=&quot;Tahoma &apos;Microsoft Yahei&apos;&quot; verticalAlign=&quot;middle&quot; textAlign=&quot;center&quot; text=&quot;按钮&quot; andtextColor=&quot;0x000000&quot;/&gt; &lt;e:Image id=&quot;iconDisplay&quot; horizontalCenter=&quot;0&quot; verticalCenter=&quot;0&quot;/&gt; &lt;/e:Skin&gt; 皮肤文件推荐放在resource目录下 直接引用EXML文件123var button = new eui.Button();button.skinName = &quot;resource/skins/ButtonSkin.exml&quot;;this.addChild(button); 动态加载EXML文件若描述的对象不是皮肤，那么我们就得采用更加通用的一种加载解析方式。可以直接使用EXML.load()方法来加载并解析外部的EXML文件，加载完成后，回调函数的参数会传入解析后的类定义，可以把类定义new出来实例化它，或直接赋值给组件的skinName属性（如果EXML根节点是Skin）。 12345678private init():void&#123; EXML.load(&quot;skins/ButtonSkin.exml&quot;,this.onLoaded,this);&#125;private onLoaded(clazz:any,url:string):void&#123; var button = new eui.Button(); button.skinName = clazz; this.addChild(button);&#125; 嵌入EXML到代码EXML同样也提供了文本的解析方式，这个过程可以直接类比对JSON文件的处理，因为几乎是一样的。可以使用HttpRequest去加载EXML文件的文本内容，然后运行时调用EXML.parse(exmlText)方法去解析即可，会立即返回解析后的类定义。当然，也可以跳过异步加载，直接在代码中嵌入EXML文本内容： 12345678910111213var exmlText = `&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; &lt;e:Skin class=&quot;skins.ButtonSkin&quot; states=&quot;up,down,disabled&quot; minHeight=&quot;50&quot; minWidth=&quot;100&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Image width=&quot;100%&quot; height=&quot;100%&quot; scale9Grid=&quot;1,3,8,8&quot; alpha.disabled=&quot;0.5&quot; source=&quot;button_up_png&quot; source.down=&quot;button_down_png&quot;/&gt; &lt;e:Label id=&quot;labelDisplay&quot; top=&quot;8&quot; bottom=&quot;8&quot; left=&quot;8&quot; right=&quot;8&quot; size=&quot;20&quot; fontFamily=&quot;Tahoma &apos;Microsoft Yahei&apos;&quot; verticalAlign=&quot;middle&quot; textAlign=&quot;center&quot; text=&quot;按钮&quot; textColor=&quot;0x000000&quot;/&gt; &lt;e:Image id=&quot;iconDisplay&quot; horizontalCenter=&quot;0&quot; verticalCenter=&quot;0&quot;/&gt; &lt;/e:Skin&gt;`;var button = new eui.Button();button.skinName = exmlText;this.addChild(button); 可以使用模板字面量（template literals）进行多行字符串的嵌入，从而避免了用 “n”+ 符号来进行字符串连接。即直接使用头尾一对 ` 符号（波浪线那个按键）来包裹多行文本 包含在模板字面量中的文本内容，还可以使用 ${key} 等嵌入的表达式来引用代码中的变量，进行简洁的字符串拼接 123var className = &quot;skins.ButtonSkin&quot;;var exmlText = `&lt;e:Skin class=&quot;$&#123;className&#125;&quot; states=&quot;up,over,down,disabled&quot; xmlns:s=&quot;http://ns.egret.com/eui&quot;&gt; ... &lt;/e:Skin&gt;`; EXML基本语法根节点12&lt;e:Group class=&quot;app.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;/e:Group&gt; EXML跟XML一样，是由标签组成的。 每个标签都有个命名空间前缀，例如&lt;e:Group&gt;中的e,它的对应命名空间声明也在根节点上：xmlns:e=”http://ns.egret.com/eui&quot;。 以e这个命名空间开头的节点，表示在EUI这个UI库中的组件。而&lt;e:Group&gt;中的Group就是对应代码中eui.Group这个类。 这个例子中只有一个根节点，根节点上的class属性表示它在运行时解析后要注册为的全局类名。以上的EXML文件，在运行时解析后完全等价于如下代码： 1234567module app &#123; export class MyGroup extends eui.Group &#123; public constructor()&#123; super(); &#125; &#125;&#125; 从这个例子可以看出EXML文件与代码的对应关系。EXML解析后会变成一个自定义类，继承的父类就是EXML的根节点，模块名和类名定义在跟节点上的class属性内。 注意:一定要加class这个属性，否则编译会报错 添加子项上面的例子只有一个根节点，将它扩展，添加一个Image子项： 12&lt;e:Group class=&quot;app.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Image /&gt; &lt;/e:Group&gt; 以上内容等价于如下代码： 123456789module app &#123; export class MyGroup extends eui.Group &#123; public constructor()&#123; super(); var image = new eui.Image(); this.addChild(image); &#125; &#125;&#125; 设置属性刚刚的例子只添加了一个空图片，什么都显示不出来，接下来给它设置一些属性： 123&lt;e:Group class=&quot;app.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Image source=&quot;image/button_up.png&quot; x=&quot;10&quot;/&gt; &lt;/e:Group&gt; ID属性我们可以在节点上声明一个id属性，注意这个id属性与HTML中的id并不是一回事，它的结果相当于给解析后的类声明了一个公开变量。例如： 123&lt;e:Group class=&quot;app.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Image id=&quot;iconDisplay&quot; /&gt; &lt;/e:Group&gt; 数据绑定EXMl支持数据绑定功能，数据绑定相当于是给静态的EXML文件添加动态脚本的功能，能够极大简化视图刷新的代码量。得益于JavaScript的动态语言特性，所有的Object对象都可以实现动态数据绑定，并不限定于Egret框架内的对象。在EXML中实现数据绑定只需要一对{}括号： 123&lt;e:ItemRenderer class=&quot;skins.ItemRendererSkin&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Label id=&quot;labelDisplay&quot; text=&quot;&#123;data.label&#125;&quot;/&gt; &lt;/e:ItemRenderer&gt; 例如上面的例子，在Label节点的text属性上声明了一个数据绑定：{data.label}，它表示text属性的值始终与根节点ItemRender的data属性上的label值相同。当ItemRender的data属性发生改变，或data上的label属性发生改变时，数据绑定都会自动通知Label重新对text属性赋值，从而刷新视图。 注意目前数据绑定只支持属性链访问，即a.b.c.d.x这种形式,还不支持直接声明复杂表达式的绑定。若遇到复杂表达式的情况，需要自行在外部完成转换，将最终计算结果赋值到数据对象上。 内部类在很多情况下，都需要引用一些只使用一次的EXML文件，对于这种情况，现在更好的做法是直接内嵌它，而不再需要额外创建一个文件再引用它。例如一个Button，需要引用一个皮肤，通常的做法是分成两个文件，创建一个ButtonSkin.exml文件用于描述按钮皮肤，在另一个EXML文件中使用skinName属性引用它的类名： ButtonSkin.exml 123&lt;e:Skin class=&quot;skins.ButtonSkin&quot; states=&quot;up,over,down,disabled&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Label id=&quot;labelDisplay&quot; left=&quot;20&quot; right=&quot;20&quot; top=&quot;10&quot; bottom=&quot;10&quot;/&gt; &lt;/e:Skin&gt; MyGroup.exml 1234&lt;e:Group class=&quot;skins.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Button label=&quot;按钮&quot; skinName=&quot;skins.ButtonSkin&quot;&gt; &lt;/e:Button&gt;&lt;/e:Group&gt; 上面的例子，可以直接写在同一个文件内,等价于以下内容： MyGroup.exml 1234567&lt;e:Group class=&quot;skins.MyGroup&quot; xmlns:e=&quot;http://ns.egret.com/eui&quot;&gt; &lt;e:Button label=&quot;按钮&quot;&gt; &lt;e:Skin states=&quot;up,over,down,disabled&quot;&gt; &lt;e:Label id=&quot;labelDisplay&quot; left=&quot;20&quot; right=&quot;20&quot; top=&quot;10&quot; bottom=&quot;10&quot;/&gt; &lt;/e:Skin&gt; &lt;/e:Button&gt; &lt;/e:Group&gt; 这种写法能够有效减少EXML的文件数量，仅当皮肤需要复用时，再创建独立的EXML文件。 参考链接EXML]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：锚点（anchorOffset）]]></title>
+    <url>%2F2021%2F02%2F20%2FEgret%2FEgret%EF%BC%9A%E9%94%9A%E7%82%B9%EF%BC%88anchorOffset%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[锚点egret中对锚点(anchorOffsetX,anchorOffsetY)的使用目的，基本是和CSS3属性中的transform-origin是一致的，大多是基于元素中心的旋转和放大。但使用方法上是有区别的， egret的默认锚点在左上角 transform-origin默认在元素中心 此外，egret这类工具（还有createjs，pixi等）本身是基于canvas/webgl的画布上进行绘制 设置锚点123a.x = 100a.y = 100a.anchorOffsetX = 50 元素旋转、缩放都是基于锚点 元素默认锚点在左上角，此时左上角的坐标点为(100, 100)，锚点坐标为(0, 0) 锚点对元素位置的影响设置锚点后，锚点坐标变为(50, 0)，此时，元素会左移50，左上角的坐标点即xy值会变为(50, 100) 12a.x = a.x - a.anchorOffsetXa.y = a.y - a.anchorOffsetY 恢复元素位置如果希望设置锚点，但又不希望改变元素位置，可以设置锚点后，再加回来 12345a.x = 100a.y = 100a.anchorOffsetX = 50a.x = a.x + a.anchorOffsetXa.y = a.y + a.anchorOffsetY 注意 设置锚点后，xy值会修改，元素位置会改变，元素的xy坐标依然是元素左上角的坐标 缩放、旋转，xy值不会修改，元素位置会改变，因此元素的xy坐标有可能不再是原来a点的坐标，也不再是元素左上角的坐标，因此元素的xy点会根据元素位置的改变而指向不同的点，值却不会变 因此缩放、旋转后，想要移动元素位置，可以根据元素的xy坐标点的位置与此时元素的哪一个部分位于那个位置，来进行修改移动 参考链接白鹭引擎(egret)中锚点(anchoroffset)的位置体会]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：矢量绘图]]></title>
+    <url>%2F2021%2F02%2F20%2FEgret%2FEgret%EF%BC%9A%E7%9F%A2%E9%87%8F%E7%BB%98%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[公共方法beginFill(color, alpha)设置矩形的填充颜色。 color：填充矩形的颜色值 alpha：1表示完全不透明，0表示透明 lineStyle(lineWidth, color)添加描边，设置线条的样式 lineWidth：线条宽度 color：线条颜色值 endFill()结束当前绘制操作。 clear()清空绘图 绘制矩形drawRect(x, y, width, height) x、y：矩形左上角的X、Y轴坐标 width、height：矩形的宽和高 1234567var shp:egret.Shape = new egret.Shape();shp.x = 20;shp.y = 20;shp.graphics.lineStyle(10, 0x00ff00);shp.graphics.beginFill(0xff0000, 1);shp.graphics.drawRect(0, 0, 100, 200);shp.graphics.endFill(); 注意若设置了新建的shape的x、y值，则矩形的x、y坐标是以shape为基准，否则以容器为基准 绘制圆角矩形drawRoundRect(x, y ,width ,height ,ellipseWidth ,ellipseHeight) x、y：圆角矩形左上角的X、Y轴坐标 width、height：圆角矩形的宽和高 ellipseWidth：用于绘制圆角的椭圆的宽度 ellipseHeight：用于绘制圆角的椭圆的高度 123456var shp:egret.Shape = new egret.Shape();shp.x = 20;shp.y = 20;shp.graphics.beginFill(0xff0000, 1);shp.graphics.drawRoundRect(0, 0, 100, 200, 24, 24);shp.graphics.endFill(); 绘制圆形drawCircle(x, y, radius) x、y：圆心的X、Y轴坐标 radius：半径 1234567var shp:egret.Shape = new egret.Shape();shp.x = 100;shp.y = 100;shp.graphics.lineStyle(10, 0x00ff00);shp.graphics.beginFill(0xff0000, 1);shp.graphics.drawCircle(0, 0, 50);shp.graphics.endFill(); 绘制直线moveTo(x, y)绘制直线的起始点 lineTo(x, y)绘制直线的终点 注意 绘制折线时，无需多次使用 moveTo() 方法，连续使用 lineTo() 方法即可 若使用beginFill()，可以为绘制的闭合图像填充颜色。若终点没有回到起点进行闭合，会连接两个点进行闭合 123456var shp:egret.Shape = new egret.Shape();shp.graphics.lineStyle( 2, 0x00ff00 );shp.graphics.moveTo( 68, 84 );shp.graphics.lineTo( 167, 76 );shp.graphics.lineTo( 221, 118 );shp.graphics.endFill(); 绘制曲线curveTo(x1, y1, x2, y2)绘制是“二次贝塞尔曲线” P0是起始点，P1是控制点，P2是终点 x1、y1：控制点(P1)的X、Y轴坐标 x2、y2：终点(P2)的X、Y轴坐标 12345var shp:egret.Shape = new egret.Shape();shp.graphics.lineStyle(2, 0x00ff00 );shp.graphics.moveTo(50, 50);shp.graphics.curveTo(100,100, 200,50);shp.graphics.endFill(); 注意执行绘图时，先使用 moveTo() 方法指定曲线的起始点，然后使用 curveTo() 指定曲线的控制点和终点。 绘制圆弧drawArc(x, y, radius, startAngle, endAngle, anticlockwise) x、y：圆弧路径的圆心的X、Y轴坐标 radius：圆弧半径 startAngle、endAngle：圆弧起点终点的角度，从x轴正方向开始计算，以弧度为单位 anticlockwise：绘制方向，true为逆时针绘制圆弧，反之顺时针，默认为false 12345var shp:egret.Shape = new egret.Shape();shp.graphics.beginFill( 0x1122cc );// Math.PI 表示弧度 πshp.graphics.drawArc(200,200,100,0,Math.PI,true);shp.graphics.endFill(); 参考链接使用矢量绘图]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：eui.list]]></title>
+    <url>%2F2021%2F02%2F20%2FEgret%2FEgret%EF%BC%9Aeui.list%2F</url>
+    <content type="text"><![CDATA[起因简易版的引导轮播图 优化前 不利于添加新的引导 中途退出需要从头开始 优化后 添加新引导，修改guide数组即可 中途退出从下一张开始展示 若没有浏览到最后一张，且更换设备，需要从头开始 列表渲染vuev-for，数据绑定 egreteui.List dataProvider：列表数据源 allowMultipleSelection：是否允许多选 selectedIndex：选中项目的基于 0 的索引 selectedIndices：当前选中的一个或多个项目的索引列表 selectedItems：表示当前选定数据项的列表 eui.ItemRenderer属性 data：要呈示或编辑的数据 itemIndex：项呈示器的数据提供程序中的项目索引 selected：如果项呈示器可以将其自身显示为已选中，则为 true 方法 dataChanged() touchCaptured() onTouchCancle() onTouchBegin() onStageTouchEnd() getCurrentState() eui.ArrayCollection addItem()：向列表末尾添加指定项目。 addItemAt()：在指定的索引处添加项目。 getItemAt()：获取指定索引处的项目。 getItemIndex()：如果项目位于列表中，返回该项目的索引。 itemUpdated()：通知视图，某个项目的属性已更新。 refresh()：在对数据源进行排序或过滤操作后可以手动调用此方法刷新所有数据，以更新视图。 removeAll()：删除列表中的所有项目。 removeItemAt()：删除指定索引处的项目并返回该项目。 replaceAll()：用新数据源替换原始数据源，此方法与直接设置source不同，它不会导致目标视图重置滚动位置。 replaceItemAt()：替换在指定索引处的项目，并返回该项目。 eui.CheckBox selected：按钮处于按下状态时为 true，而按钮处于弹起状态时为 false eui.skin states：为此组件定义的视图状态。1234// 使用：属性.状态 &lt;e:Skin states=&quot;up,down&quot;&gt; &lt;e:Image source.up=&quot;guide_json.image_turning1&quot; source.down=&quot;guide_json.image_turning2&quot;/&gt;&lt;/e:Skin&gt; 参考链接Egret List + ItemRenderer使用]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[React：路由跳转]]></title>
     <url>%2F2021%2F01%2F12%2FReact%2FReact%EF%BC%9A%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC%2F</url>
     <content type="text"><![CDATA[路由跳转引入依赖1import &#123; withRouter, RouteComponentProps &#125; from &apos;react-router-dom&apos;; 组件继承上面依赖中的路由组件接口123class testPage extends React.Component&lt;RouteComponentProps, &#123;&#125;&gt; &#123; // ...&#125; 如果props有其他参数 123456type Props = RouteComponentProps &amp; &#123; // ...&#125;class testPage extends React.Component&lt;Props, &#123;&#125;&gt; &#123; // ...&#125; 导出使用 withRouter 包装 1export default withRouter(testPage); 如果有引入redux 1export default connect(stateToProps, dispatchToProps)(withRouter(testPage)); 使用123public clickSearch = (value: string) =&gt; &#123; this.props.history.push( &apos;/test/testpage&apos; );&#125; 路由传参路由表配置参数地址栏显示，刷新页面，参数不丢失1&lt;Route path=&quot;/test/testpage/:id&quot; component=&#123; OtherDetail &#125; /&gt; 需要获取参数的页面的类型声明 1234// RouteComponentProps里的参数必须为stringtype Props = RouteComponentProps&lt;&#123; id: string &#125;&gt; &amp; &#123; // ...&#125; 跳转1this.props.history.push( &apos;/test/testpage/2&apos; ); 获取1this.props.match.params.id query方法(新版本已废弃)路由不需要额外配置，参数地址栏不显示，刷新地址栏，参数丢失 跳转123456this.props.history.push(&#123; pathname: &apos;/test/testpage&apos;, query: &#123; id: &apos;0&apos; &#125;&#125;) 获取1this.props.location.query.id search方法（新版本）路由不需要额外配置，参数地址栏显示，刷新地址栏，参数不丢失 跳转12345this.props.history.push(&#123; pathname: &apos;/test/testpage&apos;, search: &apos;?id=1&apos; &#125;) 获取1this.props.location.search state方法路由不需要额外配置，参数地址栏不显示，刷新地址栏，参数丢失 跳转123456this.props.history.push(&#123; pathname: &apos;/test/testpage&apos;, state: &#123; id: &apos;0&apos; &#125;&#125;) 获取1this.props.location.state.id]]></content>
@@ -460,6 +548,17 @@
       </categories>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：drawcall优化]]></title>
+    <url>%2F2020%2F11%2F19%2FEgret%2FEgret%EF%BC%9Adrawcall%E4%BC%98%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[原理绘制成图集，需要时直接获取添加 将每一个纸屑生成动态纹理，再全部添加到一个容器中，一起生成一个图集 图集保留在单例中，不需要反复生成 注意 图集中的每一片纸屑不能重合 容器中的x、y要对应图集中的位置 图集中y轴的基准与容器中的是相反的 容器中y的0点在最上方，越往下越大 图集中y的0点在最下方，越往上越大 因此在图集中生成texture对象时，容器中的y1 = 20，对应图集中的y2 = 屏幕高度 - y1 - 纸屑高度]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
       </tags>
   </entry>
   <entry>
@@ -562,6 +661,83 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[TS：interface和type]]></title>
+    <url>%2F2020%2F07%2F24%2FTS%2FTS%EF%BC%9Ainterface%E5%92%8Ctype%2F</url>
+    <content type="text"><![CDATA[参考：【区分】Typescript 中 interface 和 type interface：接口 TypeScript 的核心原则之一是对值所具有的结构进行类型检查。 而接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。 接口就好比一个名字，用来描述值所具有的结构 特性可选属性1234// ? 代表 类型为SquareConfig的值可以不含有color属性interface SquareConfig &#123; color?: string;&#125; 只读属性1234// readonly 代表 x属性只读interface Point &#123; readonly x: number;&#125; 多余属性防止使用不属于接口的属性 1234567891011interface Preson &#123; name: string; age?: number;&#125;let p1:Person = &#123;name: &apos;小明&apos;, age: 18, sex: &apos;男&apos;&#125;; // 报错interface Preson &#123; name: string; age?: number; [propName: string]: any&#125;let p2:Person = &#123;name: &apos;小明&apos;, age: 18, sex: &apos;男&apos;&#125;; 函数类型123interface SearchFunc &#123; (source: string, subString: string): boolean;&#125; 索引类型: 针对数组12345interface StringArray &#123; [index: number]: string;&#125;let myArray: StringArray = [&quot;Bob&quot;, &quot;Fred&quot;]; 类类型 类实现接口 123456789101112interface ClockInterface &#123; currentTime: Date; setTime(d: Date);&#125;class Clock implements ClockInterface &#123; currentTime: Date; setTime(d: Date) &#123; this.currentTime = d; &#125; constructor(h: number, m: number) &#123; &#125;&#125; 接口继承接口，可多个 12345678910111213141516interface Shape &#123;color: string;&#125;interface PenStroke &#123; penWidth: number;&#125;interface Square extends Shape, PenStroke &#123; sideLength: number;&#125;let square = &lt;Square&gt;&#123;&#125;;square.color = &quot;blue&quot;;square.sideLength = 10;square.penWidth = 5.0; type：类型别名type 会给一个类型起个新名字。 type 有时和 interface 很像，但是可以作用于原始值（基本类型），联合类型，元组以及其它任何你需要手写的类型。 1234567891011type Name = string; // 基本类型type NameResolver = () =&gt; string; // 函数type NameOrResolver = Name | NameResolver; // 联合类型function getName(n: NameOrResolver): Name &#123; if (typeof n === &apos;string&apos;) &#123; return n; &#125; else &#123; return n(); &#125;&#125; 起别名不会新建一个类型，它创建了一个新 名字来引用那个类型。给基本类型起别名通常没什么用，尽管可以做为文档的一种形式使用。 同接口一样，类型别名也可以是泛型， 我们可以添加类型参数并且在别名声明的右侧传入： 1type Container&lt;T&gt; = &#123; value: T &#125;; 也可以使用类型别名来在属性里引用自己： 12345type Tree&lt;T&gt; = &#123; value: T; left: Tree&lt;T&gt;; right: Tree&lt;T&gt;;&#125; 与交叉类型一起使用，我们可以创建出一些十分稀奇古怪的类型。 1234567891011type LinkedList&lt;T&gt; = T &amp; &#123; next: LinkedList&lt;T&gt; &#125;;interface Person &#123; name: string;&#125;var people: LinkedList&lt;Person&gt;;var s = people.name;var s = people.next.name;var s = people.next.next.name;var s = people.next.next.next.name; 然而，类型别名不能出现在声明右侧的任何地方。 1type Yikes = Array&lt;Yikes&gt;; // error interface vs type1. Objects / Functions两者都可以用来描述对象或函数的类型，但是语法不同。 Interface 12345678interface Point &#123; x: number; y: number;&#125;interface SetPoint &#123; (x: number, y: number): void;&#125; Type alias 123456type Point = &#123; x: number; y: number;&#125;;type SetPoint = (x: number, y: number) =&gt; void; 2. Other Types与接口不同，类型别名还可以用于其他类型，如基本类型（原始值）、联合类型、元组。 12345678910111213141516// primitivetype Name = string;// objecttype PartialPointX = &#123; x: number; &#125;;type PartialPointY = &#123; y: number; &#125;;// uniontype PartialPoint = PartialPointX | PartialPointY;// tupletype Data = [number, string];// domlet div = document.createElement(&apos;div&apos;);type B = typeof div; 3. Extend两者都可以扩展，但是语法又有所不同。此外，请注意接口和类型别名不是互斥的。接口可以扩展类型别名，反之亦然。 Interface extends interface 12interface PartialPointX &#123; x: number; &#125;interface Point extends PartialPointX &#123; y: number; &#125; Type alias extends type alias 12type PartialPointX = &#123; x: number; &#125;;type Point = PartialPointX &amp; &#123; y: number; &#125;; Interface extends type alias 12type PartialPointX = &#123; x: number; &#125;;interface Point extends PartialPointX &#123; y: number; &#125; Type alias extends interface 12interface PartialPointX &#123; x: number; &#125;type Point = PartialPointX &amp; &#123; y: number; &#125;; 4. class Implements类可以以相同的方式实现接口或类型别名。但是请注意，类和接口被认为是静态的。因此，它们不能实现/扩展命名联合类型的类型别名。 123456789101112131415161718192021222324252627interface Point &#123; x: number; y: number;&#125;class SomePoint implements Point &#123; x: 1; y: 2;&#125;type Point2 = &#123; x: number; y: number;&#125;;class SomePoint2 implements Point2 &#123; x: 1; y: 2;&#125;type PartialPoint = &#123; x: number; &#125; | &#123; y: number; &#125;;// FIXME: can not implement a union typeclass SomePartialPoint implements PartialPoint &#123; x: 1; y: 2;&#125; 5. extends class类定义会创建两个东西：类的实例类型和一个构造函数。 因为类可以创建出类型，所以你能够在允许使用接口的地方使用类。 12345678class Point &#123; x: number; y: number;&#125;interface Point3d extends Point &#123; z: number;&#125; 6. Declaration merging与类型别名不同，接口可以定义多次，并将被视为单个接口(合并所有声明的成员)。 123456// These two declarations become:// interface Point &#123; x: number; y: number; &#125;interface Point &#123; x: number; &#125;interface Point &#123; y: number; &#125;const point: Point = &#123; x: 1, y: 2 &#125;; 7. 计算属性，生成映射类型type 能使用 in 关键字生成映射类型，但 interface 不行。 语法与索引签名的语法类型，内部使用了 for .. in。 具有三个部分： 类型变量 K，它会依次绑定到每个属性。 字符串字面量联合的 Keys，它包含了要迭代的属性名的集合。 属性的结果类型。 123456789101112131415type Keys = &quot;firstname&quot; | &quot;surname&quot;type DudeType = &#123; [key in Keys]: string&#125;const test: DudeType = &#123; firstname: &quot;Pawel&quot;, surname: &quot;Grzybek&quot;&#125;// 报错//interface DudeType2 &#123;// [key in keys]: string//&#125; 8. 其他细节12345678910111213export default interface Config &#123; name: string&#125;// export default type Config1 = &#123;// name: string// &#125;// 会报错type Config2 = &#123; name: string&#125;export default Config2 总结interface 和 type 很像，很多场景，两者都能使用。但也有细微的差别： 类型：对象、函数两者都适用，但是 type 可以用于基础类型、联合类型、元祖。 同名合并：interface 支持，type 不支持。 计算属性：type 支持, interface 不支持。 总的来说，公共的用 interface 实现，不能用 interface 实现的再用 type 实现。主要是一个项目最好保持一致。]]></content>
+      <categories>
+        <category>TS</category>
+      </categories>
+      <tags>
+        <tag>TS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Nginx：安装]]></title>
+    <url>%2F2020%2F07%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNginx%EF%BC%9A%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[安装工具homebrew 安装nginx 先查找nginx是否已存在 12$ brew search nginx // 查询nginx是否已存在$ brew info nginx // 查看更详细的信息 安装 1$ brew install nginx 查看nginx安装目录 1$ open /usr/local/etc/nginx/ 12// 这才是nginx被安装到的目录$ open /usr/local/Cellar/nginx 打开会看到一个以当前安装的nginx的版本号为名称的文件夹，这个就是我们安装的nginx根目录啦。进入1.12.2_1/bin 目录，会看到nginx的可执行启动文件。 同样的，我们在1.12.2_1/目录下还可以看到一个名字为html的快捷方式文件夹（暂且就这么叫吧），进入该目录我们会发现其实它指向的就是/usr/local/var/www目录，这个在上面我们查看的info信息中有提到（Dcroot） 启动 1$ nginx 访问 打开浏览器访问localhost:8080，即可看到nginx的欢迎界面 关闭和重启 12345678910// 关闭1: 快速停止$ nginx -s stop // 关闭2: 完整有序停止$ nginx -s quit // 重启$ nginx -s reload]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[解决3000端口被占用问题]]></title>
+    <url>%2F2020%2F07%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2F%E8%A7%A3%E5%86%B33000%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[打开终端查看被占用端口情况 1$ sudo lsof -i tcp:3000 输入密码后即可查看到详细信息，随后kill占有端口的id 1$ kill &lt;PID&gt; 虽然这不是一个很好的方法，但也能暂时解决问题]]></content>
+      <categories>
+        <category>服务器端</category>
+      </categories>
+      <tags>
+        <tag>服务器端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Koa：连接数据库]]></title>
+    <url>%2F2020%2F07%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FKoa%2FKoa%EF%BC%9A%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%2F</url>
+    <content type="text"><![CDATA[本地环境 mysql 1234// 开启$ mysql -u root -p// 退出$ exit navicat 连接在package.json中添加依赖项然后安装 1&quot;mysql&quot;: &quot;^2.18.1&quot; 封装mysqlDB123456789101112131415161718192021222324252627282930const mysql = require(&apos;mysql&apos;); //建立连接的方法function __connection()&#123; var connection = mysql.createConnection(&#123; host : &apos;localhost&apos;, //host user : &apos;root&apos;, //数据库用户名 password : &apos;&apos;, //密码 database : &apos;candy-crush&apos; //数据库名 &#125;); connection.connect(); return connection;&#125; exports.query=function(sql,parmas=null)&#123; //1.获取数据库连接对象 var connection=__connection(); return new Promise(function(reject,resolve)&#123; //2执行sql语句 connection.query(sql, parmas, function (error, results, fields) &#123; if (error) throw error; reject(results); &#125;); //3关闭连接 connection.end(); &#125;)&#125; 使用1234567891011121314151617181920212223242526272829303132333435const mysql = require(&apos;mysql&apos;);const DB = require(&apos;./mysqlDB&apos;); // log request URL:app.use(async (ctx, next) =&gt; &#123; console.log(`Process $&#123;ctx.request.method&#125; $&#123;ctx.request.url&#125;...`); await next();&#125;);// add url-route:router.get(&apos;/api/user_guide&apos;, async (ctx, next) =&gt; &#123; var name = ctx.params.name; const result = await DB.query(&apos;select name, stamp, guided from guide where userID = 99&apos;); //查询数据库 console.log(result); ctx.response.body = &#123; code: 0, msg: &apos;success&apos;, data: &#123; userID: &apos;99&apos;, items: result &#125; &#125;&#125;);router.post(&apos;/api/user_guide&apos;, async (ctx, next) =&gt; &#123; var guideNames = ctx.request.body.guideNames.split(&apos;,&apos;) || []; for (let i in guideNames) &#123; await DB.query(`update guide set guided = true where userID = 99 and name = &apos;$&#123;guideNames[i]&#125;&apos;`) &#125; ctx.response.body = &#123; code: 0, msg: &quot;success&quot;, data: null &#125;;&#125;);]]></content>
+      <categories>
+        <category>Koa</category>
+      </categories>
+      <tags>
+        <tag>Koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Koa：入门]]></title>
+    <url>%2F2020%2F07%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FKoa%2FKoa%EF%BC%9A%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[创建koa工程首先，我们创建一个目录hello-koa并作为工程目录。然后，在工程目录下创建app.js并输入以下代码 12345678910111213141516// 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:const Koa = require(&apos;koa&apos;);// 创建一个Koa对象表示web app本身:const app = new Koa();// 对于任何请求，app将调用该异步函数处理请求app.use(async (ctx, next) =&gt; &#123; await next(); ctx.response.type = &apos;text/html&apos;; ctx.response.body = &apos;&lt;h1&gt;Hello, koa2!&lt;/h1&gt;&apos;;&#125;);// 在端口3000监听:app.listen(3000);console.log(&apos;app started at port 3000...&apos;); 对于每一个http请求，koa将调用我们传入的异步函数来处理 其中，参数ctx是由koa传入的封装了request和response的变量，我们可以通过它访问request和response next是koa传入的将要处理的下一个异步函数。 上面的异步函数中，我们首先用await next();处理下一个异步函数，然后，设置response的Content-Type和内容。 由async标记的函数称为异步函数，在异步函数中，可以用await调用另一个异步函数，这两个关键字将在ES7中引入。 安装koa在工程目录下创建一个package.json，这个文件描述了我们的hello-koa工程会用到哪些包。 12345678// 命令&quot;scripts&quot;: &#123; &quot;start&quot;: &quot;node app.js&quot;&#125;,// 工程依赖的包以及版本号&quot;dependencies&quot;: &#123; &quot;koa&quot;: &quot;2.0.0&quot;&#125; 然后执行命令即可将依赖包安装 1$ npm install 运行执行app.js文件 1234// 直接使用node运行文件$ node app.js// 或者运行命令$ npm start 打开浏览器，输入http://localhost:3000，即可看到效果]]></content>
+      <categories>
+        <category>Koa</category>
+      </categories>
+      <tags>
+        <tag>Koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node：EventEmitter类（事件监听）]]></title>
+    <url>%2F2020%2F07%2F24%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9AEventEmitter%E7%B1%BB%EF%BC%88%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[引入Node.js 有多个内置的事件，我们可以通过引入 events 模块，并通过实例化 EventEmitter 类来绑定和监听事件 1234// 引入 events 模块var events = require(&apos;events&apos;);// 创建 eventEmitter 对象var eventEmitter = new events.EventEmitter(); .on12// 绑定事件及事件的处理程序eventEmitter.on(&apos;eventName&apos;, eventHandler); .emit12// 触发事件eventEmitter.emit(&apos;eventName&apos;); .once为指定事件注册一个单次监听器，即 监听器最多只会触发一次，触发后立刻解除该监听器，也就是说不管某个事件在将来被触发多少次，都只调用一次回调函数。 12eventEmitter.once(&apos;eventName&apos;, eventHandler);//尽管事件会触发多次，但事件处理函数只会执行一次]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Koa：接收请求]]></title>
+    <url>%2F2020%2F07%2F21%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FKoa%2FKoa%EF%BC%9A%E6%8E%A5%E6%94%B6%E8%AF%B7%E6%B1%82%2F</url>
+    <content type="text"><![CDATA[路由为了处理URL，我们需要引入koa-router这个middleware，让它负责处理URL映射 先在package.json中添加依赖项然后安装 1&quot;koa-router&quot;: &quot;7.0.0&quot; 修改app.js的代码 1234567891011121314151617181920212223242526272829const Koa = require(&apos;koa&apos;);// 注意require(&apos;koa-router&apos;)返回的是函数// 最后的()是函数调用const router = require(&apos;koa-router&apos;)();const app = new Koa();// log request URL:app.use(async (ctx, next) =&gt; &#123; console.log(`Process $&#123;ctx.request.method&#125; $&#123;ctx.request.url&#125;...`); await next();&#125;);// add url-route:router.get(&apos;/hello/:name&apos;, async (ctx, next) =&gt; &#123; var name = ctx.params.name; ctx.response.body = `&lt;h1&gt;Hello, $&#123;name&#125;!&lt;/h1&gt;`;&#125;);router.get(&apos;/&apos;, async (ctx, next) =&gt; &#123; ctx.response.body = &apos;&lt;h1&gt;Index&lt;/h1&gt;&apos;;&#125;);// add router middleware:app.use(router.routes());app.listen(3000);console.log(&apos;app started at port 3000...&apos;); 处理get请求使用router.get(‘/path’, async fn)来注册一个GET请求。 可以在请求路径中使用带变量的/hello/:name，变量可以通过ctx.params.name访问 处理post请求处理post请求，可以用router.post(‘/path’, async fn) koa-bodyparserpost请求通常会发送一个表单，或者JSON，它作为request的body发送，但无论是Node.js提供的原始request对象，还是koa提供的request对象，都不提供解析request的body的功能！ 所以，我们又需要引入另一个middleware，koa-bodyparser来解析原始request请求，然后，把解析后的参数，绑定到ctx.request.body中。 在package.json中添加依赖项然后安装 1&quot;koa-bodyparser&quot;: &quot;3.2.0&quot; 修改app.js，引入koa-bodyparser： 1const bodyParser = require(&apos;koa-bodyparser&apos;); 在合适的位置加上（必须在router之前） 1app.use(bodyParser()); 使用1234567891011router.post(&apos;/signin&apos;, async (ctx, next) =&gt; &#123; var name = ctx.request.body.name || &apos;&apos;, password = ctx.request.body.password || &apos;&apos;; console.log(`signin with name: $&#123;name&#125;, password: $&#123;password&#125;`); if (name === &apos;koa&apos; &amp;&amp; password === &apos;12345&apos;) &#123; ctx.response.body = `&lt;h1&gt;Welcome, $&#123;name&#125;!&lt;/h1&gt;`; &#125; else &#123; ctx.response.body = `&lt;h1&gt;Login failed!&lt;/h1&gt; &lt;p&gt;&lt;a href=&quot;/&quot;&gt;Try again&lt;/a&gt;&lt;/p&gt;`; &#125;&#125;); 注意，用var name = ctx.request.body.name || ‘’拿到表单的name字段，如果该字段不存在，默认值设置为’’ 跨域当发送请求时，会出现一个跨域问题，这时候就需要koa2-cors来处理 在package.json中添加依赖项然后安装 1&quot;koa2-cors&quot;: &quot;^2.0.6&quot; 修改app.js 1234var cors = require(&apos;koa-cors&apos;);// 必须放到router前面app.use(cors()); 重构1234567891011121314151617url2-koa/|+- .vscode/| || +- launch.json &lt;-- VSCode 配置文件|+- controllers/| || +- login.js &lt;-- 处理login相关URL| || +- users.js &lt;-- 处理用户管理相关URL|+- app.js &lt;-- 使用koa的js|+- package.json &lt;-- 项目描述文件|+- node_modules/ &lt;-- npm安装的所有依赖包 前端使用 按照惯用的发送请求的方法 url为http://127.0.0.1:3000[请求路径]]]></content>
+      <categories>
+        <category>Koa</category>
+      </categories>
+      <tags>
+        <tag>Koa</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[whistle：利用whistle mock 数据]]></title>
     <url>%2F2020%2F07%2F17%2F%E5%89%8D%E7%AB%AF%2Fwhistle%EF%BC%9A%E5%88%A9%E7%94%A8whistle%20mock%20%E6%95%B0%E6%8D%AE%2F</url>
     <content type="text"><![CDATA[vasevase 是 whistle 提供了一个强大的 mock 数据的插件，强大之处是可以结合 js 语句 + mock 语法去生成数据。 安装1$ npm i -g whistle.vase 使用在whistle界面的“Plugins”菜单中可以打开 vase 的界面 mock 语法在vase界面新建配置 “mock_json_demo”，并选择模板为 mock，输入 12345678910// mock 语法&#123; &quot;list|5&quot;: [ &#123; &quot;name&quot;: &quot;@string&quot;, &quot;avatar&quot;: &quot;http://lorempixel.com/100/100/&quot;, &quot;id|+1&quot;: 10000 &#125; ]&#125; 然后在“Rules”中配置一条规则 1http://mock.local/data.json vase://mock_json_demo 打开测试地址 http://mock.local/data.json ，即可看到模拟的数据。 js 语法在vase界面新建配置 “json_engine_script”，并选择模板为 script，输入 1234567891011121314// js 语法var json = merge(&#123; page: req.query.pi, // 取url查询参数的分页字段，加到要返回的数据里，达到模拟分页数据的效果 total: 60&#125;, render(&apos;mock_json_demo&apos;, null, &apos;mock&apos;)); // render 可以渲染上文提到名为“mock_json_demo”的数据模板，返回一个json if (req.query.callback) &#123; // 如果查询参数带了callback，则返回jsonp out(header(&apos;content-type&apos;, &apos;application/javascript; charset=utf8&apos;)); var json_text = join([req.query.callback + &apos;(&apos;, json, &apos;)&apos;]); // join是内置方法，可合并一组数据 out(json_text); // 向body输出数据&#125; else &#123; // 没有callback则返回json out(header(&apos;content-type&apos;, &apos;application/json; charset=utf8&apos;)); out(json);&#125; 然后在“Rules”中配置一条规则 1http://mock.local/data.json vase://json_engine_script 打开 http://mock.local/data.json?callback=cb&amp;pi=1 ，即可看到模拟的数据，可尝试改变、删除 callback、pi 参数，会发现返回的数据会随之改变。]]></content>
@@ -570,6 +746,28 @@
       </categories>
       <tags>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：反向遮罩]]></title>
+    <url>%2F2020%2F07%2F17%2FEgret%2FEgret%EF%BC%9A%E5%8F%8D%E5%90%91%E9%81%AE%E7%BD%A9%2F</url>
+    <content type="text"><![CDATA[原理 先绘制需要高亮的区域 绘制遮罩 设置高亮区域的blendMode为擦除，此属性确定如何将一个源（新的）图像绘制到目标（已有）的图像上 将遮罩及高亮区域都加入到同一个显示对象中，这样就会在遮罩中擦除出高亮的区域 将显示对象绘制成纹理，再将纹理作为图片加入到显示列表 12345678910111213141516171819202122232425262728const container = new egret.DisplayObjectContainer();// 遮罩const mask = new egret.Shape();mask.graphics.beginFill(0x000000, 0.5);mask.graphics.drawRect(0, 0, width, height);mask.graphics.endFill();const displayArea = new egret.Shape();displayArea.graphics.beginFill(0x00ff00);displayArea.graphics.drawRoundRect(0, 0, width, height, 24, 24)container.addChild(mask);container.addChild(displayArea);displayArea.blendMode = egret.BlendMode.ERASE;const renderTexture: egret.RenderTexture = new egret.RenderTexture();renderTexture.drawToTexture(container);this.bitmap = new egret.Bitmap(renderTexture);this.mainStage.addChild(this.bitmap); this.bitmap.touchEnabled = true; //遮罩允许点击this.bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) =&gt; &#123; console.log(&apos;点击遮罩后回调&apos;) &#125;, this);//镂空区域不响应点击，这样可以穿透点击到下面的背景this.bitmap.pixelHitTest = true;]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Egret：资源管理]]></title>
+    <url>%2F2020%2F07%2F17%2FEgret%2FEgret%EF%BC%9A%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%2F</url>
+    <content type="text"><![CDATA[ResDepotResDepot主要目的是为了方便大家编辑和创建resource.json文件 打开resource.json文件，将需要添加的资源拖进资源窗口 对资源分组，并将资源窗口中属于该组的资源拖动至该组中 点击保存，或生成即可]]></content>
+      <categories>
+        <category>Egret</category>
+      </categories>
+      <tags>
+        <tag>Egret</tag>
       </tags>
   </entry>
   <entry>
@@ -1079,6 +1277,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[TS：基础类型]]></title>
+    <url>%2F2019%2F12%2F06%2FTS%2FTS%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[TypeScript里的类型注解是一种轻量级的为函数或变量添加约束的方式。通常表示为 变量名:类型 布尔值1let isDone: boolean = false; 数字和JavaScript一样，TypeScript里的所有数字都是浮点数。 这些浮点数的类型是 number。 除了支持十进制和十六进制字面量，TypeScript还支持ECMAScript 2015中引入的二进制和八进制字面量。 1234let decLiteral: number = 6;let hexLiteral: number = 0xf00d;let binaryLiteral: number = 0b1010;let octalLiteral: number = 0o744; 字符串JavaScript程序的另一项基本操作是处理网页或服务器端的文本数据。 像其它语言里一样，我们使用 string表示文本数据类型。 和JavaScript一样，可以使用双引号（ “）或单引号（’）表示字符串。 12let name: string = &quot;bob&quot;;name = &quot;smith&quot;; 你还可以使用模版字符串，它可以定义多行文本和内嵌表达式。 这种字符串是被反引号包围（ `），并且以${ expr }这种形式嵌入表达式 12345let name: string = `Gene`;let age: number = 37;let sentence: string = `Hello, my name is $&#123; name &#125;.I&apos;ll be $&#123; age + 1 &#125; years old next month.`; 这与下面定义sentence的方式效果相同： 12let sentence: string = &quot;Hello, my name is &quot; + name + &quot;.\n\n&quot; + &quot;I&apos;ll be &quot; + (age + 1) + &quot; years old next month.&quot;; 数组可以在元素类型后面接上 []，表示由此类型元素组成的一个数组： 1let list: number[] = [1, 2, 3]; 也可以使用数组泛型，Array&lt;元素类型&gt;： 1let list: Array&lt;number&gt; = [1, 2, 3]; 元组 Tuple元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。 比如，你可以定义一对值分别为 string和number类型的元组。 123456// Declare a tuple typelet x: [string, number];// Initialize itx = [&apos;hello&apos;, 10]; // OK// Initialize it incorrectlyx = [10, &apos;hello&apos;]; // Error 当访问一个已知索引的元素，会得到正确的类型： 12console.log(x[0].substr(1)); // OKconsole.log(x[1].substr(1)); // Error, &apos;number&apos; does not have &apos;substr&apos; 当访问一个越界的元素，会使用联合类型替代： 12345x[3] = &apos;world&apos;; // OK, 字符串可以赋值给(string | number)类型console.log(x[5].toString()); // OK, &apos;string&apos; 和 &apos;number&apos; 都有 toStringx[6] = true; // Error, 布尔不是(string | number)类型 枚举enum类型是对JavaScript标准数据类型的一个补充。 像C#等其它语言一样，使用枚举类型可以为一组数值赋予友好的名字。 12enum Color &#123;Red, Green, Blue&#125;let c: Color = Color.Green; 默认情况下，从0开始为元素编号。 你也可以手动的指定成员的数值。 例如，我们将上面的例子改成从 1开始编号： 12enum Color &#123;Red = 1, Green, Blue&#125;let c: Color = Color.Green; 或者，全部都采用手动赋值： 12enum Color &#123;Red = 1, Green = 2, Blue = 4&#125;let c: Color = Color.Green; 枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 例如，我们知道数值为2，但是不确定它映射到Color里的哪个名字，我们可以查找相应的名字： 123enum Color &#123;Red = 1, Green, Blue&#125;let colorName: string = Color[2];console.log(colorName); // 显示&apos;Green&apos;因为上面代码里它的值是2 Any有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型。 这些值可能来自于动态的内容，比如来自用户输入或第三方代码库。 这种情况下，我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查。 那么我们可以使用 any类型来标记这些变量： 123let notSure: any = 4;notSure = &quot;maybe a string instead&quot;;notSure = false; // okay, definitely a boolean 在对现有代码进行改写的时候，any类型是十分有用的，它允许你在编译时可选择地包含或移除类型检查。 你可能认为 Object有相似的作用，就像它在其它语言中那样。 但是 Object类型的变量只是允许你给它赋任意值 - 但是却不能够在它上面调用任意的方法，即便它真的有这些方法： 123456let notSure: any = 4;notSure.ifItExists(); // okay, ifItExists might exist at runtimenotSure.toFixed(); // okay, toFixed exists (but the compiler doesn&apos;t check)let prettySure: Object = 4;prettySure.toFixed(); // Error: Property &apos;toFixed&apos; doesn&apos;t exist on type &apos;Object&apos;. 当你只知道一部分数据的类型时，any类型也是有用的。 比如，你有一个数组，它包含了不同的类型的数据： 12let list: any[] = [1, true, &quot;free&quot;];list[1] = 100; Void某种程度上来说，void类型像是与any类型相反，它表示没有任何类型。 当一个函数没有返回值时，你通常会见到其返回值类型是 void： 123function warnUser(): void &#123; console.log(&quot;This is my warning message&quot;);&#125; 声明一个void类型的变量没有什么大用，因为你只能为它赋予undefined和null： 1let unusable: void = undefined; Null 和 UndefinedTypeScript里，undefined和null两者各自有自己的类型分别叫做undefined和null。 和 void相似，它们的本身的类型用处不是很大： 123// Not much else we can assign to these variables!let u: undefined = undefined;let n: null = null; 默认情况下null和undefined是所有类型的子类型。 就是说你可以把 null和undefined赋值给number类型的变量。 Nevernever类型表示的是那些永不存在的值的类型。 例如， never类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型； 变量也可能是 never类型，当它们被永不为真的类型保护所约束时。 never类型是任何类型的子类型，也可以赋值给任何类型；然而，没有类型是never的子类型或可以赋值给never类型（除了never本身之外）。 即使 any也不可以赋值给never。 下面是一些返回never类型的函数： 123456789101112131415// 返回never的函数必须存在无法达到的终点function error(message: string): never &#123; throw new Error(message);&#125;// 推断的返回值类型为neverfunction fail() &#123; return error(&quot;Something failed&quot;);&#125;// 返回never的函数必须存在无法达到的终点function infiniteLoop(): never &#123; while (true) &#123; &#125;&#125; Objectobject表示非原始类型，也就是除number，string，boolean，symbol，null或undefined之外的类型。 使用object类型，就可以更好的表示像Object.create这样的API。例如： 123456789declare function create(o: object | null): void;create(&#123; prop: 0 &#125;); // OKcreate(null); // OKcreate(42); // Errorcreate(&quot;string&quot;); // Errorcreate(false); // Errorcreate(undefined); // Error]]></content>
+      <categories>
+        <category>TS</category>
+      </categories>
+      <tags>
+        <tag>TS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CSS：等宽的三栏布局]]></title>
     <url>%2F2019%2F12%2F05%2FCSS%2FCSS%EF%BC%9A%E7%AD%89%E5%AE%BD%E7%9A%84%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80%2F</url>
     <content type="text"><![CDATA[12345&lt;div class=&quot;box&quot;&gt; &lt;div class=&quot;left&quot;&gt;&lt;/div&gt; &lt;div class=&quot;center&quot;&gt;&lt;/div&gt; &lt;div class=&quot;right&quot;&gt;&lt;/div&gt;&lt;/div&gt; float1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; float: left; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; flex1234567891011121314151617.box &#123; width: 100%; height: 200px; background: black; display: flex;&#125;.left, .center, .right &#123; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125; table123456789101112131415161718.box &#123; width: 100%; height: 200px; background: black; display: table;&#125;.left, .center, .right &#123; display: table-cell; width: 33.33%; height: 100%; background: #FFA54F;&#125;.center &#123; background: #FFA500;&#125;.right&#123; background: #FFA07A;&#125;]]></content>
@@ -1241,6 +1450,39 @@
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node：回调函数]]></title>
+    <url>%2F2019%2F06%2F05%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[概述 Node.js 异步编程的直接体现就是回调 异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了 回调函数在完成任务后就会被调用，Node 使用了大量的回调函数，Node 所有 API 都支持回调函数 回调函数一般作为函数的最后一个参数出现 阻塞代码实例创建一个文件 input.txt ，内容如下：1hello world 创建 block.js 文件, 代码如下： 1234var fs = require(&quot;fs&quot;);var data = fs.readFileSync(&apos;input.txt&apos;);console.log(data.toString());console.log(&quot;程序执行结束!&quot;); 执行js文件 1234$ node block.jshello world程序执行结束!// 顺序执行 在文件读取完后才执行完程序 非阻塞代码实例创建 unblock.js 文件, 代码如下： 123456var fs = require(&quot;fs&quot;);var data = fs.readFile(&apos;input.txt&apos;,function(err,data)&#123; if(err) return console.error(err); console.log(data.toString());&#125;);console.log(&quot;程序执行结束!&quot;); 执行js文件 123$ node unblock.js程序执行结束!hello world 一边读取文件，一边执行其他命令，在文件读取完成后，我们将文件内容作为回调函数的参数返回。这样在执行代码时就没有阻塞或等待文件 I/O 操作，大大提高了 Node.js 的性能，可以处理大量的并发请求。]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node：REPL(交互式解释器)]]></title>
+    <url>%2F2019%2F06%2F05%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9AREPL(%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8)%2F</url>
+    <content type="text"><![CDATA[概述Node.js REPL(Read Eval Print Loop:交互式解释器) 表示一个电脑的环境，类似 Window 系统的终端或 Unix/Linux shell，我们可以在终端中输入命令，并接收系统的响应。 作用Node 自带了交互式解释器，可以执行以下任务： 读取：读取用户输入，解析输入了Javascript 数据结构并存储在内存中。 执行：执行输入的数据结构 打印：输出结果 循环：循环操作以上步骤直到用户两次按下 ctrl-c 按钮退出。 Node 的交互式解释器可以很好的调试 Javascript 代码。 实现启动12$ node &gt; // 可以输入要执行的代码 简单的表达式运算可以执行简单的数学运算12345678910$ node&gt; 1+12&gt; 2*36&gt; 4/22&gt; 5-14&gt; 变量使用 可以将数据存储在变量中，并在需要的时候使用它 变量声明需要使用 var 关键字，如果没有使用 var 关键字变量会直接打印出来 使用 var 关键字的变量可以使用 console.log() 来输出变量 可以使用下划线(_)获取上一个表达式的运算结果 12345678910111213141516171819$ node&gt; x = 10 // 直接打印变量10 &gt; var y = 10 // 存储变量undefined &gt; x + y // 进行简单的数学运算20&gt; var pre = _ // 获取上一个变量并存储undefined &gt; console.log(pre) // 打印存储的变量20undefined&gt; console.log(y) // 打印存储的变量10undefined&gt; console.log(&quot;ok&quot;) // 打印字符串okundefined&gt; 多行表达式Node REPL 支持输入多行表达式，这就有点类似 JavaScript。 123456789101112$ node&gt; var x = 0undefined&gt; do &#123; // 执行一个 do-while 循环... x++;... console.log(&quot;x = &quot; + x)... &#125; while ( x &lt; 3 );x = 1x = 2x = 3undefined&gt; REPL命令 ctrl + c：退出当前终端。 ctrl + c 按下两次：退出 Node REPL。 ctrl + d：退出 Node REPL. 向上/向下键：查看输入的历史命令 tab 键：列出当前命令 .help：列出使用命令 .break：退出多行表达式 .clear：退出多行表达式 .save filename： 保存当前的 Node REPL 会话到指定文件 .load filename： 载入当前 Node REPL 会话的文件内容。 退出 REPL按下 ctrl + d 键 或 者两次 ctrl + c 键就能退出 REPL]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node：首次接触]]></title>
+    <url>%2F2019%2F06%2F05%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%2FNode%2FNode%EF%BC%9A%E9%A6%96%E6%AC%A1%E6%8E%A5%E8%A7%A6%2F</url>
+    <content type="text"><![CDATA[下载先下载node，查看node的版本 1node -v 初体验hello.js1console.log(&quot;hello world!&quot;); 使用node在根目录下运行12$ node hello.jshello world! 交互模式（详情见REPL）可以输入一条代码语句后立即执行并显示结果123$ node&gt; console.log(&quot;ok&quot;);ok 创建应用 引入 required 模块：我们可以使用 require 指令来载入 Node.js 模块。 创建服务器：服务器可以监听客户端的请求，类似于 Apache 、Nginx 等 HTTP 服务器。 接收请求与响应请求：服务器很容易创建，客户端可以使用浏览器或终端发送 HTTP 请求，服务器接收请求后返回响应数据。 引入 required 模块1var http = require(&quot;http&quot;); 创建服务器使用 http.createServer() 方法创建服务器，并使用 listen 方法绑定 8888 端口。 函数通过 request, response 参数来接收和响应数据 123456789101112131415var http = require(&quot;http&quot;);http.createServer(function(request,response)&#123; // 发送HTTP头部 // HTTP状态值：200：OK // 内容类型：text/plain response.wirteHead(200,&#123;&apos;Content-Type&apos;: &apos;text/plain&apos;&#125;); //发送响应数据 “hello world” response.end(&apos;hello world\n&apos;);&#125;).listen(8888);//终端打印以下信息console.log(&apos;Server running at http://127.0.0.1:8888/&apos;); 执行12$ node server.jsServer running at http://127.0.0.1:8888/ 接下来，打开浏览器访问 http://127.0.0.1:8888/即可 分析 第一行请求（require）Node.js 自带的 http 模块，并且把它赋值给 http 变量。 接下来我们调用 http 模块提供的函数： createServer 。这个函数会返回 一个对象，这个对象有一个叫做 listen 的方法，这个方法有一个数值参数， 指定这个 HTTP 服务器监听的端口号。]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
       </tags>
   </entry>
   <entry>
