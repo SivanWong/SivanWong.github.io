@@ -189,19 +189,35 @@ canvas_nest: true
 
 
 ### 在网站底部加上访问量
-打开\themes\next\layout\_partials\footer.swig文件,在类copyright前加上这段代码：
+打开 \themes\next\layout\_partials\footer.swig 文件,在开头加上这段代码：
 
 ```
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+{% if theme.footer.counter %}
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+{% endif %}
 ```
-然后在合适的位置添加显示统计的代码：
+在 \themes\next\_config.yml 中进行配置
 
 ```
-<div class="powered-by">
-<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-  本站访客数:<span id="busuanzi_value_site_uv"></span>
-</span>
-</div>
+footer:
+  counter: true
+
+
+busuanzi_count:
+  # count values only if the other configs are false
+  enable: true
+  # custom uv span for the whole site
+  site_uv: true
+  site_uv_header: <i class="fa fa-user"></i>  访客数
+  site_uv_footer:
+  # custom pv span for the whole site
+  site_pv: true
+  site_pv_header: <i class="fa fa-eye"></i>  总访问量
+  site_pv_footer:
+  # custom pv span for one page only
+  page_pv: true
+  page_pv_header: <i class="fa fa-file-o"></i>  阅读数
+  page_pv_footer:
 ```
 
 ### 在每篇文章末尾添加“本文结束”标记
@@ -257,7 +273,70 @@ favicon:
   #small: /images/favicon.ico
   medium: /images/favicon.ico
 ```
+### 添加评论
+#### gitment
+使用系统：==gitment==，它是基于 github 开发的，是依靠于 GitHub Issues 的评论系统，Next >= 5.1.2
 
+1. 进入 [developer settings](https://github.com/settings/developers) 申请 oAuth Apps
+2. Homepage URL 和 Authorization callback URL 填写博客地址
+3. 获取 client_id 和 client_secret
+4. 新建github项目存放comment
+5. 配置 \themes\next\_config.yml
+
+```
+gitment:
+  enable: true
+  mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
+  count: true # Show comments count in post meta area
+  lazy: false # Comments lazy loading with a button
+  cleanly: false # Hide 'Powered by ...' on footer, and more
+  language: # Force language, or auto switch by theme
+  github_user: [] # MUST HAVE, Your Github ID
+  github_repo: [comment github name] # MUST HAVE, The repo you use to store Gitment comments
+  client_id: [client id] # MUST HAVE, Github client id for the Gitment
+  client_secret: [client secret] # EITHER this or proxy_gateway, Github access secret token for the Gitment
+  proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
+  redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
+
+```
+6. 生成部署，有时候预览没有效果
+7. 每篇文章都需要初始化评论页面才能开始使用评论功能
+8. 部署之后，有可能碰到 Not Found Error，再等待一会儿就可以了
+
+注意：
+找到themes/next/layout/_third-party/comments/gitment.swig 文件，进行如下修改：
+
+```
+<!-- 原代码 -->
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+<!-- 修改后 -->
+<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script>
+```
+
+#### valine
+1. 注册 [LeanCloud](https://leancloud.cn/dashboard/login.html#/signin)
+2. 创建应用，选择开发版，获取 AppID 和 AppKey
+3. 配置 \themes\next\_config.yml
+
+```
+valine:
+  enable: true
+  appid: [AppID] # your leancloud application appid
+  appkey: [AppKey] # your leancloud application appkey
+  notify: false # mail notifier , https://github.com/xCss/Valine/wiki
+  verify: false # Verification code
+  placeholder: Just go go # comment box placeholder
+  avatar: mm # gravatar style
+  guest_info: nick,mail,link # custom comment header
+  pageSize: 10 # pagination size
+```
+注意：
+配置后，所有页面的comments都默认为true，如果页面需要关闭评论，则需设置为false。
+
+### 其他
 
 > [NexT主题美化](http://theme-next.iissnan.com/getting-started.html#avatar-setting)
 
