@@ -20,3 +20,7 @@ git branch -d <branch>
 git push origin --delete <branch>
 
 ```
+- 设置大小写敏感
+```
+git config core.ignorecase false
+```
