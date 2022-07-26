@@ -1,5 +1,5 @@
 ---
-title: Css：stylelint
+title: CSS：stylelint
 date: 2022-04-26
 tags: [CSS]
 categories: CSS
