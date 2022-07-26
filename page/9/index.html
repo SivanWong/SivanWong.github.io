@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/计网/计网：http和https/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/14/计网/计网：TCP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/14/计网/计网：http和https/" itemprop="url">计网：http和https</a></h1>
+                <a class="post-title-link" href="/2020/05/14/计网/计网：TCP/" itemprop="url">计网：TCP</a></h1>
         
 
         <div class="post-meta">
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  506 字
+                  566 字
                 </span>
               
 
@@ -417,19 +417,20 @@
       
         
           
-          关于https用处：
+          TCP和UDP
+都是运输层协议
+tcp有连接，可靠：数据包校验、对失序数据包重排序、丢弃重复数据、应答机制、超时重传、流量控制。
+udp无连接，快。只是传输数据，不管服务器是否收到。
 
-建立一个信息安全通道，来保证数据传输的安全。
-确认网站的真实性，防止钓鱼网站。
+TCP拥塞控制防止过多数据注入到网络中，这样可以使网络中的路由器或链路不致过载。
 
-https就是在http下加入了ssl层，从而保护了交换数据隐私和完整性，提供了对网站服务器身份认证的功能，简单来说就是安全版的http。
-http和https的区别
-同属于应用层的协议
-htt
+慢开始
+
+把初始拥塞窗口cwn
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/14/计网/计网：http和https/#more" rel="contents">
+            <a class="btn" href="/2020/05/14/计网/计网：TCP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1980,7 +1981,7 @@ f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/CSS/CSS：line-height/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/27/CSS/CSS：圣杯布局和双飞翼布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1999,7 +2000,7 @@ f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2)
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/02/27/CSS/CSS：line-height/" itemprop="url">CSS：line-height</a></h1>
+                <a class="post-title-link" href="/2020/02/27/CSS/CSS：圣杯布局和双飞翼布局/" itemprop="url">CSS：圣杯布局和双飞翼布局</a></h1>
         
 
         <div class="post-meta">
@@ -2065,7 +2066,7 @@ f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2)
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  100 字
+                  710 字
                 </span>
               
 
@@ -2081,7 +2082,7 @@ f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2)
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -2104,12 +2105,17 @@ f(0)=0f(1)=1f(2)=2f(n)=f(n-1)+f(n-2)
       
         
           
-          line-height在应用到一个块级元素时，它定义了该元素中基线之间的最小距离
-1234line-height:15px;//行间距为15pxline-height:150%;//行间距=当前的字体尺寸*150%line-height:1.5;//行间距=当前的字体尺寸*1.5line-heigh
+          圣杯布局
+
+header和footer占屏幕全部宽度，高度固定
+中间的contaier部分是一个三栏布局
+left和right宽度固定，middle自适应填满整个区域；高度为三栏中最大的高度
+
+浮动1234567&lt;header class=&quot;header&quot;&gt;heade
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/02/27/CSS/CSS：line-height/#more" rel="contents">
+            <a class="btn" href="/2020/02/27/CSS/CSS：圣杯布局和双飞翼布局/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
