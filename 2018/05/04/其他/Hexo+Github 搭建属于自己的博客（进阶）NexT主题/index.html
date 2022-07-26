@@ -80,7 +80,7 @@
 <meta property="og:site_name" content="Sivan">
 <meta property="og:description" content="主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_con">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-07-26T08:43:24.962Z">
+<meta property="og:updated_time" content="2022-07-26T08:51:05.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo+Github 搭建属于自己的博客（进阶）NexT主题">
 <meta name="twitter:description" content="主题安装安装NexT在站点目录下（hexo），输入命令： 1$ git clone https://github.com/iissnan/hexo-theme-next themes/next 启用主题在站点目录中（blog），打开配置文件_config.yml，修改1theme：next 验证主题1$ hexo s 主题设定以下所有设置注意格式 NexT主题设定可以在next主题目录下的_con">
@@ -365,7 +365,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2018/05/04/其他/Hexo+Github 搭建属于自己的博客（进阶）NexT主题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/05/04/其他/Hexo+Github 搭建属于自己的博客（进阶）NexT主题/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/04/其他/Hexo+Github 搭建属于自己的博客（进阶）NexT主题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,605 字
+                  1,681 字
                 </span>
               
 
@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -486,6 +486,8 @@
 <li>每篇文章都需要初始化评论页面才能开始使用评论功能</li>
 <li>部署之后，有可能碰到 Not Found Error，再等待一会儿就可以了</li>
 </ol>
+<p>注意：<br>找到themes/next/layout/_third-party/comments/gitment.swig 文件，进行如下修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 原代码 --&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://imsun.github.io/gitment/style/default.css&quot;&gt;</span><br><span class="line">&lt;script src=&quot;https://imsun.github.io/gitment/dist/gitment.browser.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 修改后 --&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://billts.site/extra_css/gitment.css&quot;&gt;</span><br><span class="line">&lt;script src=&quot;https://billts.site/js/gitment.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
 <p><a href="http://theme-next.iissnan.com/getting-started.html#avatar-setting" target="_blank" rel="noopener">NexT主题美化</a></p>
 </blockquote>
@@ -602,11 +604,7 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
     </div>
-
   
 
 
@@ -949,45 +947,30 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'SivanWong',
-            repo: 'BlogComment',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: '0f7213f0e6f09513b555760a187f56c9a0c8d039',
-            
-                client_id: '9fe13c5aab10ab5614dc'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
-    
 
 
 
-
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'bdpTuoGDoT4YkczoG78W7MEM-gzGzoHsz',
+        appKey: 'ikwEOqwwRD2LIA4LVqk6EAhO',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

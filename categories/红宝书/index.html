@@ -381,9 +381,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/05/03/JS高级程序设计/JSON与Ajax/" itemprop="url">
+            <a class="post-title-link" href="/2018/05/03/JS高级程序设计/事件/" itemprop="url">
               
-                <span itemprop="name">JSON与Ajax</span>
+                <span itemprop="name">事件</span>
               
             </a>
         
@@ -409,9 +409,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/05/03/JS高级程序设计/事件/" itemprop="url">
+            <a class="post-title-link" href="/2018/05/03/JS高级程序设计/JSON与Ajax/" itemprop="url">
               
-                <span itemprop="name">事件</span>
+                <span itemprop="name">JSON与Ajax</span>
               
             </a>
         
@@ -784,21 +784,30 @@
 
 
 
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
 
 
 
-
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'bdpTuoGDoT4YkczoG78W7MEM-gzGzoHsz',
+        appKey: 'ikwEOqwwRD2LIA4LVqk6EAhO',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
