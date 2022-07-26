@@ -362,6 +362,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/24/服务器端/Nginx：安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/07/24/服务器端/Nginx：安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -521,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/07/24/服务器端/解决3000端口被占用问题/" rel="next" title="解决3000端口被占用问题">
-                <i class="fa fa-chevron-left"></i> 解决3000端口被占用问题
+              <a href="/2020/07/24/服务器端/Koa/Koa：入门/" rel="next" title="Koa：入门">
+                <i class="fa fa-chevron-left"></i> Koa：入门
               </a>
             
           </div>
@@ -531,8 +541,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/07/24/TS/TS：interface和type/" rel="prev" title="TS：interface和type">
-                TS：interface和type <i class="fa fa-chevron-right"></i>
+              <a href="/2020/07/24/服务器端/解决3000端口被占用问题/" rel="prev" title="解决3000端口被占用问题">
+                解决3000端口被占用问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -561,6 +571,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -902,6 +919,43 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'SivanWong',
+            repo: 'https://github.com/SivanWong/BlogComment.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f7213f0e6f09513b555760a187f56c9a0c8d039',
+            
+                client_id: '9fe13c5aab10ab5614dc'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 

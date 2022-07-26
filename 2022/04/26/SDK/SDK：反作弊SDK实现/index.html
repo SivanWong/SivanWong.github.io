@@ -359,6 +359,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/04/26/SDK/SDK：反作弊SDK实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2022/04/26/SDK/SDK：反作弊SDK实现/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -534,8 +544,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/04/26/前端/vite/" rel="next" title="vite">
-                <i class="fa fa-chevron-left"></i> vite
+              <a href="/2022/04/26/SDK/SDK：SDK框架搭建/" rel="next" title="SDK：SDK框架搭建">
+                <i class="fa fa-chevron-left"></i> SDK：SDK框架搭建
               </a>
             
           </div>
@@ -544,8 +554,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/04/26/SDK/SDK：SDK框架搭建/" rel="prev" title="SDK：SDK框架搭建">
-                SDK：SDK框架搭建 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/04/26/CSS/CSS：stylelint/" rel="prev" title="Css：stylelint">
+                Css：stylelint <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -574,6 +584,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -915,6 +932,43 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'SivanWong',
+            repo: 'https://github.com/SivanWong/BlogComment.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f7213f0e6f09513b555760a187f56c9a0c8d039',
+            
+                client_id: '9fe13c5aab10ab5614dc'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 

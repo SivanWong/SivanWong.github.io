@@ -361,6 +361,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/20/Egret/Egret：锚点（anchorOffset）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/02/20/Egret/Egret：锚点（anchorOffset）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -512,8 +522,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/20/Egret/Egret：矢量绘图/" rel="next" title="Egret：矢量绘图">
-                <i class="fa fa-chevron-left"></i> Egret：矢量绘图
+              <a href="/2021/02/20/Egret/Egret：eui.list/" rel="next" title="Egret：eui.list">
+                <i class="fa fa-chevron-left"></i> Egret：eui.list
               </a>
             
           </div>
@@ -522,8 +532,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/20/Egret/Egret：eui.list/" rel="prev" title="Egret：eui.list">
-                Egret：eui.list <i class="fa fa-chevron-right"></i>
+              <a href="/2021/02/20/Egret/Egret：EXML/" rel="prev" title="Egret：EXML">
+                Egret：EXML <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -552,6 +562,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -893,6 +910,43 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'SivanWong',
+            repo: 'https://github.com/SivanWong/BlogComment.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f7213f0e6f09513b555760a187f56c9a0c8d039',
+            
+                client_id: '9fe13c5aab10ab5614dc'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
