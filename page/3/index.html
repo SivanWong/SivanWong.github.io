@@ -889,7 +889,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：生命周期/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：事件机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -908,7 +908,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：生命周期/" itemprop="url">Cocos：生命周期</a></h1>
+                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：事件机制/" itemprop="url">Cocos：事件机制</a></h1>
         
 
         <div class="post-meta">
@@ -961,8 +961,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/07/05/Cocos/Cocos：生命周期/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/05/Cocos/Cocos：生命周期/" itemprop="commentCount"></span>
+                <a href="/2021/07/05/Cocos/Cocos：事件机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/05/Cocos/Cocos：事件机制/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -984,7 +984,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  769 字
+                  2,292 字
                 </span>
               
 
@@ -1000,7 +1000,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -1023,17 +1023,12 @@
       
         
           
-          Cocos Creator 为组件脚本提供了生命周期的回调函数。开发者只需要定义特定的回调函数，Creator 就会在特定的时期自动执行相关脚本，开发者不需要手工调用它们。
-目前提供给开发者的生命周期回调函数主要有（按生命周期触发先后排列）：
-
-onLoad
-onEnable
-start
-updat
+          事件监听事件处理大多数是在节点（Node）中完成的。对于组件，可以通过访问节点 this.node 来注册和监听事件。监听事件可以通过 this.node.on() 函数来注册，方法如下：
+12345// 该事件监听每次都会触发，需要手动取消注册xxx.on(type, func, target?)
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/05/Cocos/Cocos：生命周期/#more" rel="contents">
+            <a class="btn" href="/2021/07/05/Cocos/Cocos：事件机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1289,7 +1284,7 @@ schedule开始一个计时器
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：事件机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/Cocos/Cocos：生命周期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Sivan">
@@ -1308,7 +1303,7 @@ schedule开始一个计时器
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：事件机制/" itemprop="url">Cocos：事件机制</a></h1>
+                <a class="post-title-link" href="/2021/07/05/Cocos/Cocos：生命周期/" itemprop="url">Cocos：生命周期</a></h1>
         
 
         <div class="post-meta">
@@ -1361,8 +1356,8 @@ schedule开始一个计时器
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/07/05/Cocos/Cocos：事件机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/05/Cocos/Cocos：事件机制/" itemprop="commentCount"></span>
+                <a href="/2021/07/05/Cocos/Cocos：生命周期/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/05/Cocos/Cocos：生命周期/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1384,7 +1379,7 @@ schedule开始一个计时器
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,292 字
+                  769 字
                 </span>
               
 
@@ -1400,7 +1395,7 @@ schedule开始一个计时器
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -1423,12 +1418,17 @@ schedule开始一个计时器
       
         
           
-          事件监听事件处理大多数是在节点（Node）中完成的。对于组件，可以通过访问节点 this.node 来注册和监听事件。监听事件可以通过 this.node.on() 函数来注册，方法如下：
-12345// 该事件监听每次都会触发，需要手动取消注册xxx.on(type, func, target?)
+          Cocos Creator 为组件脚本提供了生命周期的回调函数。开发者只需要定义特定的回调函数，Creator 就会在特定的时期自动执行相关脚本，开发者不需要手工调用它们。
+目前提供给开发者的生命周期回调函数主要有（按生命周期触发先后排列）：
+
+onLoad
+onEnable
+start
+updat
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/05/Cocos/Cocos：事件机制/#more" rel="contents">
+            <a class="btn" href="/2021/07/05/Cocos/Cocos：生命周期/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
