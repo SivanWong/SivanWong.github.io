@@ -72,7 +72,6 @@
 
 
 
-
 <meta name="description" content="页面加载过程如果页面不是第一次访问，那么可能会出现浏览器缓存现象，在本地调试代码的时候也会遇到这种问题，所以在实在想不通页面为什么没有变化的时候，可以清除一下浏览器的缓存。 如果页面是第一次访问，浏览器向服务器http请求后，服务器返回html文件，在整个页面加载过程中，总的来说是按顺序从上到下执行，这是基于js的单线程机制（浏览器为多进程），但是html和css是并行加载的。  根据 HTML">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
@@ -366,6 +365,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
             <div class="post-wordcount">
@@ -486,7 +490,7 @@
       
         <div>
     
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-eye"></i> 感谢您的阅读-------------</div>
     
 </div>
       
@@ -701,7 +705,10 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -713,12 +720,8 @@
 </div>
 
 
-
-
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
   <span class="post-meta-divider">|</span>
-
-
-
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
@@ -726,6 +729,26 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>  访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>  总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
 
 
 
